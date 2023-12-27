@@ -1,0 +1,111 @@
+{
+
+"npcs": [
+    {
+        "id": 0,
+        "name": "Michael",
+        "race": "Humano",
+        "class":"Guerreiro 1",
+        "alignment":"caótico bom",
+        "initiativeModifier": 6,
+        "currentHp": 12,
+        "maxHp": 12,
+        "isPlayer": true,
+        "armorClass": 18,
+        "movement": "9m",
+        "notes":"",
+        "attacks":[
+            {
+                "id": 0,
+                "weapon": "espada longa",
+                "attackModifier": 5,
+                "damage": "corte 1d8+3"
+            },
+            {
+                "id": 1,
+                "weapon": "besta de mão",
+                "attackModifier": 3,
+                "damage": "perf 1d8+1"
+            }
+        ],
+        "attributes":{                
+            "str":  16,
+            "dex":  12,
+            "con": 14,
+            "int":  14,
+            "wis":  12,
+            "cha":  11
+        },   
+        "mainSkills": [
+            {
+                "id": 0,
+                "name": "percepção",
+                "modifier": 3
+            },
+            {
+                "id": 1,
+                "name": "investigação",
+                "modifier": 4
+            }
+        ]        
+},
+{
+    "id": 1,
+    "name": "Gwindor",
+    "race": "Elfo silvestre",
+    "class":"Druida 1",
+    "alignment":"caótico bom",
+    "initiativeModifier": 3,
+    "currentHp": 9,
+    "maxHp": 9,
+    "isPlayer": true,
+    "armorClass": 16,
+    "movement": "13,5m",
+    "notes":"",
+    "attacks":[
+        {
+            "id": 0,
+            "weapon": "chicote de espinhos",
+            "attackModifier": 5,
+            "damage": "cont 1d6+3"
+        },
+        {
+            "id": 1,
+            "weapon": "clava",
+            "attackModifier": 5,
+            "damage": "cont 1d4+3"
+        },
+        {
+            "id": 2,
+            "weapon": "bordão místico",
+            "attackModifier": 5,
+            "damage": "cont 1d8+3"
+        }
+    ],
+    "attributes":{                
+        "str":  10,
+        "dex":  16,
+        "con":  13,
+        "int":  8,
+        "wis":  16,
+        "cha":  12
+    },   
+    "mainSkills": [
+        {
+            "id": 0,
+            "name": "percepção",
+            "modifier": 5
+        },
+        {
+            "id": 1,
+            "name": "natureza",
+            "modifier": -1
+        },
+        {
+            "id": 2,
+            "name": "sobrevivência",
+            "modifier": 5
+        }
+    ]        
+}
+]}

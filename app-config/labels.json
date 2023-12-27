@@ -1,0 +1,13 @@
+{
+    "initiative": {
+        "title": "DeD Iniciativa"
+    },
+    "npc": {
+        "lblListTitle": "Iniciativa dos NPCs",        
+        "lblInitiative": "Iniciativa",
+        "buttonLabel": "..."
+    }
+    
+
+
+}
