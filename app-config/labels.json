@@ -2,10 +2,15 @@
     "initiative": {
         "title": "DeD Iniciativa"
     },
+    "header":{
+        "btnPreviousTurnLabel":"<<",
+        "btnNextTurnLabel": ">>",
+        "btnSortTurnLabel": "Ordenar"
+    },
     "npc": {
         "lblListTitle": "Iniciativa dos NPCs",        
         "lblInitiative": "Iniciativa",
-        "buttonLabel": "..."
+        "buttonLabel": "VER"
     }
     
 
