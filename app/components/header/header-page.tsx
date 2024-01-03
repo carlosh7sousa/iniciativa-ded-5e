@@ -7,61 +7,26 @@ import { cssHeader as css } from "./header-style";
 
 
 
-export default class HeaderPage extends Component<{ ctx: Ctx }, { turno: number }> {
+export default class HeaderPage extends Component<{ sortList(), nextTurn(), previousTurn(), getTurn()  } > {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            turno: 0
-        };
-
-    }
-
-    handleTurnValueChange = (turno) => {
-        if (this.state.turno <= 0) {
-            turno = 0;
-        }
-
-        this.setState({ turno });
-    };
-
-    handleNextTurnButtonClick = () => {
-        let turno: number = this.state.turno;
-        turno += 1;
-        this.handleTurnValueChange(turno);
-    };
-
-    handlePreviousTurnButtonClick = () => {
-        let turno: number = this.state.turno;
-        turno -= 1;
-        this.handleTurnValueChange(turno);
-    };
-
-    handleSortTurnButtonClick = () => {
-
-        this.props.ctx.npcs.sort((a: Npc, b: Npc) => {
-            return a.initiativeModifier - b.initiativeModifier;
-        });
-    }
-
+    
     render() {
 
         return (
-        <>
-           
+        <>           
             <View style={css.headerView}>
 
-                <Pressable style={css.btnPreviousTurnBtnCtrl} onPress={this.handlePreviousTurnButtonClick}  >
+                <Pressable style={css.btnPreviousTurnBtnCtrl} onPress={this.props.previousTurn}  >
                     <Text style={css.btnPreviousTurnLabelCtrl}>{labels.header.btnPreviousTurnLabel}</Text>
                 </Pressable>
 
-                <Text style={css.lblTurnoLabelCtrl}>Turno: {this.state.turno}</Text>
+                <Text style={css.lblTurnoLabelCtrl}>Turno: {this.props.getTurn()}</Text>
 
-                <Pressable style={css.btnNextTurnBtnCtrl} onPress={this.handleNextTurnButtonClick}  >
+                <Pressable style={css.btnNextTurnBtnCtrl} onPress={this.props.nextTurn}  >
                     <Text style={css.btnNextTurnLabelCtrl}>{labels.header.btnNextTurnLabel}</Text>
                 </Pressable>
 
-                <Pressable style={css.btnSortTurnBtnCtrl} onPress={this.handleSortTurnButtonClick}  >
+                <Pressable style={css.btnSortTurnBtnCtrl} onPress={this.props.sortList}  >
                     <Text style={css.btnSortTurnLabelCtrl}>{labels.header.btnSortTurnLabel}</Text>
                 </Pressable>
             </View>

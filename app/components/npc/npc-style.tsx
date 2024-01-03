@@ -78,11 +78,11 @@ export const cssNpc = StyleSheet.create({
     backgroundColor: "#B71C1C",
     color: "white",
     textAlign:"center",
-    width: "10%",
+    width: 40,
     borderColor: "white",
-    borderBottomWidth: 3,
-    paddingLeft: 3,
-    paddingRight: 3
+    paddingBottom:6,
+    paddingTop: 6
+    
   },
   btnCtrl: {
     textAlign: "center",

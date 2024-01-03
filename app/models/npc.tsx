@@ -26,6 +26,8 @@ export default interface Npc{
     attributes: Attributes;
     mainSkills: Skills[];
     attacks: Attack[]; 
+
+    showModal: boolean;
 }
 
 
