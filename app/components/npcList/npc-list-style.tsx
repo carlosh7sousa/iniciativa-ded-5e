@@ -50,6 +50,7 @@ export const cssNpcList = StyleSheet.create({
     padding: 10,
     textAlign: "center",
     backgroundColor: "#ECEFF1",
+    marginLeft: 6
   },
   modalAddBtnCtrl: {
     width: "33%",

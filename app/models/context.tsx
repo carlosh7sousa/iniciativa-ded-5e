@@ -3,21 +3,18 @@ import * as context from "../../app-config/context.json";
 
 export default class Ctx
 {
-    npcs: Npc[] = [];
-
 
     constructor() {
         this.init();
     }
 
     init(){
-        this.npcs = context.npcs;   
-        this.npcs = [...this.npcs, ...this.initNpcs(20), ...this.initPlayers(3)];
+        
     } 
 
     initNpcs(num:number): Npc[]{
         let npcs: Npc[] = [];
-        for(let i = 0; i < num; i++)
+        for(let i = 5; i < num; i++)
         {
             npcs.push(this.createNpc(i, `npc ${i}`, 5 + i, false));
         }
@@ -27,7 +24,7 @@ export default class Ctx
 
     initPlayers(num:number): Npc[]{
         let npcs: Npc[] = [];
-        for(let i = 0; i < num; i++)
+        for(let i = 5; i < num; i++)
         {
             npcs.push(this.createNpc(i, `player ${i}`, 10 + i, true));
         }
@@ -54,7 +51,9 @@ export default class Ctx
             movement:"9m",
             mainSkills: [],
             notes:"",
-            race: "Humano"
+            race: "Humano",
+            primeiroTurno: false,
+            seuTurno: false
         };
 
         return item;

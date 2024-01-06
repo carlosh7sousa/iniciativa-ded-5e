@@ -6,7 +6,7 @@ import { cssNpcList as css } from "./npc-list-style";
 import { labels } from "../../models/labels";
 
 
-export default class NpcListPage extends Component<{ npcs: Npc[], idSelected:number }, { npcs: Npc[], indexModal: number, oldModalPv: number, newModalPv: number }> {
+export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: number }, { npcs: Npc[], indexModal: number, oldModalPv: number, newModalPv: number }> {
 
     constructor(props) {
         super(props);
@@ -23,7 +23,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected:num
     }
 
     handlerSetNpc(npc: Npc, index: number): void {
-        if (npc) {
+        if (npc && index > 0) {
             this.props.npcs[index] = npc;
             this.setState({ npcs: this.props.npcs });
         }
@@ -70,7 +70,11 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected:num
 
 
 
-
+    resetModalState = () => {
+        this.setState({ indexModal: -1 });
+        this.setState({ newModalPv: 0 });
+        this.setState({ oldModalPv: 0 });
+    }
 
 
     handlePvAtribuir = () => {
@@ -84,7 +88,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected:num
 
             npc.currentHp = newPv;
             this.handlerSetNpc(npc, this.state.indexModal);
-            this.setState({ indexModal: -1 });
+            this.resetModalState();
         }
     }
 
@@ -104,7 +108,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected:num
 
             npc.currentHp = this.state.oldModalPv + this.state.newModalPv;
             this.handlerSetNpc(npc, this.state.indexModal);
-            this.setState({ indexModal: -1 })
+            this.resetModalState();
         }
     }
 
@@ -121,7 +125,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected:num
 
             npc.currentHp = this.state.oldModalPv - this.state.newModalPv;
             this.handlerSetNpc(npc, this.state.indexModal);
-            this.setState({ indexModal: -1 })
+            this.resetModalState();
         }
     }
 
@@ -146,7 +150,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected:num
             <>
 
                 <ScrollView style={css.listaNpcsView}>
-                    {this.props.npcs.map((npc: Npc, index: number) => { return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs}/>) })}
+                    {this.props.npcs.map((npc: Npc, index: number) => { return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} />) })}
                 </ScrollView>
 
                 <Modal visible={this.isVisibleModalPv(this.state.indexModal)}>
@@ -154,10 +158,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected:num
                         <Text style={css.modalPvLblCtrl}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}: {this.handleModalNpcPvValue()}</Text>
                         <TextInput style={css.modalPvTxtCtrl} selectTextOnFocus onChangeText={this.handleModalPvTextChange} keyboardType='number-pad' />
                         <View style={css.modalViewControls}>
-                            <Pressable style={css.modalSetBtnCtrl}
-                                onPress={this.handlePvAtribuir}>
-                                <Text style={css.modalLblSetBtnCtrl}>{labels.modalNpc.btnSet}</Text>
-                            </Pressable>
+
                             <Pressable style={css.modalSubtractBtnCtrl}
                                 onPress={this.handlePvSubtrair}>
                                 <Text style={css.modalLblSubtractBtnCtrl}>{labels.modalNpc.btnSubtract}</Text>
@@ -165,6 +166,10 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected:num
                             <Pressable style={css.modalAddBtnCtrl}
                                 onPress={this.handlePvSomar}>
                                 <Text style={css.modalLblAddBtnCtrl}>{labels.modalNpc.btnAdd}</Text>
+                            </Pressable>
+                            <Pressable style={css.modalSetBtnCtrl}
+                                onPress={this.handlePvAtribuir}>
+                                <Text style={css.modalLblSetBtnCtrl}>{labels.modalNpc.btnSet}</Text>
                             </Pressable>
                         </View>
                     </View>

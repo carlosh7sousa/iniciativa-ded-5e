@@ -16,6 +16,27 @@ export const cssNpc = StyleSheet.create({
     width: "100%"
   },
 
+  npcViewCtrlSelected: {
+    flexDirection: "row",
+    backgroundColor: "#FFFF00",
+    paddingBottom: 0,
+    paddingTop: 20,
+    width: "100%"
+  },
+  playerViewCtrlSelected: {
+    flexDirection: "row",
+    backgroundColor: "#FFFF00r",
+    paddingBottom: 0,
+    paddingTop: 20,
+    width: "100%"
+  },
+
+
+
+
+
+
+
   npcViewLabelCtrl: {
     flexDirection: "row",
     backgroundColor: "#E57373",
@@ -37,12 +58,51 @@ export const cssNpc = StyleSheet.create({
     width: "100%"
   },
 
-  npcControlViewLabelCtrl: {
+  npcViewLabelCtrlSelected: {
     flexDirection: "row",
-    backgroundColor: "#E57373",
+    backgroundColor: "#FFFF00",
     paddingBottom: 0,
     paddingTop: 0,
-    paddingLeft:12,
+    margin:0,
+    borderBottomWidth: 12,
+    borderBottomColor: "white",
+    width: "100%"
+  }, 
+  playerViewLabelCtrlSelected: {
+    flexDirection: "row",
+    backgroundColor: "#FFFF00",
+    paddingBottom: 0,
+    paddingTop: 0,
+    margin:0,
+    borderBottomWidth: 12,
+    borderBottomColor: "white",
+    width: "100%"
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  npcControlViewLabelCtrl: {
+    flexDirection: "row",
+    backgroundColor: "#E57373",    
+    paddingBottom: 0,
+    paddingTop: 0, 
     margin:0,
     width: 50
   }, 
@@ -50,11 +110,31 @@ export const cssNpc = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#81C784",
     paddingBottom: 0,
-    paddingTop: 0,
-    paddingLeft:12,
+    paddingTop: 0, 
     margin:0,
     width: 50
   },
+
+
+  npcControlViewLabelCtrlSelected: {
+    flexDirection: "row",
+    backgroundColor: "#FFFF00",    
+    paddingBottom: 0,
+    paddingTop: 0, 
+    margin:0,
+    width: 50
+  }, 
+  playerControlViewLabelCtrlSelected: {
+    flexDirection: "row",
+    backgroundColor: "#FFFF00",
+    paddingBottom: 0,
+    paddingTop: 0, 
+    margin:0,
+    width: 50
+  },
+
+
+
 
   initTxtCtrl: {
     width: 50,

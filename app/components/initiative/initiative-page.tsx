@@ -12,10 +12,8 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
 
     constructor(props) {
         super(props);
-        let ctx = new Ctx();
-
         this.state = {
-            npcs: ctx.npcs,
+            npcs: [],
             turno: 0,
             countIdNpc: 1,
             txtNameAdd: "NPC",
@@ -23,6 +21,8 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
         };
 
         this.handleGetNpcs.bind(this);
+        this.handleSetNpcs.bind(this);
+        this.handleSortTurnButtonClick.bind(this);
     }
 
     generateNewId(): number {
@@ -52,49 +52,63 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
     handleSortTurnButtonClick = () => {
 
         let npcs: Npc[] = this.handleGetNpcs();
-        npcs = npcs.filter(x => x != null);
-        npcs = npcs.sort((a: Npc, b: Npc) => {
+        // npcs = npcs.filter(x => x != null);
+        // npcs = npcs.sort((a: Npc, b: Npc) => {
 
-            if (a.initiativeModifier == b.initiativeModifier) {
-                return 0
-            }
-            else if (a.initiativeModifier < b.initiativeModifier) {
-                return 1
-            }
-            else {
-                return -1;
-            }
-        });
+        //     if (a.initiativeModifier == b.initiativeModifier) {
+        //         return 0
+        //     }
+        //     else if (a.initiativeModifier < b.initiativeModifier) {
+        //         return 1
+        //     }
+        //     else {
+        //         return -1;
+        //     }
+        // });
 
-        if (npcs != null && npcs.length == 1) {
-            npcs[0].primeiroTurno = true;
-            npcs[0].seuTurno = true;
-            this.setState({ idSelected: npcs[0].id });
-        }
+        // if (npcs != null && npcs.length == 1) {
+        //     npcs[0].primeiroTurno = true;
+        //     npcs[0].seuTurno = true;
+        //     this.setState({ idSelected: npcs[0].id });
+        // }
 
-        if (npcs != null && npcs.length > 2) {
-            for (let i = 0; i < npcs.length; i++) {
-                npcs[i].primeiroTurno = false;
-                npcs[i].seuTurno = false;
+        // if (npcs != null && npcs.length > 2) {
+        //     for (let i = 0; i < npcs.length; i++) {
+        //         npcs[i].primeiroTurno = false;
+        //         npcs[i].seuTurno = false;
 
-                if (i === 0) {
-                    npcs[i].primeiroTurno = true;
-                    npcs[i].seuTurno = true;
-                    this.setState({ idSelected: npcs[i].id });
-                }
-            }
-        }
-
-
+        //         if (i === 0) {
+        //             npcs[i].primeiroTurno = true;
+        //             npcs[i].seuTurno = true;
+        //             this.setState({ idSelected: npcs[i].id });
+        //         }
+        //     }
+        // }
 
         this.handleSetNpcs(npcs);
     }
 
     handleNextTurnButtonClick = () => {
         let turno: number = this.state.turno;
+        let npcs: Npc[] = this.handleGetNpcs();
 
+        let index: number = npcs.findIndex(x => x.seuTurno);
 
-        turno += 1;
+        if (index >= 0 && npcs.length === index) {
+            npcs[index].seuTurno = false;
+            npcs[0].seuTurno = true;
+            turno += 1;
+            // this.setState({ npcs: npcs });
+            this.setState({ idSelected: npcs[0].id });
+        }
+
+        if (index >= 0 && npcs.length < index) {
+            npcs[index].seuTurno = false;
+            npcs[index + 1].seuTurno = true;
+            // this.setState({ npcs: npcs });
+            this.setState({ idSelected: npcs[index + 1].id });
+        }
+
         this.handleTurnValueChange(turno);
     };
 
@@ -179,7 +193,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
             <Text style={css.lblTitle}>{labels.initiative.title}</Text>
             <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
-            <NpcListPage npcs={this.handleGetNpcs()} idSelected={ this.state.idSelected }>
+            <NpcListPage npcs={this.handleGetNpcs()} idSelected={this.state.idSelected}>
             </NpcListPage>
         </SafeAreaView >
     }
