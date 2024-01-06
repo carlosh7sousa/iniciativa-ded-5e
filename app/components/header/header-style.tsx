@@ -58,7 +58,7 @@ export const cssHeader = StyleSheet.create({
 
     btnAddNpcLabelCtrl: {
         color: "white",
-        fontSize: 26, 
+        fontSize: 30, 
         padding:0,
         borderWidth: 4,
         backgroundColor: "#90CAF9",
@@ -68,7 +68,7 @@ export const cssHeader = StyleSheet.create({
     btnAddNpcBtnCtrl: {
         width: 60,
         marginLeft:10,
-        marginRight: 2
+        marginRight: 2,        
     },
 
     lblTurnoLabelCtrl :{
