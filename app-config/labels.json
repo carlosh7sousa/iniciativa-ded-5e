@@ -11,6 +11,11 @@
         "lblListTitle": "Iniciativa dos NPCs",        
         "lblInitiative": "Iniciativa",
         "buttonLabel": "VER"
+    },
+    "modalNpc" : {
+        "btnSubtract": "Subtrair",
+        "btnAdd": "Somar",
+        "btnSet": "Atribuir"
     }
     
 

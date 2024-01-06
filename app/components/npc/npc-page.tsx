@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import Npc from '../../models/npc';
-import { View, TextInput, Pressable, Text, Button } from 'react-native';
+import { View, TextInput, Pressable, Text } from 'react-native';
 import { cssNpc as css } from "./npc-style";
 import { labels } from "../../models/labels";
-import HpModalPage from '../hp/hp-modal-page';
 
-export default class NpcPage extends Component<{ index: number, handlerSetNpc(npc: Npc, index: number): void, handlerGetNpc(index: number): Npc }, {visible: boolean}> {
+export default class NpcPage extends Component<{ index: number, handlerSetNpc(npc: Npc, index: number): void, handlerGetNpc(index: number): Npc, handlerPvButtonClick(index: number): void }, { visible: boolean }> {
 
 
     constructor(props) {
         super(props);
         this.handlerSetNpc = this.handlerSetNpc.bind(this);
         this.handlerGetNpc = this.handlerGetNpc.bind(this);
+        this.handlerHpClick = this.handlerHpClick.bind(this);
         this.state = {
             visible: false
         }
+    }
+
+    handlerSetNpc(npc: Npc, index: number): void {
+        this.handlerSetNpc(npc, index);
+    }
+
+    handlerGetNpc(index: number): Npc {
+        return this.props.handlerGetNpc(index);
     }
 
 
@@ -23,8 +31,10 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
         let npcView = css.npcViewCtrl;
-        if (npc.isPlayer) {
-            return css.playerViewCtrl;
+        if (npc != null) {
+            if (npc.isPlayer) {
+                return css.playerViewCtrl;
+            }
         }
 
         return npcView;
@@ -33,8 +43,11 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
     getNpcViewLabel() {
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
         let npcViewLabel = css.npcViewLabelCtrl;
-        if (npc.isPlayer) {
-            return css.playerViewLabelCtrl;
+
+        if (npc != null) {
+            if (npc.isPlayer) {
+                return css.playerViewLabelCtrl;
+            }
         }
 
         return npcViewLabel;
@@ -42,56 +55,66 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
     getNpcCtrlViewLabel() {
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
-        let npcControlViewLabel = css.npcControlViewLabelCtrl;
-        if (npc.isPlayer) {
-            return css.playerControlViewLabelCtrl;
-        }
+        if (npc != null) {
+            let npcControlViewLabel = css.npcControlViewLabelCtrl;
+            if (npc.isPlayer) {
+                return css.playerControlViewLabelCtrl;
+            }
 
-        return npcControlViewLabel;
+            return npcControlViewLabel;
+        }
     }
 
 
     handlePvTextChange = (strNewValue: string) => {
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
-        let currentHp: number = npc.currentHp;
 
-        let newValue: number = parseInt(strNewValue);
+        if (npc != null) {
+            let cur: number = npc.currentHp;
+            let newValue: number = parseInt(strNewValue);
 
-        if (isNaN(newValue)) {
-            newValue = 0;
+            if (isNaN(newValue)) {
+                newValue = 0;
+            }
+
+            if (isNaN(cur)){
+                cur = 0;
+            }
+
+            cur = newValue;
+            npc.currentHp = cur;
+
+            this.props.handlerSetNpc(npc, this.props.index);
         }
-
-
-        currentHp = newValue;
-        npc.currentHp = currentHp;
-
-        this.props.handlerSetNpc(npc, this.props.index);
     };
 
     handleIniTextChange = (strNewValue: string) => {
 
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
-        let initiativeModifier: number = npc.initiativeModifier;
+        if (npc != null) {
+            let initiativeModifier: number = npc.initiativeModifier;
 
-        let newValue: number = parseInt(strNewValue);
+            let newValue: number = parseInt(strNewValue);
 
-        if (isNaN(newValue)) {
-            newValue = 0;
+            if (isNaN(newValue)) {
+                newValue = 0;
+            }
+
+            initiativeModifier = newValue;
+            npc.initiativeModifier = initiativeModifier;
+
+            this.props.handlerSetNpc(npc, this.props.index);
         }
-
-        initiativeModifier = newValue;
-        npc.initiativeModifier = initiativeModifier;
-
-        this.props.handlerSetNpc(npc, this.props.index);
     };
 
     handleNpcTextChange = (strNewValue: string) => {
 
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
-        npc.name = strNewValue;
+        if (npc != null) {
+            npc.name = strNewValue;
 
-        this.props.handlerSetNpc(npc, this.props.index);
-
+            this.props.handlerSetNpc(npc, this.props.index);
+        }
     };
 
 
@@ -100,22 +123,13 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
     };
 
-    handlePvButtonClick = () => {
-        let npc: Npc = this.props.handlerGetNpc(this.props.index);
-        npc.showModal = this.state.visible;
-        this.props.handlerSetNpc(npc, this.props.index);
-        
+    handlerHpClick = (): void => {
+        this.props.handlerPvButtonClick(this.props.index);
     };
 
 
 
-    handlerSetNpc(npc: Npc, index: number): void {
-        this.props.handlerSetNpc(npc, this.props.index);
-    }
 
-    handlerGetNpc(index: number): Npc {
-        return this.props.handlerGetNpc(index);
-    }
 
 
 
@@ -127,11 +141,9 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                     <TextInput selectTextOnFocus style={css.initTxtCtrl} onChangeText={this.handleIniTextChange} keyboardType='number-pad' value={this.props.handlerGetNpc(this.props.index).initiativeModifier.toString()} />
                     <TextInput selectTextOnFocus style={css.nameTxtCtrl} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.index).name} />
 
-                    <Pressable style={css.hpTxtCtrl} onPress={this.handlePvButtonClick} >
+                    <Pressable style={css.hpTxtCtrl} onPress={this.handlerHpClick} >
                         <Text style={css.hpTxtCtrl} >{this.props.handlerGetNpc(this.props.index).currentHp.toString()}</Text>
                     </Pressable>
-                    <HpModalPage handlerSetNpc={this.handlerSetNpc} handlerGetNpc={this.handlerGetNpc} index={this.props.index} />
-
 
                     <View style={this.getNpcCtrlViewLabel()}>
                         <Pressable style={css.btnCtrl} onPress={this.handleNpcDetailsButtonClick}  >
