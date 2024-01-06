@@ -6,7 +6,7 @@ import { cssNpcList as css } from "./npc-list-style";
 import { labels } from "../../models/labels";
 
 
-export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[], indexModal: number, oldModalPv: number, newModalPv: number }> {
+export default class NpcListPage extends Component<{ npcs: Npc[], idSelected:number }, { npcs: Npc[], indexModal: number, oldModalPv: number, newModalPv: number }> {
 
     constructor(props) {
         super(props);
