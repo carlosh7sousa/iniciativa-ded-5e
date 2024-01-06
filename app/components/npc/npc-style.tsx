@@ -107,13 +107,20 @@ export const cssNpc = StyleSheet.create({
     width: 50,
     textAlign: "center",
   },
-  nameLblCtrl:{
-    width: "60%"
+  nameLblTokenCtrl:{
+    width: "60%",
+    color: "black"
   },
   hpLblCtrl: {
     width: "10%",
     textAlign: "center"
+  },
+  lblInicioTurno:{
+    backgroundColor: "#B2FF59",
+    color: "#263238",
+    textAlign:"center",
+    fontSize: 18,
+    fontWeight: "bold"
   }
-
 
 });

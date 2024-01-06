@@ -10,12 +10,15 @@
         "btnDelNpcLabel" : "limpar",
         "limparNpcsApenas": {"Titulo": "Excluir apenas NPCs", "Mensagem": "Deseja excluir os NPCS? (jogadores permanecerão).", "Cancelar": "Cancelar"},
         "limparNpcsEJogadores": {"Titulo": "Excluir NPCs e Jogadores", "Mensagem": "Deseja excluir NPCs e Jogadores?", "Cancelar": "Cancelar"}
-
     },
     "npc": {
         "lblListTitle": "Iniciativa dos NPCs",        
         "lblInitiative": "Iniciativa",
-        "buttonLabel": "VER"
+        "buttonLabel": "VER",
+        "inicioTurno":"Inicio do Turno",
+        "iniLabel": "INI",
+        "token": "➔ Turno de ",
+        "hpLabel": "PV"        
     },
     "modalNpc" : {
         "labelPv": "PVs",

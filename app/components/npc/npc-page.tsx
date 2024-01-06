@@ -4,7 +4,7 @@ import { View, TextInput, Pressable, Text } from 'react-native';
 import { cssNpc as css } from "./npc-style";
 import { labels } from "../../models/labels";
 
-export default class NpcPage extends Component<{ index: number, handlerSetNpc(npc: Npc, index: number): void, handlerGetNpc(index: number): Npc, handlerPvButtonClick(index: number): void }, { visible: boolean }> {
+export default class NpcPage extends Component<{ index: number, handlerSetNpc(npc: Npc, index: number): void, handlerGetNpc(index: number): Npc, handlerPvButtonClick(index: number): void, npcsReadonly: Npc[] }, { visible: boolean }> {
 
 
     constructor(props) {
@@ -77,7 +77,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                 newValue = 0;
             }
 
-            if (isNaN(cur)){
+            if (isNaN(cur)) {
                 cur = 0;
             }
 
@@ -128,15 +128,66 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
     };
 
 
+    handlerTurnoDe = (): string => {
+
+        let nome: string = this.props.handlerGetNpc(this.props.index).name;
+
+        if (nome.length > 20) {
+            return nome.substring(0, 20) + "..."
+        }
+
+        return nome;
+
+    }
+
+    obterNpcMaiorIniciativa = (): Npc => {
+        let sortedNpc: Npc[] = this.props.npcsReadonly.sort((a: Npc, b: Npc) => {
+
+            if (a.initiativeModifier == b.initiativeModifier) {
+                return 0
+            }
+            else if (a.initiativeModifier < b.initiativeModifier) {
+                return 1
+            }
+            else {
+                return -1;
+            }
+        });
+
+        sortedNpc = sortedNpc.filter(x => x != null);
+        if (sortedNpc.length > 1) {
+            return sortedNpc[0];
+        }
+        else {
+            return null;
+        }
+    }
 
 
 
+    handlerInicioTurnoVisible = () => {
+
+        let npcMaiorIniciativa: Npc = this.obterNpcMaiorIniciativa();
+        let npc: Npc = this.handlerGetNpc(this.props.index);
+
+        if (npc != null && npcMaiorIniciativa != null && npc.id === npcMaiorIniciativa.id){
+            return (<View>
+                <Text style={css.lblInicioTurno}>{labels.npc.inicioTurno}</Text>
+            </View>);
+        }
+
+
+        return "";
+    }
 
 
     render() {
 
         return (
             <>
+                {
+                    this.handlerInicioTurnoVisible()
+                }
                 <View style={this.getNpcView()}>
                     <TextInput selectTextOnFocus style={css.initTxtCtrl} onChangeText={this.handleIniTextChange} keyboardType='number-pad' value={this.props.handlerGetNpc(this.props.index).initiativeModifier.toString()} />
                     <TextInput selectTextOnFocus style={css.nameTxtCtrl} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.index).name} />
@@ -152,9 +203,9 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                     </View>
                 </View>
                 <View style={this.getNpcViewLabel()}>
-                    <Text style={css.iniLblCtrl}>INI</Text>
-                    <Text style={css.nameLblCtrl}></Text>
-                    <Text style={css.hpLblCtrl}>PV</Text>
+                    <Text style={css.iniLblCtrl}>{labels.npc.iniLabel}</Text>
+                    <Text style={css.nameLblTokenCtrl}>{labels.npc.token} {this.handlerTurnoDe()}</Text>
+                    <Text style={css.hpLblCtrl}>{labels.npc.hpLabel}</Text>
                 </View>
             </>
         )

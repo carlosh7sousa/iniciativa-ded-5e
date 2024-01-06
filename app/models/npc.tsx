@@ -26,6 +26,9 @@ export default interface Npc{
     attributes: Attributes;
     mainSkills: Skills[];
     attacks: Attack[]; 
+
+    tokenTurno: boolean;
+    primeiroTurno: boolean;
 }
 
 

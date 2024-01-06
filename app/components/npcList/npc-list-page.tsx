@@ -146,7 +146,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[
             <>
 
                 <ScrollView style={css.listaNpcsView}>
-                    {this.props.npcs.map((npc: Npc, index: number) => { return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} />) })}
+                    {this.props.npcs.map((npc: Npc, index: number) => { return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs}/>) })}
                 </ScrollView>
 
                 <Modal visible={this.isVisibleModalPv(this.state.indexModal)}>
