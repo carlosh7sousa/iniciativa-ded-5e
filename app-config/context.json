@@ -2,7 +2,7 @@
 
 "npcs": [
     {
-        "id": 0,
+        "id": 1,
         "name": "Michael",
         "race": "Humano",
         "class":"Guerreiro 1",
@@ -50,7 +50,7 @@
         ]        
 },
 {
-    "id": 1,
+    "id": 2,
     "name": "Gwindor",
     "race": "Elfo silvestre",
     "class":"Druida 1",
