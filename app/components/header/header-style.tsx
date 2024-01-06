@@ -4,9 +4,12 @@ export const cssHeader = StyleSheet.create({
     headerView: {
         width: "100%",
         flexDirection:"row",
-        height: 40,
+        alignItems: "center",
+        alignContent: "center",
+        height: 46,
         backgroundColor: "#424242",
-        margin: 0
+        margin: 0,
+        
     },
     lblHeaderTitle: {
         fontWeight: "bold",
@@ -31,31 +34,49 @@ export const cssHeader = StyleSheet.create({
         borderWidth: 4,
         backgroundColor: "#546E7A",
         borderColor: "#546E7A",
-        textAlign: "center"
+        textAlign: "center",
     },
     btnPreviousTurnBtnCtrl: {
         width: 70,
-        marginLeft: 10
+        marginLeft:10
     },
 
     btnSortTurnLabelCtrl: {
         color: "white",
-        fontSize: 22, 
-        padding:4,
+        fontSize: 26, 
+        padding:0,
         borderWidth: 4,
         backgroundColor: "#90A4AE",
         borderColor: "#90A4AE",
         textAlign: "center"
     },
     btnSortTurnBtnCtrl: {
-        marginLeft: 10
+        
+        width: 60,
+        marginRight: 2 
+    },
+
+    btnAddNpcLabelCtrl: {
+        color: "white",
+        fontSize: 26, 
+        padding:0,
+        borderWidth: 4,
+        backgroundColor: "#90CAF9",
+        borderColor: "#90CAF9",
+        textAlign: "center"
+    },
+    btnAddNpcBtnCtrl: {
+        width: 60,
+        marginLeft:10,
+        marginRight: 2
     },
 
     lblTurnoLabelCtrl :{
         color: "white",
-        fontSize: 22,
-        padding:4 
-       
+        fontSize: 18,
+        textAlign:"center",
+        paddingTop:8,
+        width: 102,
     }
 
 });

@@ -5,7 +5,8 @@
     "header":{
         "btnPreviousTurnLabel":"<<",
         "btnNextTurnLabel": ">>",
-        "btnSortTurnLabel": "Ordenar"
+        "btnSortTurnLabel": "⇅",
+        "btnAddTurnLabel": "+"
     },
     "npc": {
         "lblListTitle": "Iniciativa dos NPCs",        

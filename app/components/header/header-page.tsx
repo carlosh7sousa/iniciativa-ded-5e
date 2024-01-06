@@ -7,7 +7,7 @@ import { cssHeader as css } from "./header-style";
 
 
 
-export default class HeaderPage extends Component<{ sortList(), nextTurn(), previousTurn(), getTurn()  } > {
+export default class HeaderPage extends Component<{ sortList(), nextTurn(), previousTurn(), getTurn(), addNpc() } > {
 
     
     render() {
@@ -15,6 +15,9 @@ export default class HeaderPage extends Component<{ sortList(), nextTurn(), prev
         return (
         <>           
             <View style={css.headerView}>
+            <Pressable style={css.btnSortTurnBtnCtrl} onPress={this.props.sortList}  >
+                    <Text style={css.btnSortTurnLabelCtrl}>{labels.header.btnSortTurnLabel}</Text>
+                </Pressable>
 
                 <Pressable style={css.btnPreviousTurnBtnCtrl} onPress={this.props.previousTurn}  >
                     <Text style={css.btnPreviousTurnLabelCtrl}>{labels.header.btnPreviousTurnLabel}</Text>
@@ -26,8 +29,9 @@ export default class HeaderPage extends Component<{ sortList(), nextTurn(), prev
                     <Text style={css.btnNextTurnLabelCtrl}>{labels.header.btnNextTurnLabel}</Text>
                 </Pressable>
 
-                <Pressable style={css.btnSortTurnBtnCtrl} onPress={this.props.sortList}  >
-                    <Text style={css.btnSortTurnLabelCtrl}>{labels.header.btnSortTurnLabel}</Text>
+               
+                <Pressable style={css.btnAddNpcBtnCtrl} onPress={this.props.addNpc}  >
+                    <Text style={css.btnAddNpcLabelCtrl}>{labels.header.btnAddTurnLabel}</Text>
                 </Pressable>
             </View>
             
