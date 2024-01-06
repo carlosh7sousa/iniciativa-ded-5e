@@ -8,7 +8,7 @@ import Npc from '../../models/npc';
 import NpcListPage from '../npcList/npc-list-page';
 
 
-export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: number }> {
+export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: number, countIdNpc: number, txtNameAdd:string }> {
 
 
     constructor(props) {
@@ -17,13 +17,21 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
 
         this.state = {
             npcs: ctx.npcs,
-            turno: 0
+            turno: 0,
+            countIdNpc: 1,
+            txtNameAdd: "NPC"
         };
 
         this.handleGetNpcs.bind(this);
     }
 
+    generateNewId(): number {
+        let countId: number = this.state.countIdNpc;
+        countId++;
+        this.setState({countIdNpc: countId});
+        return countId;
 
+    }
 
     handleTurnValueChange = (turno) => {
         this.setState({ turno });
@@ -79,13 +87,48 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
     };
 
 
+    handleAddNcpButtonClick = () => {
+        let npcs: Npc[] = this.state.npcs;
+
+        npcs.push(this.createNpc(this.state.txtNameAdd));
+    };
+
+    handleClearAllNpcButtonClick = () =>{
+        this.setState({npcs: []});
+    }
+
+    handleAddTextChange = (newText: string) =>{
+        this.setState({txtNameAdd: newText});
+    }
+
+    createNpc(npcName: string): Npc{
+        let npc: Npc = {
+                id: this.generateNewId(),
+                name: npcName + " " + this.state.countIdNpc,
+                initiativeModifier: 0,
+                isPlayer: false,
+                alignment: "",
+                armorClass: 10,
+                attacks: [],
+                attributes: {str:10, dex:10,con:10, int: 10, wis:10, cha:10 },
+                class: "Npc",
+                currentHp: 10,
+                maxHp: 10,
+                movement:"9m",
+                mainSkills: [],
+                notes:"",
+                race: ""
+        };
+
+        return npc;        
+    }
 
     render() {
 
         return <SafeAreaView style={css.bodyContainer} >
             <StatusBar />
             <Text style={css.lblTitle}>{labels.initiative.title}</Text>
-            <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} />
+            <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} />
 
             <NpcListPage npcs={this.handleGetNpcs()}>
             </NpcListPage>

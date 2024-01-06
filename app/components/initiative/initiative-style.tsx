@@ -12,12 +12,12 @@ export const cssInitiative = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 0
+    margin:0
   },
   listaNpcsView:{
     width: "100%",
     margin:0,
     borderWidth:2,
-    borderColor:"#333333"
+    borderColor:"#333333",
   }
 });

@@ -6,7 +6,8 @@
         "btnPreviousTurnLabel":"<<",
         "btnNextTurnLabel": ">>",
         "btnSortTurnLabel": "⇅",
-        "btnAddTurnLabel": "+"
+        "btnAddNpcLabel": "+",
+        "btnDelNpcLabel" : "limpar"
     },
     "npc": {
         "lblListTitle": "Iniciativa dos NPCs",        
@@ -18,8 +19,5 @@
         "btnSubtract": "Subtrair",
         "btnAdd": "Somar",
         "btnSet": "Atribuir"
-    }
-    
-
-
+    } 
 }
