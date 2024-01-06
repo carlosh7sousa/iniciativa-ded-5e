@@ -8,7 +8,7 @@ import Npc from '../../models/npc';
 import NpcListPage from '../npcList/npc-list-page';
 import HeaderInfo from '../../models/headerInfo';
 
-export default class InitiativePage extends Component<{}, { npcs: Npc[],   headerInfo: HeaderInfo, generatedId:number}> {
+export default class InitiativePage extends Component<{}, { npcs: Npc[], headerInfo: HeaderInfo, generatedId: number }> {
 
 
     constructor(props) {
@@ -31,7 +31,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[],   heade
         let countId: number = this.state.generatedId;
         countId++;
         this.setState({ generatedId: countId });
-        return countId; 
+        return countId;
     }
 
     handleTurnValueChange = (turno) => {
@@ -55,7 +55,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[],   heade
     handleSortTurnButtonClick = () => {
 
         let npcs: Npc[] = this.handleGetNpcs();
-        
+
     }
 
     handleNextTurnButtonClick = () => {
@@ -111,8 +111,11 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[],   heade
             isPreferred: true,
             text: labels.header.limparNpcsApenas.Titulo,
             onPress: () => {
-                let onlyPlayers: Npc[] = this.state.npcs.filter(x => x.isPlayer);
-                this.setState({ npcs: onlyPlayers });
+
+                if (this.state.npcs != null) {
+                    let onlyPlayers: Npc[] = this.state.npcs.filter(x => x.isPlayer);
+                    this.setState({ npcs: onlyPlayers });
+                }
             }
 
         };
@@ -136,7 +139,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[],   heade
     handleAddTextChange = (newText: string) => {
         let info: HeaderInfo = this.state.headerInfo;
         info.txtNameAdd = newText;
-        this.setState({ headerInfo: info});
+        this.setState({ headerInfo: info });
     }
 
     createNpc(npcName: string): Npc {
@@ -168,10 +171,10 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[],   heade
         return <SafeAreaView style={css.bodyContainer} >
             <StatusBar />
             <Text style={css.lblTitle}>{labels.initiative.title}</Text>
-             <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} /> 
+            <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
-            <NpcListPage npcs={this.state.npcs} idSelected={this.state.headerInfo.idSelected}>
-            </NpcListPage>
+             <NpcListPage npcs={this.state.npcs} idSelected={this.state.headerInfo.idSelected}>
+            </NpcListPage>  
         </SafeAreaView >
     }
 }

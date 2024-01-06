@@ -148,7 +148,9 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
         return (
             <>
-
+                 <View style={css.headerView3}>
+                    <Text style={css.lblListaLabel}>{labels.npc.lblListTitle}</Text>
+                </View>
                 <ScrollView style={css.listaNpcsView}>
                     {this.props.npcs.map((npc: Npc, index: number) => { return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} />) })}
                 </ScrollView>

@@ -35,11 +35,7 @@ export default class HeaderPage extends Component<{ sortList(), nextTurn(), prev
                     <Pressable style={css.btnClearAllNpcBtnCtrl} onPress={this.props.clearAllNpc} onLongPress={this.props.clearAllList} >
                         <Text style={css.btnDelNpcLabelCtrl}>{labels.header.btnDelNpcLabel}</Text>
                     </Pressable>
-                </View>
-
-                <View style={css.headerView3}>
-                    <Text style={css.lblListaLabel}>{labels.npc.lblListTitle}</Text>
-                </View>
+                </View> 
             </>
         )
     }

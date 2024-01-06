@@ -18,7 +18,7 @@ export default class Ctx
               txtNameAdd: ""
         }
 
-        this.initNpcs(20);
+       this.npcs = this.initNpcs(20);
     } 
 
     initNpcs(num:number): Npc[]{

@@ -19,15 +19,7 @@ export const cssHeader = StyleSheet.create({
         margin: 0,
         borderWidth: 0        
     },
-    headerView3: {
-        width: "100%",
-        flexDirection:"row",
-        alignItems: "center",
-        alignContent: "center",
-        backgroundColor: "#424242",
-        margin: 0,
-        borderWidth: 0,
-    },
+    
     lblHeaderTitle: {
         fontWeight: "bold",
         fontSize: 16,
@@ -113,13 +105,6 @@ export const cssHeader = StyleSheet.create({
         height: 46,
         paddingTop:10,
     },
-    lblListaLabel: {
-       borderTopWidth: 0,
-        fontSize: 14,
-        borderBottomWidth: 3,
-        width: "100%",
-        textAlign: "center",
-        color:"white"
-    }
+   
 
 });
