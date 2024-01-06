@@ -1,14 +1,45 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, StatusBar } from 'react-native';
+
+let h: number = Dimensions.get("screen").height;
+
+
+let header: number = 65;
+let footer: number = 80;
+
+h = h - header;
+h = h - footer;
+h = h - StatusBar.currentHeight - 18;
+
 
 export const cssNpcList = StyleSheet.create({
+ 
+  vwNpcListComponent: {
+    height: h
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   listaNpcsView: {
     width: "100%",
     margin: 0,
     borderWidth: 2,
-    borderColor: "#333333"
+    borderColor: "#333333",
   },
   modalView: {
-    alignItems:"center",
+    alignItems: "center",
     textAlign: "center",
 
   },
@@ -28,7 +59,7 @@ export const cssNpcList = StyleSheet.create({
     flexDirection: "row",
     padding: 20,
     alignItems: "center"
-   },
+  },
 
   modalLblSetBtnCtrl: {
     fontSize: 22,
@@ -69,19 +100,19 @@ export const cssNpcList = StyleSheet.create({
 
   headerView3: {
     width: "100%",
-    flexDirection:"row",
+    flexDirection: "row",
     alignItems: "center",
     alignContent: "center",
     backgroundColor: "#424242",
     margin: 0,
     borderWidth: 0,
-},
- lblListaLabel: {
-       borderTopWidth: 0,
-        fontSize: 14,
-        borderBottomWidth: 3,
-        width: "100%",
-        textAlign: "center",
-        color:"white"
-    }
+  },
+  lblListaLabel: {
+    borderTopWidth: 0,
+    fontSize: 14,
+    borderBottomWidth: 3,
+    width: "100%",
+    textAlign: "center",
+    color: "white"
+  }
 });

@@ -3,6 +3,7 @@
         "title": "DeD Iniciativa"
     },
     "header":{
+        "lblTurno": "Turno:",
         "btnPreviousTurnLabel":"<<",
         "btnNextTurnLabel": ">>",
         "btnSortTurnLabel": "⇅",

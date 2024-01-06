@@ -1,19 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+
+let h: number = Dimensions.get("screen").height;
 
 export const cssInitiative = StyleSheet.create({
   
   
   bodyContainer: {
-    flex:1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin:0
-  },
-  listaNpcsView:{
-    width: "100%",
     margin:0,
-    borderWidth:2,
-    borderColor:"#333333",
-  }
+    padding: 0,
+    flexDirection: "column",
+    height: h
+  },
+ 
 });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Npc from "../../models/npc";
-import { Modal, Pressable, ScrollView, TextInput, View, Text } from "react-native";
+import { Modal, Pressable, ScrollView, TextInput, View, Text, SafeAreaView } from "react-native";
 import NpcPage from "../npc/npc-page";
 import { cssNpcList as css } from "./npc-list-style";
 import { labels } from "../../models/labels";
@@ -147,13 +147,19 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     render() {
 
         return (
-            <>
-                 <View style={css.headerView3}>
-                    <Text style={css.lblListaLabel}>{labels.npc.lblListTitle}</Text>
-                </View>
-                <ScrollView style={css.listaNpcsView}>
-                    {this.props.npcs.map((npc: Npc, index: number) => { return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} />) })}
-                </ScrollView>
+            <SafeAreaView>
+                <SafeAreaView style={css.vwNpcListComponent}>
+
+                    <View style={css.headerView3}>
+                        <Text style={css.lblListaLabel}>{labels.npc.lblListTitle}</Text>
+                    </View>
+
+                    <ScrollView style={css.listaNpcsView}>
+                        {this.props.npcs.map((npc: Npc, index: number) => { return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} />) })}
+                    </ScrollView>
+
+                </SafeAreaView>
+
 
                 <Modal visible={this.isVisibleModalPv(this.state.indexModal)}>
                     <View style={css.modalView}>
@@ -176,7 +182,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                         </View>
                     </View>
                 </Modal>
-            </>
+            </SafeAreaView>
 
         );
     }
