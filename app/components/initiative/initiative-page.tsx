@@ -52,40 +52,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
     handleSortTurnButtonClick = () => {
 
         let npcs: Npc[] = this.handleGetNpcs();
-        // npcs = npcs.filter(x => x != null);
-        // npcs = npcs.sort((a: Npc, b: Npc) => {
-
-        //     if (a.initiativeModifier == b.initiativeModifier) {
-        //         return 0
-        //     }
-        //     else if (a.initiativeModifier < b.initiativeModifier) {
-        //         return 1
-        //     }
-        //     else {
-        //         return -1;
-        //     }
-        // });
-
-        // if (npcs != null && npcs.length == 1) {
-        //     npcs[0].primeiroTurno = true;
-        //     npcs[0].seuTurno = true;
-        //     this.setState({ idSelected: npcs[0].id });
-        // }
-
-        // if (npcs != null && npcs.length > 2) {
-        //     for (let i = 0; i < npcs.length; i++) {
-        //         npcs[i].primeiroTurno = false;
-        //         npcs[i].seuTurno = false;
-
-        //         if (i === 0) {
-        //             npcs[i].primeiroTurno = true;
-        //             npcs[i].seuTurno = true;
-        //             this.setState({ idSelected: npcs[i].id });
-        //         }
-        //     }
-        // }
-
-        this.handleSetNpcs(npcs);
+        
     }
 
     handleNextTurnButtonClick = () => {
@@ -193,7 +160,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
             <Text style={css.lblTitle}>{labels.initiative.title}</Text>
             <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
-            <NpcListPage npcs={this.handleGetNpcs()} idSelected={this.state.idSelected}>
+            <NpcListPage npcs={this.state.npcs} idSelected={this.state.idSelected}>
             </NpcListPage>
         </SafeAreaView >
     }

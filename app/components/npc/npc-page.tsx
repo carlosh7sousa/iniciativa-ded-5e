@@ -121,16 +121,17 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
         if (npc != null) {
-            let initiativeModifier: number = npc.initiativeModifier;
-
             let newValue: number = parseInt(strNewValue);
 
             if (isNaN(newValue)) {
                 newValue = 0;
             }
 
-            initiativeModifier = newValue;
-            npc.initiativeModifier = initiativeModifier;
+            if (newValue > 99){
+                newValue = 99;
+            }
+
+            npc.initiativeModifier = newValue;
 
             this.props.handlerSetNpc(npc, this.props.index);
         }
@@ -170,7 +171,9 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
     }
 
     obterNpcMaiorIniciativa = (): Npc => {
-        let sortedNpc: Npc[] = this.props.npcsReadonly.sort((a: Npc, b: Npc) => {
+        let sortedNpc: Npc[] = this.props.npcsReadonly;
+        
+        sortedNpc.sort((a: Npc, b: Npc) => {
 
             if (a.initiativeModifier == b.initiativeModifier) {
                 return 0
