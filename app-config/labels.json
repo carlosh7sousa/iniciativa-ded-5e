@@ -13,6 +13,7 @@
         "buttonLabel": "VER"
     },
     "modalNpc" : {
+        "labelPv": "PVs",
         "btnSubtract": "Subtrair",
         "btnAdd": "Somar",
         "btnSet": "Atribuir"

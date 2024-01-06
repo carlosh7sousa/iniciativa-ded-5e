@@ -6,12 +6,14 @@ import { cssNpcList as css } from "./npc-list-style";
 import { labels } from "../../models/labels";
 
 
-export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[], indexModal: number }> {
+export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[], indexModal: number, oldModalPv: number, newModalPv: number }> {
 
     constructor(props) {
         super(props);
         this.state = {
             npcs: this.props.npcs,
+            oldModalPv: 0,
+            newModalPv: 0,
             indexModal: -1
         };
 
@@ -32,7 +34,14 @@ export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[
     }
 
     handlerPvButtonClick(index: number): void {
-        this.setState({ indexModal: index });
+
+        let npc: Npc = this.handlerGetNpc(index);
+        let oldPv: number = 0;
+        if (npc != null) {
+            oldPv = npc.currentHp;
+        }
+
+        this.setState({ indexModal: index, oldModalPv: oldPv });
     }
 
 
@@ -40,22 +49,15 @@ export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[
 
 
     handleModalPvTextChange = (strNewValue: string) => {
-
         let npc: Npc = this.handlerGetNpc(this.state.indexModal);
-
-        if (npc != null) {
-            let newPv: number = parseInt(strNewValue);
-            if (isNaN(newPv)) {
-                newPv = 0;
-            }
-
-            npc.currentHp = newPv;
-            this.handlerSetNpc(npc, this.state.indexModal);
-            this.setState({ indexModal: -1 });
+        let newPv: number = parseInt(strNewValue);
+        if (isNaN(newPv)) {
+            newPv = 0;
         }
+
+        this.setState({ newModalPv: newPv });
+        this.handlerSetNpc(npc, this.state.indexModal);
     }
-
-
 
     isVisibleModalPv = (index: number): boolean => {
 
@@ -75,7 +77,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[
 
         let npc: Npc = this.handlerGetNpc(this.state.indexModal);
         if (npc != null) {
-            let newPv: number = npc.currentHp;
+            let newPv: number = this.state.newModalPv;
             if (isNaN(newPv)) {
                 newPv = 0;
             }
@@ -91,16 +93,16 @@ export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[
 
         let npc: Npc = this.handlerGetNpc(this.state.indexModal);
         if (npc != null) {
-            let newPv: number = npc.currentHp;
+            let newPv: number = this.state.newModalPv;
             if (isNaN(newPv)) {
                 newPv = 0;
             }
 
-            if (isNaN(npc.currentHp)){
+            if (isNaN(npc.currentHp)) {
                 npc.currentHp = 0;
             }
 
-            npc.currentHp = npc.currentHp + newPv;
+            npc.currentHp = this.state.oldModalPv + this.state.newModalPv;
             this.handlerSetNpc(npc, this.state.indexModal);
             this.setState({ indexModal: -1 })
         }
@@ -110,19 +112,33 @@ export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[
     handlePvSubtrair = () => {
 
         let npc: Npc = this.handlerGetNpc(this.state.indexModal);
-        
+
         if (npc != null) {
-            let newPv: number = npc.currentHp;
+            let newPv: number = this.state.newModalPv;
             if (isNaN(newPv)) {
                 newPv = 0;
             }
 
-            npc.currentHp = npc.currentHp - newPv;
+            npc.currentHp = this.state.oldModalPv - this.state.newModalPv;
             this.handlerSetNpc(npc, this.state.indexModal);
             this.setState({ indexModal: -1 })
         }
     }
 
+
+
+    handleModalNpcNameValue = (): string => {
+        let npc: Npc = this.handlerGetNpc(this.state.indexModal);
+        if (npc != null) {
+            return npc.name + ": - ";
+        }
+
+        return "";
+    }
+
+    handleModalNpcPvValue = (): string => {
+        return this.state.oldModalPv.toString();
+    }
 
     render() {
 
@@ -134,20 +150,23 @@ export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[
                 </ScrollView>
 
                 <Modal visible={this.isVisibleModalPv(this.state.indexModal)}>
-                    <View>
-                        <TextInput selectTextOnFocus onChangeText={this.handleModalPvTextChange} value={this.handlerGetNpc(this.state.indexModal).currentHp.toString()} keyboardType='number-pad' />
-                        <Pressable
-                            onPress={this.handlePvAtribuir}>
-                            <Text>{labels.modalNpc.btnSet}</Text>
-                        </Pressable>
-                        <Pressable
-                            onPress={this.handlePvSomar}>
-                            <Text>{labels.modalNpc.btnSubtract}</Text>
-                        </Pressable>
-                        <Pressable
-                            onPress={this.handlePvSubtrair}>
-                            <Text>{labels.modalNpc.btnAdd}</Text>
-                        </Pressable>
+                    <View style={css.modalView}>
+                        <Text style={css.modalPvLblCtrl}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}: {this.handleModalNpcPvValue()}</Text>
+                        <TextInput style={css.modalPvTxtCtrl} selectTextOnFocus onChangeText={this.handleModalPvTextChange} keyboardType='number-pad' />
+                        <View style={css.modalViewControls}>
+                            <Pressable style={css.modalSetBtnCtrl}
+                                onPress={this.handlePvAtribuir}>
+                                <Text style={css.modalLblSetBtnCtrl}>{labels.modalNpc.btnSet}</Text>
+                            </Pressable>
+                            <Pressable style={css.modalSubtractBtnCtrl}
+                                onPress={this.handlePvSubtrair}>
+                                <Text style={css.modalLblSubtractBtnCtrl}>{labels.modalNpc.btnSubtract}</Text>
+                            </Pressable>
+                            <Pressable style={css.modalAddBtnCtrl}
+                                onPress={this.handlePvSomar}>
+                                <Text style={css.modalLblAddBtnCtrl}>{labels.modalNpc.btnAdd}</Text>
+                            </Pressable>
+                        </View>
                     </View>
                 </Modal>
             </>
