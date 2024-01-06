@@ -116,7 +116,7 @@ export const cssNpc = StyleSheet.create({
     textAlign: "center"
   },
   lblInicioTurno:{
-    backgroundColor: "#B2FF59",
+    backgroundColor: "#FFFF00",
     color: "#263238",
     textAlign:"center",
     fontSize: 18,

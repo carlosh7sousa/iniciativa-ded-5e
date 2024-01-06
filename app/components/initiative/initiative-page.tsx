@@ -65,6 +65,23 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
             }
         });
 
+        if (npcs != null && npcs.length == 1){
+            npcs[0].primeiroTurno = true;
+        }
+
+        if (npcs != null && npcs.length > 2){
+            for (let i = 0; i< npcs.length; i++)
+            {
+                npcs[i].primeiroTurno = false;
+
+                if (i === 0){
+                    npcs[i].primeiroTurno = true;
+                }                
+            }
+        }
+
+
+
         this.handleSetNpcs(npcs);
     }
 
@@ -142,7 +159,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
             notes: "",
             race: "",
             primeiroTurno: false,
-            tokenTurno: false
+            seuTurno: false
         };
 
         return npc;
