@@ -140,7 +140,9 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
             movement: "9m",
             mainSkills: [],
             notes: "",
-            race: ""
+            race: "",
+            primeiroTurno: false,
+            tokenTurno: false
         };
 
         return npc;
