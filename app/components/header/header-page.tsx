@@ -5,7 +5,7 @@ import { cssHeader as css } from "./header-style";
 
 
 
-export default class HeaderPage extends Component<{ sortList(), nextTurn(), previousTurn(), getTurn(), addNpc(), clearAllNpc(), addTextChange(text:string) }  > {
+export default class HeaderPage extends Component<{ sortList(), nextTurn(), previousTurn(), getTurn(), addNpc(), clearAllNpc(), addTextChange(text:string), clearAllList() }  > {
 
 
     render() {
@@ -32,7 +32,7 @@ export default class HeaderPage extends Component<{ sortList(), nextTurn(), prev
                         <Text style={css.btnAddNpcLabelCtrl}>{labels.header.btnAddNpcLabel}</Text>
                     </Pressable>
                     <TextInput style={css.txtAddNpc} keyboardType="default" onChangeText={this.props.addTextChange}></TextInput>
-                    <Pressable style={css.btnClearAllNpcBtnCtrl} onPress={this.props.clearAllNpc}  >
+                    <Pressable style={css.btnClearAllNpcBtnCtrl} onPress={this.props.clearAllNpc} onLongPress={this.props.clearAllList} >
                         <Text style={css.btnDelNpcLabelCtrl}>{labels.header.btnDelNpcLabel}</Text>
                     </Pressable>
                 </View>
