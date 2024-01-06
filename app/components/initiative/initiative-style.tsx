@@ -2,11 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const cssInitiative = StyleSheet.create({
   
-  lblTitle:{
-    fontWeight:"bold",
-    fontSize:14,
-    color: "#FF6D00"
-  },
+  
   bodyContainer: {
     flex:1,
     backgroundColor: '#fff',

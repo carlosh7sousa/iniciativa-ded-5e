@@ -170,11 +170,11 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
         return <SafeAreaView style={css.bodyContainer} >
             <StatusBar />
-            <Text style={css.lblTitle}>{labels.initiative.title}</Text>
+         
             <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
-             <NpcListPage npcs={this.state.npcs} idSelected={this.state.headerInfo.idSelected}>
-            </NpcListPage>  
+             {/* <NpcListPage npcs={this.state.npcs} idSelected={this.state.headerInfo.idSelected}>
+            </NpcListPage>   */}
         </SafeAreaView >
     }
 }

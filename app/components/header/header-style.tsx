@@ -1,60 +1,94 @@
 import { StyleSheet } from 'react-native';
 
 export const cssHeader = StyleSheet.create({
-    headerView1: {
+
+    vwHeader:{
         width: "100%",
-        height: 46,
+        height: 110,
+        backgroundColor: "white"        
+    },
+
+    lblHeaderTitle:{
+        height: 20,
+        fontWeight:"bold",
+        fontSize:14,
+        color: "#FF6D00",
+        textAlign: "center",
+      },
+
+    vwHeaderRowTurno: {
+        flex:1,
+        height: 45,
         flexDirection:'row',
         alignItems: "center",
         alignContent: "center",
         backgroundColor: "#424242",
-        justifyContent:'space-around',  
+        justifyContent:'space-between',    
         margin: 0,
-        padding:0,       
+        paddingBotton: 10    
     },
-    headerView2: {
+    vwHeaderRowAddLimpar: {
         width: "100%",
+        height: 45,
         flexDirection:"row",
-        justifyContent:'space-between',      
+        justifyContent:'space-between',    
         margin: 0,
         borderWidth: 0        
     },
+
     
-    lblHeaderTitle: {
-        fontWeight: "bold",
-        fontSize: 16,
-        borderBottomWidth: 4,
-        width: "100%",
-        textAlign: "center"
+
+    vwHeaderTurnoCtrl:{
+        flex: 1,
+        justifyContent:'space-between',          
+        flexDirection:'row',   
     },
 
-    btnNextTurnLabelCtrl: {
+    vwHeaderAddCtrl:{
+        justifyContent:'space-between',          
+        flexDirection:'row',
+        width:"70%"          
+    },
+ 
+
+    lblBtnPreviousTurno: {
         color: "white",
         fontSize: 28, 
         backgroundColor: "#546E7A",
         textAlign: "center",
         height: 46, 
     },
-    btnClearAllNpcBtnCtrl:{
-        width: 70
-    },
-    btnNextTurnBtnCtrl: {
+    btnPreviousTurno: {
         width: 70  
     },
 
-    btnPreviousTurnLabelCtrl: {
+
+
+    lblTurno :{
+        color: "white",
+        fontSize: 18,
+        textAlign:"center",
+        flex:1,
+        height: 46,
+        paddingTop:10,
+    },
+
+
+    lblBtnNextTurno: {
         color: "white",
         fontSize: 28, 
         backgroundColor: "#546E7A",
         textAlign: "center",
-        height: 46,
+        height: 46, 
     },
-    btnPreviousTurnBtnCtrl: {
-        width: 70,
-        marginLeft:10
+    btnNextTurno: {
+        width: 70  
     },
 
-    btnSortTurnLabelCtrl: {
+
+
+
+    lblBtnSortNpcs: {
         color: "white",
         fontSize: 26, 
         padding:0,
@@ -63,28 +97,13 @@ export const cssHeader = StyleSheet.create({
         textAlign: "center",
         height: 46,
     },
-    btnSortTurnBtnCtrl: {        
+    btnSortNpcs: {        
         width: 60
     },
 
-    btnDelNpcLabelCtrl: {
-        fontSize: 18, 
-        color: "#D50000",
-        textAlign: "center",
-        height: 46,
-        width: 80,
-        backgroundColor: "#FFCDD2",
-        padding: 10
-    },
-    btnDelNpcBtnCtrl: {
-        width: 60
-    },
 
-    txtAddNpc:{
-        color: "black",
-        width: "56%",        
-    },
-    btnAddNpcLabelCtrl: {
+    
+    lblBtnAddNpc: {
         color: "white",
         fontSize: 30, 
         padding:0,
@@ -92,19 +111,30 @@ export const cssHeader = StyleSheet.create({
         textAlign: "center",
         width: 60
     },
-    btnAddNpcBtnCtrl: {
+    btnAddNpc: {
         width: 60,       
-        marginRight: 2      
+    },    
+    txtAddNpc:{
+        color: "black",
+        flex: 1,
+        padding:10    
     },
+    
 
-    lblTurnoLabelCtrl :{
-        color: "white",
-        fontSize: 18,
-        textAlign:"center",
-        width: "30%",
+
+
+
+    lblBtnLimpar: {
+        fontSize: 18, 
+        color: "#D50000",
+        textAlign: "center",
         height: 46,
-        paddingTop:10,
+        maxWidth:100,
+        backgroundColor: "#FFCDD2",
+        padding: 10
     },
-   
+    btnLimpar:{
+        maxWidth:100,
+    }
 
 });
