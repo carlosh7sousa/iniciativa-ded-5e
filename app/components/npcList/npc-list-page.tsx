@@ -75,7 +75,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[
 
         let npc: Npc = this.handlerGetNpc(this.state.indexModal);
         if (npc != null) {
-            let newPv: number = parseInt(npc.currentHp.toString());
+            let newPv: number = npc.currentHp;
             if (isNaN(newPv)) {
                 newPv = 0;
             }
@@ -91,7 +91,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[
 
         let npc: Npc = this.handlerGetNpc(this.state.indexModal);
         if (npc != null) {
-            let newPv: number = parseInt(npc.currentHp.toString());
+            let newPv: number = npc.currentHp;
             if (isNaN(newPv)) {
                 newPv = 0;
             }
@@ -112,7 +112,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[] }, { npcs: Npc[
         let npc: Npc = this.handlerGetNpc(this.state.indexModal);
         
         if (npc != null) {
-            let newPv: number = parseInt(npc.currentHp.toString());
+            let newPv: number = npc.currentHp;
             if (isNaN(newPv)) {
                 newPv = 0;
             }
