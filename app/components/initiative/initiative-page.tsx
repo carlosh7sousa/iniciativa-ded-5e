@@ -106,7 +106,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
 
         let alertCancel: AlertButton = { isPreferred: false, text: labels.header.limparNpcsApenas.Cancelar, onPress: () => { } };
 
-        Alert.alert(labels.header.limparNpcsApenas.Titulo, labels.header.limparNpcsApenas.Mensagem, [alertYes,alertCancel]);
+        Alert.alert(labels.header.limparNpcsApenas.Titulo, labels.header.limparNpcsApenas.Mensagem, [alertCancel, alertYes]);
 
     }
     handleClearAllLongClick = () => {
@@ -117,7 +117,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
         };
 
         let alertCancel: AlertButton = { isPreferred: false, text: labels.header.limparNpcsEJogadores.Cancelar, onPress: () => { } };
-        Alert.alert(labels.header.limparNpcsEJogadores.Titulo, labels.header.limparNpcsEJogadores.Mensagem, [alertYes, alertCancel]);
+        Alert.alert(labels.header.limparNpcsEJogadores.Titulo, labels.header.limparNpcsEJogadores.Mensagem, [alertCancel, alertYes]);
     }
 
     handleAddTextChange = (newText: string) => {
