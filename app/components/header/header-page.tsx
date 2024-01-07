@@ -1,46 +1,50 @@
-import { Pressable, Text, TextInput, View } from 'react-native';
+import { Pressable, SafeAreaView, Text, TextInput, View } from 'react-native';
 import { labels } from "../../models/labels";
 import React, { Component } from 'react';
 import { cssHeader as css } from "./header-style";
 
 
 
-export default class HeaderPage extends Component<{ sortList(), nextTurn(), previousTurn(), getTurn(), addNpc(), clearAllNpc(), addTextChange(text:string), clearAllList() }  > {
+export default class HeaderPage extends Component<{ sortList(), nextTurn(), previousTurn(), getTurn(), addNpc(), clearAllNpc(), addTextChange(text: string), clearAllList() }> {
 
 
     render() {
 
         return (
-            <>
-                <View style={css.headerView1}>
-                    <Pressable style={css.btnPreviousTurnBtnCtrl} onPress={this.props.previousTurn}  >
-                        <Text style={css.btnPreviousTurnLabelCtrl}>{labels.header.btnPreviousTurnLabel}</Text>
+            <SafeAreaView style={css.vwHeader} >
+                <Text style={css.lblHeaderTitle}>{labels.initiative.title}</Text>
+
+
+                <SafeAreaView style={css.vwHeaderRowTurno} >
+                    <SafeAreaView style={css.vwHeaderTurnoCtrl} >
+                        <Pressable style={css.btnPreviousTurno} onPress={this.props.previousTurn}  >
+                            <Text style={css.lblBtnPreviousTurno}>{labels.header.btnPreviousTurnLabel}</Text>
+                        </Pressable>
+
+                        <Pressable style={css.btnNextTurno} onPress={this.props.nextTurn}  >
+                            <Text style={css.lblBtnNextTurno}> {labels.header.btnNextTurnLabel}</Text>
+                        </Pressable>
+
+                        <Text style={css.lblTurno}>{labels.header.lblTurno} {this.props.getTurn()}</Text>
+                    </SafeAreaView>
+
+
+                    <Pressable style={css.btnSortNpcs}  >
+                        <Text style={css.lblBtnSortNpcs}>{labels.header.btnSortTurnLabel}</Text>
+                    </Pressable>
+ 
+                </SafeAreaView>
+
+                <SafeAreaView style={css.vwHeaderAddCtrl} >
+                    <Pressable style={css.btnAddNpc} onPress={this.props.addNpc}  >
+                        <Text style={css.lblBtnAddNpc}>{labels.header.btnAddNpcLabel}</Text>
                     </Pressable>
 
-                    <Text style={css.lblTurnoLabelCtrl}>Turno: {this.props.getTurn()}</Text>
+                    <TextInput style={css.txtAddNpc} selectTextOnFocus onChangeText={this.props.addTextChange}></TextInput>
+                </SafeAreaView>
+ 
 
-                    <Pressable style={css.btnNextTurnBtnCtrl} onPress={this.props.nextTurn}  >
-                        <Text style={css.btnNextTurnLabelCtrl}>{labels.header.btnNextTurnLabel}</Text>
-                    </Pressable>
-                    <Pressable style={css.btnSortTurnBtnCtrl}  >
-                        <Text style={css.btnSortTurnLabelCtrl}>{labels.header.btnSortTurnLabel}</Text>
-                    </Pressable>
-                </View>
-
-                <View style={css.headerView2}>
-                    <Pressable style={css.btnAddNpcBtnCtrl} onPress={this.props.addNpc}  >
-                        <Text style={css.btnAddNpcLabelCtrl}>{labels.header.btnAddNpcLabel}</Text>
-                    </Pressable>
-                    <TextInput style={css.txtAddNpc} keyboardType="default" onChangeText={this.props.addTextChange}></TextInput>
-                    <Pressable style={css.btnClearAllNpcBtnCtrl} onPress={this.props.clearAllNpc} onLongPress={this.props.clearAllList} >
-                        <Text style={css.btnDelNpcLabelCtrl}>{labels.header.btnDelNpcLabel}</Text>
-                    </Pressable>
-                </View>
-
-                <View style={css.headerView3}>
-                    <Text style={css.lblListaLabel}>{labels.npc.lblListTitle}</Text>
-                </View>
-            </>
+            </SafeAreaView>
         )
     }
 }

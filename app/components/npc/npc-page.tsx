@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Npc from '../../models/npc';
-import { View, TextInput, Pressable, Text } from 'react-native';
+import { View, TextInput, Pressable, Text, SafeAreaView } from 'react-native';
 import { cssNpc as css } from "./npc-style";
 import { labels } from "../../models/labels";
 
@@ -19,81 +19,66 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
         }
     }
 
-    handlerSetNpc(npc: Npc, index: number): void {
-        this.props.handlerSetNpc(npc, this.props.index);
+    handlerSetNpc = (npc: Npc, index: number): void => {
+        this.props.handlerSetNpc(npc, index);
 
     }
 
-    handlerGetNpc(index: number): Npc {
+    handlerGetNpc = (index: number): Npc => {
         return this.props.handlerGetNpc(index);
     }
 
-   
 
-    getNpcView() {
 
-        let npc: Npc = this.props.handlerGetNpc(this.props.index);
-        let npcView = css.npcViewCtrl;
-        if (npc != null) {
+    // getNpcView() {
 
-            if (!npc.isPlayer && npc.seuTurno){
-                return css. npcViewCtrlSelected;
-            }
+    //     let npc: Npc = this.props.handlerGetNpc(this.props.index);
+    //     let npcView = css.npcViewCtrl;
 
-            if (npc.isPlayer && npc.seuTurno) {
-                return css. playerViewCtrlSelected;
-            }
+    // }
 
-            if (npc.isPlayer && !npc.seuTurno) {
-                return css.playerViewCtrl;
-            }
-        }
+    // getNpcViewLabel() {
+    //     let npc: Npc = this.props.handlerGetNpc(this.props.index);
+    //     let npcViewLabel = css.npcViewLabelCtrl;
 
-        return npcView;
-    }
+    //     if (npc != null) {
 
-    getNpcViewLabel() {
-        let npc: Npc = this.props.handlerGetNpc(this.props.index);
-        let npcViewLabel = css.npcViewLabelCtrl;
+    //         if (!npc.isPlayer && npc.seuTurno) {
+    //             return css.npcViewLabelCtrlSelected;
+    //         }
 
-        if (npc != null) {
+    //         if (npc.isPlayer && npc.seuTurno) {
+    //             return css.playerViewLabelCtrlSelected;
+    //         }
 
-            if (!npc.isPlayer && npc.seuTurno){
-                return css. npcViewLabelCtrlSelected;
-            }
+    //         if (npc.isPlayer && !npc.seuTurno) {
+    //             return css.playerViewLabelCtrl;
+    //         }
+    //     }
 
-            if (npc.isPlayer && npc.seuTurno) {
-                return css. playerViewLabelCtrlSelected;
-            }
+    //     return npcViewLabel;
+    // }
 
-            if (npc.isPlayer && !npc.seuTurno) {
-                return css.playerViewLabelCtrl;
-            } 
-        }
+    // getNpcCtrlViewLabel() {
+    //     let npc: Npc = this.props.handlerGetNpc(this.props.index);
+    //     let npcControlViewLabel = css.npcControlViewLabelCtrl;
 
-        return npcViewLabel;
-    }
+    //     if (npc != null) {
+    //         if (!npc.isPlayer && npc.seuTurno) {
+    //             return css.npcControlViewLabelCtrlSelected;
+    //         }
 
-    getNpcCtrlViewLabel() {
-        let npc: Npc = this.props.handlerGetNpc(this.props.index);
-        let npcControlViewLabel = css.npcControlViewLabelCtrl;
+    //         if (npc.isPlayer && npc.seuTurno) {
+    //             return css.playerControlViewLabelCtrlSelected;
+    //         }
 
-        if (npc != null) {
-            if (!npc.isPlayer && npc.seuTurno){
-                return css. npcControlViewLabelCtrlSelected;
-            }
+    //         if (npc.isPlayer && !npc.seuTurno) {
+    //             return css.playerControlViewLabelCtrl;
+    //         }
 
-            if (npc.isPlayer && npc.seuTurno) {
-                return css. playerControlViewLabelCtrlSelected;
-            }
-
-            if (npc.isPlayer && !npc.seuTurno) {
-                return css.playerControlViewLabelCtrl;
-            } 
-
-            return npcControlViewLabel;
-        }
-    } 
+    //         return npcControlViewLabel;
+    //     }
+    // }
 
     handlePvTextChange = (strNewValue: string) => {
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
@@ -120,6 +105,8 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
     handleIniTextChange = (strNewValue: string) => {
 
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
+
+
         if (npc != null) {
             let newValue: number = parseInt(strNewValue);
 
@@ -127,13 +114,10 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                 newValue = 0;
             }
 
-            if (newValue > 99){
-                newValue = 99;
-            }
-
             npc.initiativeModifier = newValue;
-
+            
             this.props.handlerSetNpc(npc, this.props.index);
+
         }
     };
 
@@ -160,19 +144,23 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
     handlerTurnoDe = (): string => {
 
-        let nome: string = this.props.handlerGetNpc(this.props.index).name;
+        let npc: Npc = this.props.handlerGetNpc(this.props.index);
 
-        if (nome.length > 20) {
-            return nome.substring(0, 20) + "..."
+        if (npc != null && npc.seuTurno) {
+            return labels.npc.token + " " + npc.name
         }
 
-        return nome;
+        if (npc != null && npc.seuTurno && npc.name.length > 20) {
+            return labels.npc.token + " " + npc.name.substring(0, 20) + "..."
+        }
+
+        return "";
 
     }
 
     obterNpcMaiorIniciativa = (): Npc => {
         let sortedNpc: Npc[] = this.props.npcsReadonly;
-        
+
         sortedNpc.sort((a: Npc, b: Npc) => {
 
             if (a.initiativeModifier == b.initiativeModifier) {
@@ -197,49 +185,58 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
 
 
-    handlerInicioTurnoVisible = () => {
 
-        let npcMaiorIniciativa: Npc = this.obterNpcMaiorIniciativa();
-        let npc: Npc = this.handlerGetNpc(this.props.index);
-
-        if (npc != null && npcMaiorIniciativa != null && npc.id === npcMaiorIniciativa.id){
-            return (<View>
-                <Text style={css.lblInicioTurno}>{labels.npc.inicioTurno}</Text>
-            </View>);
-        }
-
-
-        return "";
-    }
 
 
     render() {
 
         return (
-            <>
-                {
-                    this.handlerInicioTurnoVisible()
-                }
-                <View style={this.getNpcView()}>
-                    <TextInput selectTextOnFocus style={css.initTxtCtrl} onChangeText={this.handleIniTextChange} keyboardType='number-pad' value={this.props.handlerGetNpc(this.props.index).initiativeModifier.toString()} />
-                    <TextInput selectTextOnFocus style={css.nameTxtCtrl} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.index).name} />
+            <SafeAreaView style={css.vwNpcComponent}>
 
-                    <Pressable style={css.hpTxtCtrl} onPress={this.handlerHpClick} >
-                        <Text style={css.hpTxtCtrl} >{this.props.handlerGetNpc(this.props.index).currentHp.toString()}</Text>
-                    </Pressable>
+                <SafeAreaView style={css.vwNpcRow1}>
+                    <SafeAreaView style={css.vwNpcGroupCtrl1}>
+                        <Text style={css.lblIni}> </Text>
+                        <Text style={css.lblTurnoDe}>{this.handlerTurnoDe()}</Text>
+                        <Text style={css.lblPv}></Text>
+                    </SafeAreaView>
 
-                    <View style={this.getNpcCtrlViewLabel()}>
-                        <Pressable style={css.btnCtrl} onPress={this.handleNpcDetailsButtonClick}  >
-                            <Text style={css.btnLabelCtrl}>{labels.npc.buttonLabel}</Text>
+                    <SafeAreaView style={css.vwNpcGroupCtrl2}>
+                    </SafeAreaView>
+                </SafeAreaView>
+
+
+                <SafeAreaView style={css.vwNpcRow2}>
+
+                    <SafeAreaView style={css.vwNpcGroupCtrl1}>
+                        <TextInput selectTextOnFocus style={css.txtIni} onChangeText={this.handleIniTextChange} keyboardType='number-pad' value={this.props.handlerGetNpc(this.props.index).initiativeModifier.toString()} maxLength={2} />
+                        <TextInput selectTextOnFocus style={css.txtNomeNpc} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.index).name} maxLength={20} />
+
+                        <Pressable style={css.btnPv} onPress={this.handlerHpClick} >
+                            <Text style={css.lblBtnPv} >{this.props.handlerGetNpc(this.props.index).currentHp.toString()}</Text>
                         </Pressable>
-                    </View>
-                </View>
-                <View style={this.getNpcViewLabel()}>
-                    <Text style={css.iniLblCtrl}>{labels.npc.iniLabel}</Text>
-                    <Text style={css.nameLblTokenCtrl}>{labels.npc.token} {this.handlerTurnoDe()}</Text>
-                    <Text style={css.hpLblCtrl}>{labels.npc.hpLabel}</Text>
-                </View>
-            </>
+                    </SafeAreaView>
+
+                    <SafeAreaView style={css.vwNpcGroupCtrl2}>
+                        <Pressable style={css.btnVer} onPress={this.handleNpcDetailsButtonClick}  >
+                            <Text style={css.lblBtnVer}>{labels.npc.buttonLabel}</Text>
+                        </Pressable>
+                    </SafeAreaView>
+                </SafeAreaView>
+
+
+                <SafeAreaView style={css.vwNpcRow3}>
+                    <SafeAreaView style={css.vwNpcGroupCtrl1}>
+                        <Text style={css.lblIni}>{labels.npc.iniLabel}</Text>
+                        <Text style={css.lblTurnoDe}> </Text>
+                        <Text style={css.lblPv}>{labels.npc.hpLabel}</Text>
+                    </SafeAreaView>
+                    <SafeAreaView style={css.vwNpcGroupCtrl2}>
+
+                    </SafeAreaView>
+                </SafeAreaView>
+
+
+            </SafeAreaView>
         )
     }
 

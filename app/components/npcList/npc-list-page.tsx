@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Npc from "../../models/npc";
-import { Modal, Pressable, ScrollView, TextInput, View, Text } from "react-native";
+import { Modal, Pressable, ScrollView, TextInput, View, Text, SafeAreaView } from "react-native";
 import NpcPage from "../npc/npc-page";
 import { cssNpcList as css } from "./npc-list-style";
 import { labels } from "../../models/labels";
@@ -22,18 +22,18 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         this.handlerPvButtonClick = this.handlerPvButtonClick.bind(this);
     }
 
-    handlerSetNpc(npc: Npc, index: number): void {
-        if (npc && index > 0) {
+    handlerSetNpc = (npc: Npc, index: number): void => {
+        if (npc && index >= 0) {
             this.props.npcs[index] = npc;
             this.setState({ npcs: this.props.npcs });
         }
     }
 
-    handlerGetNpc(index: number): Npc {
+    handlerGetNpc = (index: number): Npc => {
         return this.props.npcs[index];
     }
 
-    handlerPvButtonClick(index: number): void {
+    handlerPvButtonClick = (index: number): void => {
 
         let npc: Npc = this.handlerGetNpc(index);
         let oldPv: number = 0;
@@ -130,6 +130,10 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     }
 
 
+    handleCloseModal = () => {
+        this.resetModalState();
+    }
+
 
     handleModalNpcNameValue = (): string => {
         let npc: Npc = this.handlerGetNpc(this.state.indexModal);
@@ -147,34 +151,58 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     render() {
 
         return (
-            <>
+            <SafeAreaView>
+                <SafeAreaView style={css.vwNpcListComponent}>
 
-                <ScrollView style={css.listaNpcsView}>
-                    {this.props.npcs.map((npc: Npc, index: number) => { return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} />) })}
-                </ScrollView>
+                    <View style={css.headerView3}>
+                        <Text style={css.lblListaLabel}>{labels.npc.lblListTitle}</Text>
+                    </View>
 
-                <Modal visible={this.isVisibleModalPv(this.state.indexModal)}>
+                    <ScrollView style={css.listaNpcsView}>
+                        {this.props.npcs.map((npc: Npc, index: number) => { return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} />) })}
+                    </ScrollView>
+
+                </SafeAreaView>
+
+
+                <Modal visible={this.isVisibleModalPv(this.state.indexModal)} transparent={true}>
+
                     <View style={css.modalView}>
-                        <Text style={css.modalPvLblCtrl}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}: {this.handleModalNpcPvValue()}</Text>
-                        <TextInput style={css.modalPvTxtCtrl} selectTextOnFocus onChangeText={this.handleModalPvTextChange} keyboardType='number-pad' />
-                        <View style={css.modalViewControls}>
+                        <View style={css.modalArea}>
 
-                            <Pressable style={css.modalSubtractBtnCtrl}
-                                onPress={this.handlePvSubtrair}>
-                                <Text style={css.modalLblSubtractBtnCtrl}>{labels.modalNpc.btnSubtract}</Text>
-                            </Pressable>
-                            <Pressable style={css.modalAddBtnCtrl}
-                                onPress={this.handlePvSomar}>
-                                <Text style={css.modalLblAddBtnCtrl}>{labels.modalNpc.btnAdd}</Text>
-                            </Pressable>
-                            <Pressable style={css.modalSetBtnCtrl}
-                                onPress={this.handlePvAtribuir}>
-                                <Text style={css.modalLblSetBtnCtrl}>{labels.modalNpc.btnSet}</Text>
-                            </Pressable>
+                            <View style={css.modalRow1}>
+                                <Text style={css.modalLblTitulo}>{labels.modalNpc.titulo}</Text>
+                                <Pressable style={css.modalBtnClose}
+                                    onPress={this.handleCloseModal}>
+                                    <Text style={css.modalLblBtnClose}>{labels.modalNpc.btnClose}</Text>
+                                </Pressable>
+                            </View>
+                            <View style={css.modalRow2}>
+                                <Text style={css.modalLblName}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}: {this.handleModalNpcPvValue()}</Text>
+
+                            </View>
+                            <View style={css.modalRow3}>
+                                <TextInput style={css.modalTxtPv} selectTextOnFocus onChangeText={this.handleModalPvTextChange} keyboardType='number-pad' maxLength={4} />
+                            </View>
+                            <View style={css.modalRow4}>
+
+                                <Pressable style={css.modalBtnSubtract}
+                                    onPress={this.handlePvSubtrair}>
+                                    <Text style={css.modalLblBtnSubtract}>{labels.modalNpc.btnSubtract}</Text>
+                                </Pressable>
+                                <Pressable style={css.modalBtnAdd}
+                                    onPress={this.handlePvSomar}>
+                                    <Text style={css.modalLblBtnAdd}>{labels.modalNpc.btnAdd}</Text>
+                                </Pressable>
+                                <Pressable style={css.modalBtnSet}
+                                    onPress={this.handlePvAtribuir}>
+                                    <Text style={css.modalLblBtnSet}>{labels.modalNpc.btnSet}</Text>
+                                </Pressable>
+                            </View>
                         </View>
                     </View>
                 </Modal>
-            </>
+            </SafeAreaView>
 
         );
     }

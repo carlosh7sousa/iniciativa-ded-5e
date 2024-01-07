@@ -1,15 +1,24 @@
 import Npc from "./npc"
 import * as context from "../../app-config/context.json";
+import HeaderInfo from "./headerInfo";
 
 export default class Ctx
 {
+    npcs: Npc[];
+    headerInfo: HeaderInfo;
 
     constructor() {
         this.init();
     }
 
     init(){
-        
+        this.headerInfo = {            
+              idSelected: -1,
+              turno: 0,
+              txtNameAdd: ""
+        }
+
+       this.npcs = this.initNpcs(20);
     } 
 
     initNpcs(num:number): Npc[]{

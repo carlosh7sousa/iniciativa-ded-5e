@@ -3,11 +3,12 @@
         "title": "DeD Iniciativa"
     },
     "header":{
+        "lblTurno": "Turno:",
         "btnPreviousTurnLabel":"<<",
         "btnNextTurnLabel": ">>",
         "btnSortTurnLabel": "⇅",
         "btnAddNpcLabel": "+",
-        "btnDelNpcLabel" : "limpar",
+        "btnDelNpcLabel" : "Limpar lista de NPCs",
         "limparNpcsApenas": {"Titulo": "Excluir apenas NPCs", "Mensagem": "Deseja excluir os NPCS? (jogadores permanecerão).", "Cancelar": "Cancelar"},
         "limparNpcsEJogadores": {"Titulo": "Excluir NPCs e Jogadores", "Mensagem": "Deseja excluir NPCs e Jogadores?", "Cancelar": "Cancelar"}
     },
@@ -21,9 +22,11 @@
         "hpLabel": "PV"        
     },
     "modalNpc" : {
+        "titulo": "Alterar PVs",
         "labelPv": "PVs",
         "btnSubtract": "Subtrair",
         "btnAdd": "Somar",
-        "btnSet": "Atribuir"
+        "btnSet": "Atribuir",
+        "btnClose": "X"
     } 
 }

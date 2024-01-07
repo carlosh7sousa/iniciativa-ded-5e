@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, StatusBar, Alert, AlertButton } from 'react-native';
+import { Text, SafeAreaView, Alert, AlertButton, StatusBar } from 'react-native';
 import { labels } from "../../models/labels";
 import { cssInitiative as css } from "./initiative-style";
 import React, { Component } from 'react';
@@ -6,18 +6,22 @@ import Ctx from '../../models/context';
 import HeaderPage from '../header/header-page';
 import Npc from '../../models/npc';
 import NpcListPage from '../npcList/npc-list-page';
+import HeaderInfo from '../../models/headerInfo';
+import FooterPage from '../footer/footer-page';
 
-export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: number, countIdNpc: number, txtNameAdd: string, idSelected: number }> {
+export default class InitiativePage extends Component<{}, { npcs: Npc[], headerInfo: HeaderInfo, generatedId: number, npcNum: number }> {
 
 
     constructor(props) {
         super(props);
+
+        let ctx: Ctx = new Ctx();
+
         this.state = {
-            npcs: [],
-            turno: 0,
-            countIdNpc: 1,
-            txtNameAdd: "NPC",
-            idSelected: 0
+            npcs: ctx.npcs,
+            headerInfo: ctx.headerInfo,
+            generatedId: 1,
+            npcNum: 1
         };
 
         this.handleGetNpcs.bind(this);
@@ -25,16 +29,28 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
         this.handleSortTurnButtonClick.bind(this);
     }
 
-    generateNewId(): number {
-        let countId: number = this.state.countIdNpc;
-        countId++;
-        this.setState({ countIdNpc: countId });
-        return countId;
+    resetNpcNum(restartNpcNum: number) {
+        this.setState({ npcNum: restartNpcNum })
+    }
 
+    generateNewId(): number {
+        let countId: number = this.state.generatedId;
+        countId++;
+        this.setState({ generatedId: countId });
+        return countId;
+    }
+
+    generateNewNpcNum(): number {
+        let countNpcNum: number = this.state.npcNum;
+        countNpcNum++;
+        this.setState({ npcNum: countNpcNum });
+        return countNpcNum;
     }
 
     handleTurnValueChange = (turno) => {
-        this.setState({ turno });
+        let headerInfo: HeaderInfo = this.state.headerInfo;
+        headerInfo.turno = turno;
+        this.setState({ headerInfo });
     };
 
     handleGetNpcs = (): Npc[] => {
@@ -46,17 +62,17 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
     }
 
     handleGetTurn = (): number => {
-        return this.state.turno;
+        return this.state.headerInfo.turno;
     }
 
     handleSortTurnButtonClick = () => {
 
         let npcs: Npc[] = this.handleGetNpcs();
-        
+
     }
 
     handleNextTurnButtonClick = () => {
-        let turno: number = this.state.turno;
+        let turno: number = this.state.headerInfo.turno;
         let npcs: Npc[] = this.handleGetNpcs();
 
         let index: number = npcs.findIndex(x => x.seuTurno);
@@ -66,21 +82,27 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
             npcs[0].seuTurno = true;
             turno += 1;
             // this.setState({ npcs: npcs });
-            this.setState({ idSelected: npcs[0].id });
+
+            let info: HeaderInfo = this.state.headerInfo;
+            info.idSelected = npcs[0].id;
+            this.setState({ headerInfo: info });
         }
 
         if (index >= 0 && npcs.length < index) {
             npcs[index].seuTurno = false;
             npcs[index + 1].seuTurno = true;
             // this.setState({ npcs: npcs });
-            this.setState({ idSelected: npcs[index + 1].id });
+
+            let info: HeaderInfo = this.state.headerInfo;
+            info.idSelected = npcs[index + 1].id
+            this.setState({ headerInfo: info });
         }
 
         this.handleTurnValueChange(turno);
     };
 
     handlePreviousTurnButtonClick = () => {
-        let turno: number = this.state.turno;
+        let turno: number = this.state.headerInfo.turno;
         turno -= 1;
 
         if (turno == -1) {
@@ -93,8 +115,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
 
     handleAddNcpButtonClick = () => {
         let npcs: Npc[] = this.state.npcs;
-
-        npcs.push(this.createNpc(this.state.txtNameAdd));
+        npcs.push(this.createNpc(this.state.headerInfo.txtNameAdd));
     };
 
     handleClearAllNpcButtonClick = () => {
@@ -103,8 +124,12 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
             isPreferred: true,
             text: labels.header.limparNpcsApenas.Titulo,
             onPress: () => {
-                let onlyPlayers: Npc[] = this.state.npcs.filter(x => x.isPlayer);
-                this.setState({ npcs: onlyPlayers });
+
+                if (this.state.npcs != null) {
+                    let onlyPlayers: Npc[] = this.state.npcs.filter(x => x.isPlayer);
+                    this.setState({ npcs: onlyPlayers });
+                    this.resetNpcNum(0);
+                }
             }
 
         };
@@ -118,6 +143,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
         let alertYes: AlertButton = {
             isPreferred: true, text: labels.header.limparNpcsEJogadores.Titulo, onPress: () => {
                 this.setState({ npcs: [] });
+                this.resetNpcNum(0);
             }
         };
 
@@ -126,13 +152,15 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
     }
 
     handleAddTextChange = (newText: string) => {
-        this.setState({ txtNameAdd: newText });
+        let info: HeaderInfo = this.state.headerInfo;
+        info.txtNameAdd = newText;
+        this.setState({ headerInfo: info });
     }
 
     createNpc(npcName: string): Npc {
         let npc: Npc = {
             id: this.generateNewId(),
-            name: npcName + " " + this.state.countIdNpc,
+            name: npcName + " " + this.generateNewNpcNum(),
             initiativeModifier: 0,
             isPlayer: false,
             alignment: "",
@@ -155,13 +183,17 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], turno: 
 
     render() {
 
-        return <SafeAreaView style={css.bodyContainer} >
+        return <SafeAreaView style={css.bodyContainer}>
             <StatusBar />
-            <Text style={css.lblTitle}>{labels.initiative.title}</Text>
+
+
             <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
-            <NpcListPage npcs={this.state.npcs} idSelected={this.state.idSelected}>
+            <NpcListPage npcs={this.state.npcs} idSelected={this.state.headerInfo.idSelected}>
             </NpcListPage>
+
+
+            <FooterPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
         </SafeAreaView >
     }
 }

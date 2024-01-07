@@ -1,125 +1,127 @@
 import { StyleSheet } from 'react-native';
 
 export const cssHeader = StyleSheet.create({
-    headerView1: {
+
+    vwHeader: {
         width: "100%",
-        height: 46,
-        flexDirection:'row',
-        alignItems: "center",
-        alignContent: "center",
-        backgroundColor: "#424242",
-        justifyContent:'space-around',  
-        margin: 0,
-        padding:0,       
-    },
-    headerView2: {
-        width: "100%",
-        flexDirection:"row",
-        justifyContent:'space-between',      
-        margin: 0,
-        borderWidth: 0        
-    },
-    headerView3: {
-        width: "100%",
-        flexDirection:"row",
-        alignItems: "center",
-        alignContent: "center",
-        backgroundColor: "#424242",
-        margin: 0,
-        borderWidth: 0,
-    },
-    lblHeaderTitle: {
-        fontWeight: "bold",
-        fontSize: 16,
-        borderBottomWidth: 4,
-        width: "100%",
-        textAlign: "center"
+        height: 115,
+        backgroundColor: "white",
     },
 
-    btnNextTurnLabelCtrl: {
+    lblHeaderTitle: {
+        height: 20,
+        fontWeight: "bold",
+        fontSize: 14,
+        color: "#FF6D00",
+        textAlign: "center",
+    },
+
+    vwHeaderRowTurno: {
+        width: "100%",
+        height: 45,
+        flexDirection: 'row',
+        backgroundColor: "#424242",
+        justifyContent: 'space-between',
+        margin: 0,
+        paddingBotton: 10
+    },
+
+
+
+
+    vwHeaderTurnoCtrl: {
+
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: "center",
+        alignContent: "center",
+    },
+
+
+
+
+    lblBtnPreviousTurno: {
         color: "white",
-        fontSize: 28, 
+        fontSize: 28,
         backgroundColor: "#546E7A",
         textAlign: "center",
-        height: 46, 
+        height: 46,
     },
-    btnClearAllNpcBtnCtrl:{
+    btnPreviousTurno: {
         width: 70
     },
-    btnNextTurnBtnCtrl: {
-        width: 70  
+
+
+
+    lblTurno: {
+        color: "white",
+        fontSize: 18,
+        textAlign: "center",
+        height: 46,
+        padding: 10
     },
 
-    btnPreviousTurnLabelCtrl: {
+
+    lblBtnNextTurno: {
         color: "white",
-        fontSize: 28, 
+        fontSize: 28,
         backgroundColor: "#546E7A",
         textAlign: "center",
         height: 46,
     },
-    btnPreviousTurnBtnCtrl: {
-        width: 70,
-        marginLeft:10
+    btnNextTurno: {
+        width: 70
     },
 
-    btnSortTurnLabelCtrl: {
+
+
+
+    lblBtnSortNpcs: {
         color: "white",
-        fontSize: 26, 
-        padding:0,
+        fontSize: 26,
+        padding: 0,
         backgroundColor: "#90A4AE",
         borderColor: "#90A4AE",
         textAlign: "center",
         height: 46,
     },
-    btnSortTurnBtnCtrl: {        
+    btnSortNpcs: {
         width: 60
     },
 
-    btnDelNpcLabelCtrl: {
-        fontSize: 18, 
-        color: "#D50000",
-        textAlign: "center",
-        height: 46,
-        width: 80,
-        backgroundColor: "#FFCDD2",
-        padding: 10
-    },
-    btnDelNpcBtnCtrl: {
-        width: 60
+
+
+
+    vwHeaderAddCtrl: {
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        width: "100%",
+        height: 50
     },
 
-    txtAddNpc:{
-        color: "black",
-        width: "56%",        
-    },
-    btnAddNpcLabelCtrl: {
+    lblBtnAddNpc: {
         color: "white",
-        fontSize: 30, 
-        padding:0,
+        fontSize: 30,
+        padding: 0,
         backgroundColor: "#90CAF9",
         textAlign: "center",
-        width: 60
+        width:60,
+        height: 50
     },
-    btnAddNpcBtnCtrl: {
-        width: 60,       
-        marginRight: 2      
+    btnAddNpc: {
+        width: 60,
+        height: 50
+    },
+    txtAddNpc: {
+        color: "white",
+        padding: 10,
+        fontSize: 16,
+        fontWeight: "bold",
+        backgroundColor: "#263238",
+        flex: 1
     },
 
-    lblTurnoLabelCtrl :{
-        color: "white",
-        fontSize: 18,
-        textAlign:"center",
-        width: "30%",
-        height: 46,
-        paddingTop:10,
-    },
-    lblListaLabel: {
-       borderTopWidth: 0,
-        fontSize: 14,
-        borderBottomWidth: 3,
-        width: "100%",
-        textAlign: "center",
-        color:"white"
-    }
+
+
 
 });
