@@ -132,7 +132,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
             }
         });
 
-        sortedNpc = sortedNpc.filter(x => x != null);
+        sortedNpc = sortedNpc.filter(x => x != null && x.ativo);
         if (sortedNpc.length > 1) {
             return sortedNpc[0];
         }

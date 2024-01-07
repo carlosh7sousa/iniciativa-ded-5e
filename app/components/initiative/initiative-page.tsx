@@ -55,7 +55,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
     };
 
     handleGetNpcs = (): Npc[] => {
-        return this.state.npcs;
+        return this.obterNpcsAtivos();
     }
 
     handleSetNpcs = (npcs: Npc[]) => {
@@ -84,7 +84,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
                 }
             });
 
-            sortedNpc = sortedNpc.filter(x => x != null);
+            sortedNpc = sortedNpc.filter(x => x != null && x.ativo);
 
             if (sortedNpc != null && sortedNpc.length > 0) {
                 sortedNpc.forEach(x => x.seuTurno = false);
@@ -101,12 +101,13 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
 
     existeItensListaNpc = (): boolean => {
-        return this.state.npcs != null && this.state.npcs.length > 0;
+        let npcs: Npc[] = this.obterNpcsAtivos();
+        return npcs != null && npcs.length > 0;
     }
 
     obterNpcSelecionado = (): Npc => {
         if (this.existeItensListaNpc()) {
-            return this.state.npcs.find(x => x.id === this.state.headerInfo.idSelected);
+            return this.state.npcs.find(x => x.id === this.state.headerInfo.idSelected && x.ativo);
         }
 
         return null;
@@ -114,7 +115,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
 
     selecionarPrimeiroNpc = () => {
-        let npcsUpdated: Npc[] = this.state.npcs;
+        let npcsUpdated: Npc[] = this.obterNpcsAtivos();
 
         if (this.existeItensListaNpc()) {
             let info: HeaderInfo = this.state.headerInfo;
@@ -130,6 +131,15 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         }
     }
 
+    obterNpcsAtivos() {
+        if (this.state.npcs != null) {
+            return this.state.npcs.filter(x => x.ativo);
+        }
+
+        return [];
+
+    }
+
     selecionarProximo = () => {
         let npcSelected: Npc = this.obterNpcSelecionado();
 
@@ -138,7 +148,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         }
 
         if (npcSelected != null) {
-            let npcsUpdated: Npc[] = this.state.npcs;
+            let npcsUpdated: Npc[] = this.obterNpcsAtivos();
             let index: number = npcsUpdated.findIndex(x => x.id === npcSelected.id);
 
             let nextIndex: number = index + 1;
@@ -176,7 +186,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         }
 
         if (npcSelected != null) {
-            let npcsUpdated: Npc[] = this.state.npcs;
+            let npcsUpdated: Npc[] = this.obterNpcsAtivos();
             let index: number = npcsUpdated.findIndex(x => x.id === npcSelected.id);
 
             let previousIndex: number = index - 1;
@@ -215,7 +225,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
 
     handleAddNcpButtonClick = () => {
-        let npcsUpdated: Npc[] = this.state.npcs;
+        let npcsUpdated: Npc[] = this.obterNpcsAtivos();
         let npc: Npc = this.createNpc(this.state.headerInfo.txtNameAdd);
 
         if (npcsUpdated.length === 0) {
@@ -235,9 +245,9 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             isPreferred: true,
             text: labels.header.limparNpcsApenas.Titulo,
             onPress: () => {
-
-                if (this.state.npcs != null) {
-                    let onlyPlayers: Npc[] = this.state.npcs.filter(x => x.isPlayer);
+                let npcs: Npc[] = this.obterNpcsAtivos();
+                if (npcs != null) {
+                    let onlyPlayers: Npc[] = npcs.filter(x => x.isPlayer);
                     this.setState({ npcs: onlyPlayers });
                     this.resetNpcNum(0);
                 }
@@ -302,7 +312,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         return npc;
     }
 
-   
+
 
     render() {
 
@@ -311,7 +321,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
             <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
-            <NpcListPage npcs={this.state.npcs} idSelected={this.state.headerInfo.idSelected} >
+            <NpcListPage npcs={this.obterNpcsAtivos()} idSelected={this.state.headerInfo.idSelected} >
             </NpcListPage>
 
             <FooterPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />

@@ -17,9 +17,32 @@ export default class Ctx {
             txtNameAdd: ""
         }
 
-        let arr: Npc[] = [... this.initNpcs(20), ... this.initPlayers(9)];
-        this.npcs = [...new Set(arr)];
+        let arr: Npc[] = [... this.initNpcs(20), ... this.initPlayers(9), ...context.npcs];
+        this.npcs = this.obterUniqueNpcs(arr);
     }
+
+    obterUniqueNpcs(arr: Npc[]): Npc[] {
+
+        if (arr == null) {
+            return [];
+        }
+
+        arr = arr.filter(x => x.ativo);
+        let ids: number[] = [];
+
+        let result: Npc[] = [];
+        for (let i: number = 0; i < arr.length; i++) {
+
+            if (!ids.includes(arr[i].id)) {
+                ids.push(arr[i].id);
+                result.push(arr[i]);
+            }
+        }
+
+        return result;
+    }
+
+
 
     initNpcs(num: number): Npc[] {
         let npcs: Npc[] = [];

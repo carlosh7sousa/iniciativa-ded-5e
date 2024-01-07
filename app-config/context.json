@@ -14,6 +14,9 @@
         "armorClass": 18,
         "movement": "9m",
         "notes":"",
+        "ativo": true,
+        "seuTurno": false,
+        "primeiroTurno": false,
         "attacks":[
             {
                 "id": 0,
@@ -50,7 +53,7 @@
         ]        
 },
 {
-    "id": 2,
+    "id": 2,    
     "name": "Gwindor",
     "race": "Elfo silvestre",
     "class":"Druida 1",
@@ -62,6 +65,9 @@
     "armorClass": 16,
     "movement": "13,5m",
     "notes":"",
+    "ativo": true,
+    "seuTurno": false,
+    "primeiroTurno": false,
     "attacks":[
         {
             "id": 0,
