@@ -106,57 +106,61 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         return null;
     }
 
-    selecionarProximo = () => {
-        let npcSelected: Npc = this.obterNpcSelecionado();
 
-        if (npcSelected != null) {
-            let npcsUpdated: Npc[] = this.state.npcs;
+    selecionarPrimeiroNpc = () => {
+        let npcsUpdated: Npc[] = this.state.npcs;
+
+        if (this.existeItensListaNpc()) {
+            let info: HeaderInfo = this.state.headerInfo;
 
             for (let i: number = 0; i < npcsUpdated.length; i++) {
-                npcsUpdated[i].seuTurno = npcsUpdated[i].id === npcSelected.id;
+                npcsUpdated[i].seuTurno = npcsUpdated[i].id === npcsUpdated[0].id;
             }
 
-            let info = this.state.headerInfo;
-            info.idSelected = npcSelected.id;
+            info.idSelected = npcsUpdated[0].id;
 
             this.setState({ headerInfo: info });
             this.setState({ npcs: npcsUpdated });
         }
     }
 
+    selecionarProximo = () => {
+        let npcSelected: Npc = this.obterNpcSelecionado();
 
+        if (npcSelected == null) {
+            this.selecionarPrimeiroNpc();
+        }
+
+        if (npcSelected != null) {
+            let npcsUpdated: Npc[] = this.state.npcs;
+            let index: number = npcsUpdated.findIndex(x => x.id === npcSelected.id);
+
+            let nextIndex: number = index + 1;
+            let nextSelectedId: number = -1;
+            if (nextIndex >= npcsUpdated.length) {
+                this.handleTurnValueChange(this.state.headerInfo.turno + 1);
+                nextSelectedId = npcsUpdated[0].id;
+            }
+            else
+            {
+                nextSelectedId = npcsUpdated[nextIndex].id;
+            }
+
+            for (let i: number = 0; i < npcsUpdated.length; i++) {
+                npcsUpdated[i].seuTurno = npcsUpdated[i].id === nextSelectedId;
+            }
+
+            let info = this.state.headerInfo;
+            info.idSelected = nextSelectedId;
+
+            this.setState({ headerInfo: info });
+            this.setState({ npcs: npcsUpdated });
+        }
+    } 
 
     handleNextTurnButtonClick = () => {
 
         this.selecionarProximo();
-
-        // let turno: number = this.state.headerInfo.turno;
-        // let npcs: Npc[] = this.handleGetNpcs();
-
-        // let index: number = npcs.findIndex(x => x.seuTurno);
-
-        // if (index >= 0 && npcs.length === index) {
-        //     npcs[index].seuTurno = false;
-        //     npcs[0].seuTurno = true;
-        //     turno += 1;
-        //     // this.setState({ npcs: npcs });
-
-        //     let info: HeaderInfo = this.state.headerInfo;
-        //     info.idSelected = npcs[0].id;
-        //     this.setState({ headerInfo: info });
-        // }
-
-        // if (index >= 0 && npcs.length < index) {
-        //     npcs[index].seuTurno = false;
-        //     npcs[index + 1].seuTurno = true;
-        //     // this.setState({ npcs: npcs });
-
-        //     let info: HeaderInfo = this.state.headerInfo;
-        //     info.idSelected = npcs[index + 1].id
-        //     this.setState({ headerInfo: info });
-        // }
-
-        // this.handleTurnValueChange(turno);
     };
 
     handlePreviousTurnButtonClick = () => {
@@ -254,12 +258,10 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         return <SafeAreaView style={css.bodyContainer}>
             <StatusBar />
 
-
             <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
             <NpcListPage npcs={this.state.npcs} idSelected={this.state.headerInfo.idSelected}>
             </NpcListPage>
-
 
             <FooterPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
         </SafeAreaView >

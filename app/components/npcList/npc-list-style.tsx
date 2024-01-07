@@ -11,7 +11,7 @@ h = h - footer;
 h = h - StatusBar.currentHeight - 18;
 
 
-let modalHeight: number = h * 0.5;
+let modalHeight: number = h * 0.55;
 
 export const cssNpcList = StyleSheet.create({
 
