@@ -1,33 +1,42 @@
 import { StyleSheet } from 'react-native';
 
 export const cssNpc = StyleSheet.create({
-  npcViewCtrl: {
+
+  vwNpcComponent: {
+    width: "100%",
+    flexDirection: "column",
+    height: 100
+  },
+
+
+  vwNpcRow0: {
+    flexDirection: "row",
+    width: "100%",
+  },
+
+
+  vwNpcRow1: {
+    flexDirection: "row",
+    justifyContent: 'space-between',
+    width: "100%",
+    backgroundColor: "#E57373",
+
+  },
+
+
+
+  vwNpcRow2: {
+    flexDirection: "row",
+    justifyContent: 'space-between',
+    width: "100%",
+    backgroundColor: "#E57373",
+
+  },
+
+
+  vwNpcRow3: {
     flexDirection: "row",
     backgroundColor: "#E57373",
-    paddingBottom: 0,
-    paddingTop: 20,
-    width: "100%"
-  },
-  playerViewCtrl: {
-    flexDirection: "row",
-    backgroundColor: "#81C784",
-    paddingBottom: 0,
-    paddingTop: 20,
-    width: "100%"
-  },
-
-  npcViewCtrlSelected: {
-    flexDirection: "row",
-    backgroundColor: "#FFFF00",
-    paddingBottom: 0,
-    paddingTop: 20,
-    width: "100%"
-  },
-  playerViewCtrlSelected: {
-    flexDirection: "row",
-    backgroundColor: "#FFFF00r",
-    paddingBottom: 0,
-    paddingTop: 20,
     width: "100%"
   },
 
@@ -35,172 +44,96 @@ export const cssNpc = StyleSheet.create({
 
 
 
-
-
-  npcViewLabelCtrl: {
+  vwNpcGroupCtrl1: {
     flexDirection: "row",
-    backgroundColor: "#E57373",
-    paddingBottom: 0,
-    paddingTop: 0,
-    margin:0,
-    borderBottomWidth: 12,
-    borderBottomColor: "white",
-    width: "100%"
-  }, 
-  playerViewLabelCtrl: {
-    flexDirection: "row",
-    backgroundColor: "#81C784",
-    paddingBottom: 0,
-    paddingTop: 0,
-    margin:0,
-    borderBottomWidth: 12,
-    borderBottomColor: "white",
-    width: "100%"
+    marginLeft: 10,
+    width: "80%"
   },
 
-  npcViewLabelCtrlSelected: {
+  vwNpcGroupCtrl2: {
     flexDirection: "row",
-    backgroundColor: "#FFFF00",
-    paddingBottom: 0,
-    paddingTop: 0,
-    margin:0,
-    borderBottomWidth: 12,
-    borderBottomColor: "white",
-    width: "100%"
-  }, 
-  playerViewLabelCtrlSelected: {
-    flexDirection: "row",
-    backgroundColor: "#FFFF00",
-    paddingBottom: 0,
-    paddingTop: 0,
-    margin:0,
-    borderBottomWidth: 12,
-    borderBottomColor: "white",
-    width: "100%"
+    marginRight: 10,
+    width: "20%"
   },
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  npcControlViewLabelCtrl: {
-    flexDirection: "row",
-    backgroundColor: "#E57373",    
-    paddingBottom: 0,
-    paddingTop: 0, 
-    margin:0,
-    width: 50
-  }, 
-  playerControlViewLabelCtrl: {
-    flexDirection: "row",
-    backgroundColor: "#81C784",
-    paddingBottom: 0,
-    paddingTop: 0, 
-    margin:0,
-    width: 50
-  },
-
-
-  npcControlViewLabelCtrlSelected: {
-    flexDirection: "row",
-    backgroundColor: "#FFFF00",    
-    paddingBottom: 0,
-    paddingTop: 0, 
-    margin:0,
-    width: 50
-  }, 
-  playerControlViewLabelCtrlSelected: {
-    flexDirection: "row",
-    backgroundColor: "#FFFF00",
-    paddingBottom: 0,
-    paddingTop: 0, 
-    margin:0,
-    width: 50
-  },
-
-
-
-
-  initTxtCtrl: {
+  txtIni: {
     width: 50,
     backgroundColor: "#546E7A",
     color: "white",
     fontWeight: "bold",
     borderBottomColor: "white",
     borderBottomWidth: 3,
-    padding:10,
-    fontSize:20,
-    textAlign:"center"
+    padding: 10,
+    fontSize: 20,
+    textAlign: "center"
   },
-  nameTxtCtrl: {
-    backgroundColor:"#FBE9E7",
+  txtNomeNpc: {
+    backgroundColor: "#FBE9E7",
     width: "60%",
     borderBottomWidth: 3,
     borderBottomColor: "white",
     paddingLeft: 10,
   },
-  hpTxtCtrl: {
-    backgroundColor: "#B71C1C",
-    color: "white",
-    textAlign:"center",
-    width: 40,
-    borderColor: "white",
-    paddingBottom:6,
-    paddingTop: 6
-    
-  },
-  btnCtrl: {
+
+
+
+  lblBtnPv: {
     textAlign: "center",
-    borderRadius: 4,
-    backgroundColor: "#37474F",
-    width: 50,
-    height: 50,
+    fontSize: 14,
+    color: "white",
+    width: 60,
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingRight: 4,
+    paddingLeft:4
   },
-  btnLabelCtrl:{
+  btnPv: {
+    textAlign: "center",
+    backgroundColor: "#B71C1C",
+    width: 60,
+    borderBottomWidth: 3,
+    borderBottomColor: "#D50000",
+  },
+
+
+
+
+
+
+  lblBtnVer: {
     textAlign: "center",
     fontSize: 14,
     color: "white",
     width: 50,
-    height: 50,
     paddingRight: 8,
     paddingLeft: 8,
-    paddingTop: 14,
-    paddingBottom: 14
-
+    paddingTop: 16,
+    paddingBottom: 16
   },
-  iniLblCtrl:{
+  btnVer: {
+    textAlign: "center",
+    borderRadius: 8,
+    backgroundColor: "#37474F",
+    width: 50,    
+  },
+
+
+
+
+
+  lblIni: {
     width: 50,
     textAlign: "center",
   },
-  nameLblTokenCtrl:{
-    width: "60%",
-    color: "black"
-  },
-  hpLblCtrl: {
-    width: "10%",
-    textAlign: "center"
-  },
-  lblInicioTurno:{
-    backgroundColor: "#FFFF00",
-    color: "#263238",
-    textAlign:"center",
-    fontSize: 18,
-    fontWeight: "bold"
-  }
 
+  lblTurnoDe: {
+    color: "black",
+    width: "60%",
+  },
+
+  lblPv: {
+    textAlign: "center",
+    width: 60,
+  },
 });

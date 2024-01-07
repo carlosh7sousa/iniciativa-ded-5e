@@ -20,7 +20,7 @@ export default class FooterPage extends Component<{ sortList(), nextTurn(), prev
                             <Text style={css.lblBtnAddNpc}>{labels.header.btnAddNpcLabel}</Text>
                         </Pressable>
 
-                        <TextInput style={css.txtAddNpc} keyboardType="default" onChangeText={this.props.addTextChange}></TextInput>
+                        <TextInput style={css.txtAddNpc} selectTextOnFocus  onChangeText={this.props.addTextChange}></TextInput>
                     </SafeAreaView>
                     
                     <Pressable style={css.btnLimpar} onPress={this.props.clearAllNpc} onLongPress={this.props.clearAllList} >
