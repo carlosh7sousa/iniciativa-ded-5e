@@ -51,7 +51,7 @@ export const cssNpcList = StyleSheet.create({
   },
 
   modalArea: {
-    backgroundColor: "silver",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
@@ -59,7 +59,7 @@ export const cssNpcList = StyleSheet.create({
     width: "100%",
     borderRadius: 8,
     borderWidth: 3,
-    borderColor: "white"
+    borderColor: "#E0E0E0"
   },
 
 
