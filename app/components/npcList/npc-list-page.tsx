@@ -130,6 +130,10 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     }
 
 
+    handleCloseModal = () => {
+        this.resetModalState();
+    }
+
 
     handleModalNpcNameValue = (): string => {
         let npc: Npc = this.handlerGetNpc(this.state.indexModal);
@@ -161,24 +165,40 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                 </SafeAreaView>
 
 
-                <Modal visible={this.isVisibleModalPv(this.state.indexModal)}>
-                    <View style={css.modalView}>
-                        <Text style={css.modalPvLblCtrl}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}: {this.handleModalNpcPvValue()}</Text>
-                        <TextInput style={css.modalPvTxtCtrl} selectTextOnFocus onChangeText={this.handleModalPvTextChange} keyboardType='number-pad' maxLength={4} />
-                        <View style={css.modalViewControls}>
+                <Modal visible={this.isVisibleModalPv(this.state.indexModal)} transparent={true}>
 
-                            <Pressable style={css.modalSubtractBtnCtrl}
-                                onPress={this.handlePvSubtrair}>
-                                <Text style={css.modalLblSubtractBtnCtrl}>{labels.modalNpc.btnSubtract}</Text>
-                            </Pressable>
-                            <Pressable style={css.modalAddBtnCtrl}
-                                onPress={this.handlePvSomar}>
-                                <Text style={css.modalLblAddBtnCtrl}>{labels.modalNpc.btnAdd}</Text>
-                            </Pressable>
-                            <Pressable style={css.modalSetBtnCtrl}
-                                onPress={this.handlePvAtribuir}>
-                                <Text style={css.modalLblSetBtnCtrl}>{labels.modalNpc.btnSet}</Text>
-                            </Pressable>
+                    <View style={css.modalView}>
+                        <View style={css.modalArea}>
+
+                            <View style={css.modalRow1}>
+                                <Text style={css.modalLblTitulo}>{labels.modalNpc.titulo}</Text>
+                                <Pressable style={css.modalBtnClose}
+                                    onPress={this.handleCloseModal}>
+                                    <Text style={css.modalLblBtnClose}>{labels.modalNpc.btnClose}</Text>
+                                </Pressable>
+                            </View>
+                            <View style={css.modalRow2}>
+                                <Text style={css.modalLblName}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}: {this.handleModalNpcPvValue()}</Text>
+
+                            </View>
+                            <View style={css.modalRow3}>
+                                <TextInput style={css.modalTxtPv} selectTextOnFocus onChangeText={this.handleModalPvTextChange} keyboardType='number-pad' maxLength={4} />
+                            </View>
+                            <View style={css.modalRow4}>
+
+                                <Pressable style={css.modalBtnSubtract}
+                                    onPress={this.handlePvSubtrair}>
+                                    <Text style={css.modalLblBtnSubtract}>{labels.modalNpc.btnSubtract}</Text>
+                                </Pressable>
+                                <Pressable style={css.modalBtnAdd}
+                                    onPress={this.handlePvSomar}>
+                                    <Text style={css.modalLblBtnAdd}>{labels.modalNpc.btnAdd}</Text>
+                                </Pressable>
+                                <Pressable style={css.modalBtnSet}
+                                    onPress={this.handlePvAtribuir}>
+                                    <Text style={css.modalLblBtnSet}>{labels.modalNpc.btnSet}</Text>
+                                </Pressable>
+                            </View>
                         </View>
                     </View>
                 </Modal>

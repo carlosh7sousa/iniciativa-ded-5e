@@ -11,8 +11,10 @@ h = h - footer;
 h = h - StatusBar.currentHeight - 18;
 
 
+let modalHeight: number = h * 0.5;
+
 export const cssNpcList = StyleSheet.create({
- 
+
   vwNpcListComponent: {
     height: h
   },
@@ -39,63 +41,136 @@ export const cssNpcList = StyleSheet.create({
     borderColor: "#333333",
   },
   modalView: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.86)',
     alignItems: "center",
+    justifyContent: "center",
     textAlign: "center",
+    height: modalHeight,
+    width: "100%",
+  },
 
+  modalArea: {
+    backgroundColor: "silver",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    height: modalHeight,
+    width: "100%",
+    borderRadius: 8,
+    borderWidth: 3,
+    borderColor: "white"
   },
-  modalPvLblCtrl: {
+
+
+
+  modalLblTitulo: {
+    fontSize: 30,
+    textAlign: "center",
+    width: "86%",
+    color: "#D50000",
+    paddingTop: 10
+  },
+
+
+  modalLblName: {
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
-  modalPvTxtCtrl: {
+  modalTxtPv: {
     fontSize: 60,
     color: "#FF1744",
     borderBottomColor: "#263238",
     borderBottomWidth: 4,
-    width: 200,
-    textAlign: "center"
+    width: "70%",
+    textAlign: "center",
   },
-  modalViewControls: {
+
+
+  modalRow1: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%"
+  },
+  modalRow2: {
+    flexDirection: "row",
+    width: "100%",
+    padding: 20,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  modalRow3: {
     flexDirection: "row",
     padding: 20,
     alignItems: "center"
   },
 
-  modalLblSetBtnCtrl: {
+  modalRow4: {
+    flexDirection: "row",
+    padding: 20,
+    alignItems: "center"
+  },
+
+
+
+  modalLblBtnClose: {
+    fontSize: 22,
+    color: "white",
+    textAlign: "center"
+  },
+
+  modalLblBtnSet: {
     fontSize: 22,
     color: "#37474F",
-    textAlign: "center"
+    textAlign: "center",
+
   },
-  modalLblAddBtnCtrl: {
+  modalLblBtnAdd: {
     fontSize: 22,
     color: "#F5F5F5",
     textAlign: "center"
   },
-  modalLblSubtractBtnCtrl: {
+  modalLblBtnSubtract: {
     fontSize: 22,
     color: "#F5F5F5",
     textAlign: "center"
   },
-  modalSetBtnCtrl: {
+
+
+  modalBtnSet: {
     width: "33%",
     padding: 10,
     textAlign: "center",
     backgroundColor: "#ECEFF1",
     marginLeft: 6
   },
-  modalAddBtnCtrl: {
+  modalBtnAdd: {
     width: "33%",
     padding: 10,
     textAlign: "center",
     backgroundColor: "#FFA000",
     marginLeft: 6
   },
-  modalSubtractBtnCtrl: {
+  modalBtnSubtract: {
     width: "33%",
     padding: 10,
     textAlign: "center",
     backgroundColor: "#FFA000",
     marginLeft: 6
+  },
+
+  modalBtnClose: {
+    width: 40,
+    height: 40,
+    textAlign: "center",
+    backgroundColor: "#C62828",
+    marginLeft: 6,
+    padding: 2,
+    marginTop: 18,
+    marginRight: 2,
+    borderRadius: 4,
+    
   },
 
   headerView3: {

@@ -22,9 +22,11 @@
         "hpLabel": "PV"        
     },
     "modalNpc" : {
+        "titulo": "Alterar PVs",
         "labelPv": "PVs",
         "btnSubtract": "Subtrair",
         "btnAdd": "Somar",
-        "btnSet": "Atribuir"
+        "btnSet": "Atribuir",
+        "btnClose": "X"
     } 
 }
