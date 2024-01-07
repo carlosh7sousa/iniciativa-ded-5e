@@ -21,7 +21,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             npcs: ctx.npcs,
             headerInfo: ctx.headerInfo,
             generatedId: 1,
-            npcNum: 1
+            npcNum: 0
         };
 
         this.handleGetNpcs.bind(this);
