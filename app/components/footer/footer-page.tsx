@@ -14,15 +14,7 @@ export default class FooterPage extends Component<{ sortList(), nextTurn(), prev
             <SafeAreaView style={css.vwFooter} >
 
                 <SafeAreaView style={css.vwFooterRowAddLimpar}>
-
-                    <SafeAreaView style={css.vwFooterAddCtrl} >
-                        <Pressable style={css.btnAddNpc} onPress={this.props.addNpc}  >
-                            <Text style={css.lblBtnAddNpc}>{labels.header.btnAddNpcLabel}</Text>
-                        </Pressable>
-
-                        <TextInput style={css.txtAddNpc} selectTextOnFocus  onChangeText={this.props.addTextChange}></TextInput>
-                    </SafeAreaView>
-                    
+ 
                     <Pressable style={css.btnLimpar} onPress={this.props.clearAllNpc} onLongPress={this.props.clearAllList} >
                         <Text style={css.lblBtnLimpar}>{labels.header.btnDelNpcLabel}</Text>
                     </Pressable>

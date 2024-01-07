@@ -8,7 +8,7 @@
         "btnNextTurnLabel": ">>",
         "btnSortTurnLabel": "⇅",
         "btnAddNpcLabel": "+",
-        "btnDelNpcLabel" : "limpar",
+        "btnDelNpcLabel" : "Limpar lista de NPCs",
         "limparNpcsApenas": {"Titulo": "Excluir apenas NPCs", "Mensagem": "Deseja excluir os NPCS? (jogadores permanecerão).", "Cancelar": "Cancelar"},
         "limparNpcsEJogadores": {"Titulo": "Excluir NPCs e Jogadores", "Mensagem": "Deseja excluir NPCs e Jogadores?", "Cancelar": "Cancelar"}
     },

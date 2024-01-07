@@ -25,15 +25,24 @@ export default class HeaderPage extends Component<{ sortList(), nextTurn(), prev
                             <Text style={css.lblBtnNextTurno}> {labels.header.btnNextTurnLabel}</Text>
                         </Pressable>
 
-                        <Text style={css.lblTurno}>{labels.header.lblTurno} {this.props.getTurn()}</Text>                       
+                        <Text style={css.lblTurno}>{labels.header.lblTurno} {this.props.getTurn()}</Text>
                     </SafeAreaView>
 
-                   
+
                     <Pressable style={css.btnSortNpcs}  >
                         <Text style={css.lblBtnSortNpcs}>{labels.header.btnSortTurnLabel}</Text>
                     </Pressable>
+ 
+                </SafeAreaView>
 
-                </SafeAreaView> 
+                <SafeAreaView style={css.vwHeaderAddCtrl} >
+                    <Pressable style={css.btnAddNpc} onPress={this.props.addNpc}  >
+                        <Text style={css.lblBtnAddNpc}>{labels.header.btnAddNpcLabel}</Text>
+                    </Pressable>
+
+                    <TextInput style={css.txtAddNpc} selectTextOnFocus onChangeText={this.props.addTextChange}></TextInput>
+                </SafeAreaView>
+ 
 
             </SafeAreaView>
         )
