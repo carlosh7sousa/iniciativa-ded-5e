@@ -81,7 +81,6 @@ export default class Ctx {
             mainSkills: [],
             notes: "",
             race: "Humano",
-            primeiroTurno: false,
             seuTurno: false,
             ativo: true
         };

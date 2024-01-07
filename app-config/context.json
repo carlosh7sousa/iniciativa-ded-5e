@@ -16,7 +16,6 @@
         "notes":"",
         "ativo": true,
         "seuTurno": false,
-        "primeiroTurno": false,
         "attacks":[
             {
                 "id": 0,
@@ -67,7 +66,6 @@
     "notes":"",
     "ativo": true,
     "seuTurno": false,
-    "primeiroTurno": false,
     "attacks":[
         {
             "id": 0,

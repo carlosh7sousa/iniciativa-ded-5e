@@ -138,7 +138,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     handleModalNpcNameValue = (): string => {
         let npc: Npc = this.handlerGetNpc(this.state.indexModal);
         if (npc != null) {
-            return npc.name + ": - ";
+            return npc.name + ":   ";
         }
 
         return "";

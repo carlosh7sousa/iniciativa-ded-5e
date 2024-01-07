@@ -18,7 +18,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         let ctx: Ctx = new Ctx();
 
         this.state = {
-            npcs: ctx.npcs,
+            npcs: [],
             headerInfo: ctx.headerInfo,
             generatedId: 1,
             npcNum: 0
@@ -304,7 +304,6 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             mainSkills: [],
             notes: "",
             race: "",
-            primeiroTurno: false,
             seuTurno: false,
             ativo: true
         };

@@ -28,8 +28,6 @@ export default interface Npc{
     attacks: Attack[]; 
 
     seuTurno: boolean;
-    primeiroTurno: boolean;
-
     ativo: boolean;
 }
 
