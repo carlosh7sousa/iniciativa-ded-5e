@@ -69,36 +69,94 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
         let npcs: Npc[] = this.handleGetNpcs();
 
+        let sortedNpc = npcs.sort((a: Npc, b: Npc) => {
+
+            if (a.initiativeModifier == b.initiativeModifier) {
+                return 0
+            }
+            else if (a.initiativeModifier < b.initiativeModifier) {
+                return 1
+            }
+            else {
+                return -1;
+            }
+        });
+
+        sortedNpc = sortedNpc.filter(x => x != null);
+        sortedNpc.forEach(x => x.seuTurno = false);
+        sortedNpc[0].seuTurno = true;
+
+        let info = this.state.headerInfo;
+        info.idSelected = sortedNpc[0].id;
+
+        this.setState({ headerInfo: info });
+        this.setState({ npcs: sortedNpc });
     }
 
+
+    existeItensListaNpc = (): boolean => {
+        return this.state.npcs != null && this.state.npcs.length > 0;
+    }
+
+    obterNpcSelecionado = (): Npc => {
+        if (this.existeItensListaNpc()) {
+            return this.state.npcs.find(x => x.id === this.state.headerInfo.idSelected);
+        }
+
+        return null;
+    }
+
+    selecionarProximo = () => {
+        let npcSelected: Npc = this.obterNpcSelecionado();
+
+        if (npcSelected != null) {
+            let npcsUpdated: Npc[] = this.state.npcs;
+
+            for (let i: number = 0; i < npcsUpdated.length; i++) {
+                npcsUpdated[i].seuTurno = npcsUpdated[i].id === npcSelected.id;
+            }
+
+            let info = this.state.headerInfo;
+            info.idSelected = npcSelected.id;
+
+            this.setState({ headerInfo: info });
+            this.setState({ npcs: npcsUpdated });
+        }
+    }
+
+
+
     handleNextTurnButtonClick = () => {
-        let turno: number = this.state.headerInfo.turno;
-        let npcs: Npc[] = this.handleGetNpcs();
 
-        let index: number = npcs.findIndex(x => x.seuTurno);
+        this.selecionarProximo();
 
-        if (index >= 0 && npcs.length === index) {
-            npcs[index].seuTurno = false;
-            npcs[0].seuTurno = true;
-            turno += 1;
-            // this.setState({ npcs: npcs });
+        // let turno: number = this.state.headerInfo.turno;
+        // let npcs: Npc[] = this.handleGetNpcs();
 
-            let info: HeaderInfo = this.state.headerInfo;
-            info.idSelected = npcs[0].id;
-            this.setState({ headerInfo: info });
-        }
+        // let index: number = npcs.findIndex(x => x.seuTurno);
 
-        if (index >= 0 && npcs.length < index) {
-            npcs[index].seuTurno = false;
-            npcs[index + 1].seuTurno = true;
-            // this.setState({ npcs: npcs });
+        // if (index >= 0 && npcs.length === index) {
+        //     npcs[index].seuTurno = false;
+        //     npcs[0].seuTurno = true;
+        //     turno += 1;
+        //     // this.setState({ npcs: npcs });
 
-            let info: HeaderInfo = this.state.headerInfo;
-            info.idSelected = npcs[index + 1].id
-            this.setState({ headerInfo: info });
-        }
+        //     let info: HeaderInfo = this.state.headerInfo;
+        //     info.idSelected = npcs[0].id;
+        //     this.setState({ headerInfo: info });
+        // }
 
-        this.handleTurnValueChange(turno);
+        // if (index >= 0 && npcs.length < index) {
+        //     npcs[index].seuTurno = false;
+        //     npcs[index + 1].seuTurno = true;
+        //     // this.setState({ npcs: npcs });
+
+        //     let info: HeaderInfo = this.state.headerInfo;
+        //     info.idSelected = npcs[index + 1].id
+        //     this.setState({ headerInfo: info });
+        // }
+
+        // this.handleTurnValueChange(turno);
     };
 
     handlePreviousTurnButtonClick = () => {
@@ -114,8 +172,18 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
 
     handleAddNcpButtonClick = () => {
-        let npcs: Npc[] = this.state.npcs;
-        npcs.push(this.createNpc(this.state.headerInfo.txtNameAdd));
+        let npcsUpdated: Npc[] = this.state.npcs;
+        let npc: Npc = this.createNpc(this.state.headerInfo.txtNameAdd);
+
+        if (npcsUpdated.length === 0) {
+            npc.seuTurno = true;
+            let info: HeaderInfo = this.state.headerInfo;
+            info.idSelected = npc.id;
+            this.setState({ headerInfo: info });
+        }
+
+        npcsUpdated.push(npc);
+        this.setState({ npcs: npcsUpdated });
     };
 
     handleClearAllNpcButtonClick = () => {

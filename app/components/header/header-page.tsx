@@ -29,7 +29,7 @@ export default class HeaderPage extends Component<{ sortList(), nextTurn(), prev
                     </SafeAreaView>
 
 
-                    <Pressable style={css.btnSortNpcs}  >
+                    <Pressable style={css.btnSortNpcs} onPress={this.props.sortList} >
                         <Text style={css.lblBtnSortNpcs}>{labels.header.btnSortTurnLabel}</Text>
                     </Pressable>
  
