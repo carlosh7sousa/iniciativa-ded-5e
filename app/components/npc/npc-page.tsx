@@ -13,7 +13,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
         this.handlerGetNpc = this.handlerGetNpc.bind(this);
         this.handlerHpClick = this.handlerHpClick.bind(this);
         this.handleIniTextChange = this.handleIniTextChange.bind(this);
-
+        
         this.state = {
             visible: false
         }
@@ -105,16 +105,19 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
     handleIniTextChange = (strNewValue: string) => {
 
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
+
+
         if (npc != null) {
             let newValue: number = parseInt(strNewValue);
 
             if (isNaN(newValue)) {
                 newValue = 0;
-            } 
+            }
 
             npc.initiativeModifier = newValue;
-
+            
             this.props.handlerSetNpc(npc, this.props.index);
+
         }
     };
 
@@ -142,12 +145,12 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
     handlerTurnoDe = (): string => {
 
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
-        
-        if (npc != null && npc.seuTurno){
+
+        if (npc != null && npc.seuTurno) {
             return labels.npc.token + " " + npc.name
         }
 
-        if (npc != null && npc.seuTurno && npc.name.length > 20){
+        if (npc != null && npc.seuTurno && npc.name.length > 20) {
             return labels.npc.token + " " + npc.name.substring(0, 20) + "..."
         }
 
@@ -182,13 +185,13 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
 
 
-   
+
 
 
     render() {
 
         return (
-            <SafeAreaView style={css.vwNpcComponent}>                
+            <SafeAreaView style={css.vwNpcComponent}>
 
                 <SafeAreaView style={css.vwNpcRow1}>
                     <SafeAreaView style={css.vwNpcGroupCtrl1}>
@@ -206,7 +209,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
                     <SafeAreaView style={css.vwNpcGroupCtrl1}>
                         <TextInput selectTextOnFocus style={css.txtIni} onChangeText={this.handleIniTextChange} keyboardType='number-pad' value={this.props.handlerGetNpc(this.props.index).initiativeModifier.toString()} maxLength={2} />
-                        <TextInput selectTextOnFocus style={css.txtNomeNpc} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.index).name} maxLength={20}/>
+                        <TextInput selectTextOnFocus style={css.txtNomeNpc} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.index).name} maxLength={20} />
 
                         <Pressable style={css.btnPv} onPress={this.handlerHpClick} >
                             <Text style={css.lblBtnPv} >{this.props.handlerGetNpc(this.props.index).currentHp.toString()}</Text>

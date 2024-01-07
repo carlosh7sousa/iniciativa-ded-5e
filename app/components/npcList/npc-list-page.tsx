@@ -23,7 +23,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     }
 
     handlerSetNpc = (npc: Npc, index: number): void => {
-        if (npc && index > 0) {
+        if (npc && index >= 0) {
             this.props.npcs[index] = npc;
             this.setState({ npcs: this.props.npcs });
         }
