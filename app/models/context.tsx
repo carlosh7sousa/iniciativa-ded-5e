@@ -19,6 +19,8 @@ export default class Ctx
         }
 
        this.npcs = this.initNpcs(20);
+       this.npcs[1].seuTurno = true;
+       this.npcs[2].isPlayer = true;
     } 
 
     initNpcs(num:number): Npc[]{

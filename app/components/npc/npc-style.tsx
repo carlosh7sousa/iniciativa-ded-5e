@@ -5,8 +5,20 @@ export const cssNpc = StyleSheet.create({
   vwNpcComponent: {
     width: "100%",
     flexDirection: "column",
-    height: 100
+    height: 100,
   },
+
+  yellow:{
+    backgroundColor: "#FFF176"
+   },
+
+   red:{
+    backgroundColor: "#E57373"
+   },
+
+   green:{
+    backgroundColor: "#81C784"
+   },
 
 
   vwNpcRow0: {
@@ -19,30 +31,19 @@ export const cssNpc = StyleSheet.create({
     flexDirection: "row",
     justifyContent: 'space-between',
     width: "100%",
-    backgroundColor: "#E57373",
-
   },
-
-
 
   vwNpcRow2: {
     flexDirection: "row",
     justifyContent: 'space-between',
     width: "100%",
-    backgroundColor: "#E57373",
-
   },
 
 
   vwNpcRow3: {
     flexDirection: "row",
-    backgroundColor: "#E57373",
     width: "100%"
   },
-
-
-
-
 
   vwNpcGroupCtrl1: {
     flexDirection: "row",

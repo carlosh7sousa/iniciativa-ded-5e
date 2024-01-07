@@ -13,7 +13,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
         this.handlerGetNpc = this.handlerGetNpc.bind(this);
         this.handlerHpClick = this.handlerHpClick.bind(this);
         this.handleIniTextChange = this.handleIniTextChange.bind(this);
-        
+
         this.state = {
             visible: false
         }
@@ -115,7 +115,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
             }
 
             npc.initiativeModifier = newValue;
-            
+
             this.props.handlerSetNpc(npc, this.props.index);
 
         }
@@ -182,18 +182,31 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
             return null;
         }
     }
+ 
 
+    obterRowBg = ()=> {
+        
+        let npc: Npc = this.props.handlerGetNpc(this.props.index);
+         
+        if (npc != null && npc.seuTurno){
+            return css.yellow;
+        }
 
-
-
-
+        if (npc != null && !npc.seuTurno && npc.isPlayer)
+        {
+            return css.green;
+        }        
+        
+        return css.red;
+    }
 
     render() {
 
         return (
             <SafeAreaView style={css.vwNpcComponent}>
 
-                <SafeAreaView style={css.vwNpcRow1}>
+                <SafeAreaView style={[css.vwNpcRow0, this.obterRowBg()]}>
+
                     <SafeAreaView style={css.vwNpcGroupCtrl1}>
                         <Text style={css.lblIni}> </Text>
                         <Text style={css.lblTurnoDe}>{this.handlerTurnoDe()}</Text>
@@ -205,7 +218,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                 </SafeAreaView>
 
 
-                <SafeAreaView style={css.vwNpcRow2}>
+                <SafeAreaView style={[css.vwNpcRow1, this.obterRowBg()]}>
 
                     <SafeAreaView style={css.vwNpcGroupCtrl1}>
                         <TextInput selectTextOnFocus style={css.txtIni} onChangeText={this.handleIniTextChange} keyboardType='number-pad' value={this.props.handlerGetNpc(this.props.index).initiativeModifier.toString()} maxLength={2} />
@@ -216,7 +229,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                         </Pressable>
                     </SafeAreaView>
 
-                    <SafeAreaView style={css.vwNpcGroupCtrl2}>
+                    <SafeAreaView style={[css.vwNpcRow2, this.obterRowBg()]}>
                         <Pressable style={css.btnVer} onPress={this.handleNpcDetailsButtonClick}  >
                             <Text style={css.lblBtnVer}>{labels.npc.buttonLabel}</Text>
                         </Pressable>
@@ -224,7 +237,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                 </SafeAreaView>
 
 
-                <SafeAreaView style={css.vwNpcRow3}>
+                <SafeAreaView style={[css.vwNpcRow3, this.obterRowBg()]}>
                     <SafeAreaView style={css.vwNpcGroupCtrl1}>
                         <Text style={css.lblIni}>{labels.npc.iniLabel}</Text>
                         <Text style={css.lblTurnoDe}> </Text>
