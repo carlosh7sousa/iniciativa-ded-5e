@@ -247,7 +247,6 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
                 info.idSelected = -1;
                 this.setState({ headerInfo: info });
             }
-
         };
 
         let alertCancel: AlertButton = { isPreferred: false, text: labels.header.limparNpcsApenas.Cancelar, onPress: () => { } };
@@ -296,11 +295,14 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             notes: "",
             race: "",
             primeiroTurno: false,
-            seuTurno: false
+            seuTurno: false,
+            ativo: true
         };
 
         return npc;
     }
+
+   
 
     render() {
 
@@ -309,7 +311,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
             <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
-            <NpcListPage npcs={this.state.npcs} idSelected={this.state.headerInfo.idSelected}>
+            <NpcListPage npcs={this.state.npcs} idSelected={this.state.headerInfo.idSelected} >
             </NpcListPage>
 
             <FooterPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />

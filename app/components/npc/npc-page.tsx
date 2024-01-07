@@ -13,6 +13,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
         this.handlerGetNpc = this.handlerGetNpc.bind(this);
         this.handlerHpClick = this.handlerHpClick.bind(this);
         this.handleIniTextChange = this.handleIniTextChange.bind(this);
+         
 
         this.state = {
             visible: false
@@ -27,58 +28,6 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
     handlerGetNpc = (index: number): Npc => {
         return this.props.handlerGetNpc(index);
     }
-
-
-
-    // getNpcView() {
-
-    //     let npc: Npc = this.props.handlerGetNpc(this.props.index);
-    //     let npcView = css.npcViewCtrl;
-
-    // }
-
-    // getNpcViewLabel() {
-    //     let npc: Npc = this.props.handlerGetNpc(this.props.index);
-    //     let npcViewLabel = css.npcViewLabelCtrl;
-
-    //     if (npc != null) {
-
-    //         if (!npc.isPlayer && npc.seuTurno) {
-    //             return css.npcViewLabelCtrlSelected;
-    //         }
-
-    //         if (npc.isPlayer && npc.seuTurno) {
-    //             return css.playerViewLabelCtrlSelected;
-    //         }
-
-    //         if (npc.isPlayer && !npc.seuTurno) {
-    //             return css.playerViewLabelCtrl;
-    //         }
-    //     }
-
-    //     return npcViewLabel;
-    // }
-
-    // getNpcCtrlViewLabel() {
-    //     let npc: Npc = this.props.handlerGetNpc(this.props.index);
-    //     let npcControlViewLabel = css.npcControlViewLabelCtrl;
-
-    //     if (npc != null) {
-    //         if (!npc.isPlayer && npc.seuTurno) {
-    //             return css.npcControlViewLabelCtrlSelected;
-    //         }
-
-    //         if (npc.isPlayer && npc.seuTurno) {
-    //             return css.playerControlViewLabelCtrlSelected;
-    //         }
-
-    //         if (npc.isPlayer && !npc.seuTurno) {
-    //             return css.playerControlViewLabelCtrl;
-    //         }
-
-    //         return npcControlViewLabel;
-    //     }
-    // }
 
     handlePvTextChange = (strNewValue: string) => {
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
@@ -137,6 +86,15 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
     };
 
+    handleExcluirNpcButtonClick = () => {
+        let npc: Npc = this.props.handlerGetNpc(this.props.index);
+        if (npc != null) {
+            npc.ativo = false;
+            this.props.handlerSetNpc(npc, this.props.index);
+        }
+    };
+
+
     handlerHpClick = (): void => {
         this.props.handlerPvButtonClick(this.props.index);
     };
@@ -182,21 +140,20 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
             return null;
         }
     }
- 
 
-    obterRowBg = ()=> {
-        
+
+    obterRowBg = () => {
+
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
-         
-        if (npc != null && npc.seuTurno){
+
+        if (npc != null && npc.seuTurno) {
             return css.yellow;
         }
 
-        if (npc != null && !npc.seuTurno && npc.isPlayer)
-        {
+        if (npc != null && !npc.seuTurno && npc.isPlayer) {
             return css.green;
-        }        
-        
+        }
+
         return css.red;
     }
 
@@ -230,7 +187,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                     </SafeAreaView>
 
                     <SafeAreaView style={[css.vwNpcRow2, this.obterRowBg()]}>
-                        <Pressable style={css.btnVer} onPress={this.handleNpcDetailsButtonClick}  >
+                        <Pressable style={css.btnVer} onPress={this.handleNpcDetailsButtonClick} onLongPress={this.handleExcluirNpcButtonClick} >
                             <Text style={css.lblBtnVer}>{labels.npc.buttonLabel}</Text>
                         </Pressable>
                     </SafeAreaView>

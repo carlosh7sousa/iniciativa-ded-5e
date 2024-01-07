@@ -59,7 +59,8 @@ export default class Ctx {
             notes: "",
             race: "Humano",
             primeiroTurno: false,
-            seuTurno: false
+            seuTurno: false,
+            ativo: true
         };
 
         return item;

@@ -148,6 +148,8 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         return this.state.oldModalPv.toString();
     }
 
+
+
     render() {
 
         return (
@@ -159,7 +161,13 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                     </View>
 
                     <ScrollView style={css.listaNpcsView}>
-                        {this.props.npcs.map((npc: Npc, index: number) => { return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} />) })}
+                        {this.props.npcs.map((npc: Npc, index: number) => {
+                            if(npc.ativo)    {
+                                return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} />) 
+                            }
+
+                            return ("");
+                        })}
                     </ScrollView>
 
                 </SafeAreaView>

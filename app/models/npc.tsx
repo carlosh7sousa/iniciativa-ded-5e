@@ -29,6 +29,8 @@ export default interface Npc{
 
     seuTurno: boolean;
     primeiroTurno: boolean;
+
+    ativo: boolean;
 }
 
 
