@@ -19,8 +19,6 @@ export default interface Npc{
     armorClass: number;
 
     currentHp: number;
-    maxHp: number;
-
     notes: string;
 
     attributes: Attributes;

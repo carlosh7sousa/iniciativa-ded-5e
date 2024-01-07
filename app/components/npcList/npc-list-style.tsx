@@ -12,6 +12,7 @@ h = h - StatusBar.currentHeight - 18;
 
 
 let modalHeight: number = h * 0.55;
+let modalVerHeight: number = h * 0.9;
 
 export const cssNpcList = StyleSheet.create({
 
@@ -170,7 +171,7 @@ export const cssNpcList = StyleSheet.create({
     marginTop: 18,
     marginRight: 2,
     borderRadius: 4,
-    
+
   },
 
   headerView3: {
@@ -189,5 +190,245 @@ export const cssNpcList = StyleSheet.create({
     width: "100%",
     textAlign: "center",
     color: "white"
+  },
+
+
+
+
+
+  modalVerView: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.86)',
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    height: modalVerHeight,
+    width: "100%",
+  },
+
+  modalVerArea: {
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    height: modalVerHeight,
+    width: "100%",
+    borderRadius: 8,
+    borderWidth: 3,
+    borderColor: "#E0E0E0"
+  },
+
+
+
+
+  modalVerRow1: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%"
+  },
+  modalVerRow2: {
+    flexDirection: "row",
+    width: "100%",
+    paddingLeft: 10,
+    paddingRight: 10,
+    margin: 0,
+    alignItems: 'flex-start',
+  },
+
+  modalVerRow3: {
+    flexDirection: "row",
+    width: "100%",
+    padding: 0,
+    margin: 0,
+    alignItems: 'center',
+    justifyContent: "center"
+  },
+
+  modalVerLblTitulo: {
+    fontSize: 30,
+    textAlign: "center",
+    paddingTop: 10
+  },
+
+
+
+
+  modalVerBtnClose: {
+    width: 40,
+    height: 40,
+    textAlign: "center",
+    backgroundColor: "#C62828",
+    marginLeft: 6,
+    padding: 2,
+    marginTop: 18,
+    marginRight: 2,
+    borderRadius: 4,
+
+  },
+
+
+  modalVerLblBtnClose: {
+    fontSize: 22,
+    color: "white",
+    textAlign: "center"
+  },
+
+
+  modalVerLblBtnAtualizar: {
+    fontSize: 22,
+    color: "white",
+    textAlign: "center"
+  },
+
+  modalVerBtnAtualizar: {
+    fontSize: 22,
+    color: "#37474F",
+    textAlign: "center",
+  },
+
+
+  modalVerLblEJogador: {
+    fontSize: 18,
+    width: "40%"
+  },
+
+  modalVerLblDeslocamento: {
+    fontSize: 18,
+    width: "40%"
+  },
+
+
+  modalVerTxtDeslocamento: {
+    fontSize: 18,
+    width: 30,
+    textAlign: "center"
+  },
+
+
+  modalVerLblCa: {
+    fontSize: 20,
+    textAlign: "right",
+    width: "30%"
+  },
+
+  modalVerTxtCa: {
+    fontSize: 20,
+    textAlign: "center",
+    width: "10%"
+  },
+
+
+  modalVerLblAtaqueTitulo: {
+    fontSize: 18,
+    width: "46%",
+    textAlign: "center"
+  },
+
+  modalVerLblModTitulo: {
+    fontSize: 18,
+    width: "13%",
+    textAlign: "center"
+  },
+
+  modalVerLblDanoTitulo: {
+    fontSize: 18,
+    width: "40%",
+    textAlign: "center"
+  },
+
+
+  modalVerTxtAtaque: {
+    fontSize: 14,
+    width: "46%",
+    backgroundColor: "#CFD8DC",
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "white",
+    textAlign: "center"
+  },
+
+
+  modalVerTxtMod: {
+    fontSize: 14,
+    width: "13%",
+    backgroundColor: "#CFD8DC",
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "white",
+    textAlign: "center"
+  },
+
+  modalVerTxtDano: {
+    fontSize: 14,
+    width: "40%",
+    backgroundColor: "#CFD8DC",
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "white",
+    textAlign: "center"
+  },
+
+  modalVerLblPericiaTitulo: {
+    fontSize: 20,
+    width: "60%"
+  },
+
+  modalVerLblModPericiaTitulo: {
+    fontSize: 20,
+    width: "40%"
+  },
+
+  modalVerTxtPericia: {
+    fontSize: 20,
+    width: "60%"
+  },
+
+  modalVerTxtModPericia: {
+    fontSize: 20,
+    width: "40%"
+  },
+
+
+  modalVerLblDescricaoModTempTitulo: {
+    fontSize: 20,
+    width: "33%",
+  },
+
+  modalVerLblModTempTitulo: {
+    fontSize: 20,
+    width: "33%",
+  },
+
+  modalVerLblDuracaoTitulo: {
+    fontSize: 20,
+    width: "33%",
+  },
+
+
+  modalVerTxtDescricaoModTemp: {
+    fontSize: 20,
+    width: "33%",
+  },
+
+  modalVerTxtModTemp: {
+    fontSize: 20,
+    width: "33%",
+  },
+
+  modalVerTxtDuracao: {
+    fontSize: 20,
+    width: "33%",
+  },
+
+  modalVerLblAnotacoes: {
+    fontSize: 20,
+    width: "100%",
+  },
+
+  modalVertxtAnotacoes: {
+    fontSize: 20,
+    width: "100%",
   }
+
+
 });

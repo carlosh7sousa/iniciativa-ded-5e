@@ -30,5 +30,13 @@
         "btnClose": "X",
         "separador1":", ",
         "separador2":": "
-    } 
+    },
+
+    "modalVer" : {
+        "btnClose": "X",
+        "titulo": "Detalhes do NPC:",
+        "separador1": ", ",
+        "Atualizar": "Alterar"
+    }
+
 }
