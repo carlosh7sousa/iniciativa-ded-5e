@@ -32,7 +32,7 @@ export default class HeaderPage extends Component<{ sortList(), nextTurn(), prev
                     <Pressable style={css.btnSortNpcs} onPress={this.props.sortList} >
                         <Text style={css.lblBtnSortNpcs}>{labels.header.btnSortTurnLabel}</Text>
                     </Pressable>
- 
+
                 </SafeAreaView>
 
                 <SafeAreaView style={css.vwHeaderAddCtrl} >
@@ -42,7 +42,7 @@ export default class HeaderPage extends Component<{ sortList(), nextTurn(), prev
 
                     <TextInput style={css.txtAddNpc} selectTextOnFocus onChangeText={this.props.addTextChange}></TextInput>
                 </SafeAreaView>
- 
+
 
             </SafeAreaView>
         )

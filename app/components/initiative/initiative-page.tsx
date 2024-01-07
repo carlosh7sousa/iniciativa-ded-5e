@@ -33,6 +33,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         this.setState({ npcNum: restartNpcNum })
     }
 
+
     generateNewId(): number {
         let countId: number = this.state.generatedId;
         countId++;
@@ -68,29 +69,34 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
     handleSortTurnButtonClick = () => {
 
         let npcs: Npc[] = this.handleGetNpcs();
+        if (npcs != null && npcs.length > 0) {
 
-        let sortedNpc = npcs.sort((a: Npc, b: Npc) => {
+            let sortedNpc = npcs.sort((a: Npc, b: Npc) => {
 
-            if (a.initiativeModifier == b.initiativeModifier) {
-                return 0
+                if (a.initiativeModifier == b.initiativeModifier) {
+                    return 0
+                }
+                else if (a.initiativeModifier < b.initiativeModifier) {
+                    return 1
+                }
+                else {
+                    return -1;
+                }
+            });
+
+            sortedNpc = sortedNpc.filter(x => x != null);
+
+            if (sortedNpc != null && sortedNpc.length > 0) {
+                sortedNpc.forEach(x => x.seuTurno = false);
+                sortedNpc[0].seuTurno = true;
+
+                let info = this.state.headerInfo;
+                info.idSelected = sortedNpc[0].id;
+
+                this.setState({ headerInfo: info });
+                this.setState({ npcs: sortedNpc });
             }
-            else if (a.initiativeModifier < b.initiativeModifier) {
-                return 1
-            }
-            else {
-                return -1;
-            }
-        });
-
-        sortedNpc = sortedNpc.filter(x => x != null);
-        sortedNpc.forEach(x => x.seuTurno = false);
-        sortedNpc[0].seuTurno = true;
-
-        let info = this.state.headerInfo;
-        info.idSelected = sortedNpc[0].id;
-
-        this.setState({ headerInfo: info });
-        this.setState({ npcs: sortedNpc });
+        }
     }
 
 
@@ -141,8 +147,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
                 this.handleTurnValueChange(this.state.headerInfo.turno + 1);
                 nextSelectedId = npcsUpdated[0].id;
             }
-            else
-            {
+            else {
                 nextSelectedId = npcsUpdated[nextIndex].id;
             }
 
@@ -156,22 +161,56 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             this.setState({ headerInfo: info });
             this.setState({ npcs: npcsUpdated });
         }
-    } 
+    }
 
     handleNextTurnButtonClick = () => {
 
         this.selecionarProximo();
     };
 
-    handlePreviousTurnButtonClick = () => {
-        let turno: number = this.state.headerInfo.turno;
-        turno -= 1;
+    selecionarAnterior = () => {
+        let npcSelected: Npc = this.obterNpcSelecionado();
 
-        if (turno == -1) {
-            turno = 0;
+        if (npcSelected == null) {
+            this.selecionarPrimeiroNpc();
         }
 
-        this.handleTurnValueChange(turno);
+        if (npcSelected != null) {
+            let npcsUpdated: Npc[] = this.state.npcs;
+            let index: number = npcsUpdated.findIndex(x => x.id === npcSelected.id);
+
+            let previousIndex: number = index - 1;
+            let previousSelectedId: number = -1;
+
+            let turno: number = this.state.headerInfo.turno;
+            if (index === 0 && turno === 0) {
+                return;
+            }
+            else if (previousIndex < 0) {
+                turno = turno - 1;
+                turno = turno <= 0 ? 0 : turno;
+                this.handleTurnValueChange(turno);
+                let ultimoIndex: number = npcsUpdated.length - 1;
+                previousSelectedId = npcsUpdated[ultimoIndex].id;
+            }
+            else {
+                previousSelectedId = npcsUpdated[previousIndex].id;
+            }
+
+            for (let i: number = 0; i < npcsUpdated.length; i++) {
+                npcsUpdated[i].seuTurno = npcsUpdated[i].id === previousSelectedId;
+            }
+
+            let info = this.state.headerInfo;
+            info.idSelected = previousSelectedId;
+
+            this.setState({ headerInfo: info });
+            this.setState({ npcs: npcsUpdated });
+        }
+    }
+
+    handlePreviousTurnButtonClick = () => {
+        this.selecionarAnterior();
     };
 
 
@@ -202,6 +241,11 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
                     this.setState({ npcs: onlyPlayers });
                     this.resetNpcNum(0);
                 }
+
+                let info: HeaderInfo = this.state.headerInfo;
+                info.turno = 0;
+                info.idSelected = -1;
+                this.setState({ headerInfo: info });
             }
 
         };
@@ -216,6 +260,11 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             isPreferred: true, text: labels.header.limparNpcsEJogadores.Titulo, onPress: () => {
                 this.setState({ npcs: [] });
                 this.resetNpcNum(0);
+
+                let info: HeaderInfo = this.state.headerInfo;
+                info.turno = 0;
+                info.idSelected = -1;
+                this.setState({ headerInfo: info });
             }
         };
 
