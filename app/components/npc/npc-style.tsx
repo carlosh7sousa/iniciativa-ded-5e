@@ -20,6 +20,10 @@ export const cssNpc = StyleSheet.create({
     backgroundColor: "#81C784"
    },
 
+   orange:{
+    backgroundColor: "#FF5722"
+   },
+
 
   vwNpcRow0: {
     flexDirection: "row",
@@ -129,8 +133,9 @@ export const cssNpc = StyleSheet.create({
   },
 
   lblTurnoDe: {
-    color: "black",
+    color:  "#FF5722",
     width: "60%",
+    fontWeight: "bold"
   },
 
   lblPv: {

@@ -18,7 +18,8 @@ export default class Ctx
               txtNameAdd: ""
         }
 
-       this.npcs = this.initNpcs(20);
+       this.npcs =[... this.initNpcs(20), ... this.initPlayers(9) ];
+       
        this.npcs[1].seuTurno = true;
        this.npcs[2].isPlayer = true;
     } 
