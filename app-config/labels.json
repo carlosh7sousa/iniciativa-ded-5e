@@ -27,6 +27,8 @@
         "btnSubtract": "Subtrair",
         "btnAdd": "Somar",
         "btnSet": "Atribuir",
-        "btnClose": "X"
+        "btnClose": "X",
+        "separador1":", ",
+        "separador2":": "
     } 
 }
