@@ -22,18 +22,18 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         this.handlerPvButtonClick = this.handlerPvButtonClick.bind(this);
     }
 
-    handlerSetNpc(npc: Npc, index: number): void {
+    handlerSetNpc = (npc: Npc, index: number): void => {
         if (npc && index > 0) {
             this.props.npcs[index] = npc;
             this.setState({ npcs: this.props.npcs });
         }
     }
 
-    handlerGetNpc(index: number): Npc {
+    handlerGetNpc = (index: number): Npc => {
         return this.props.npcs[index];
     }
 
-    handlerPvButtonClick(index: number): void {
+    handlerPvButtonClick = (index: number): void => {
 
         let npc: Npc = this.handlerGetNpc(index);
         let oldPv: number = 0;

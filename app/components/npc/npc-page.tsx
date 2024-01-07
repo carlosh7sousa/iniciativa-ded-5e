@@ -19,12 +19,12 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
         }
     }
 
-    handlerSetNpc(npc: Npc, index: number): void {
-        this.props.handlerSetNpc(npc, this.props.index);
+    handlerSetNpc = (npc: Npc, index: number): void => {
+        this.props.handlerSetNpc(npc, index);
 
     }
 
-    handlerGetNpc(index: number): Npc {
+    handlerGetNpc = (index: number): Npc => {
         return this.props.handlerGetNpc(index);
     }
 
@@ -110,11 +110,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
             if (isNaN(newValue)) {
                 newValue = 0;
-            }
-
-            if (newValue > 99) {
-                newValue = 99;
-            }
+            } 
 
             npc.initiativeModifier = newValue;
 
