@@ -50,6 +50,8 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
 
     handlerNpcDetailsButtonClick = (index: number): void => {
+
+        console.log(index);
         this.setState({ indexModalVer: index });
     }
 
@@ -176,7 +178,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     handleModalVerNameValue = (): string => {
         let npc: Npc = this.handlerGetNpc(this.state.indexModalVer);
         if (npc != null) {
-            return npc.name + labels.modalVer.separador1;
+            return npc.name;
         }
 
         return "";
@@ -197,6 +199,10 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         //     this.resetModalState();
 
     }
+
+    
+
+
 
     render() {
 
@@ -233,6 +239,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                     <Text style={css.modalLblBtnClose}>{labels.modalNpc.btnClose}</Text>
                                 </Pressable>
                             </SafeAreaView>
+ 
                             <SafeAreaView style={css.modalRow2}>
                                 <Text style={css.modalLblName}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}{labels.modalNpc.separador2} {this.handleModalNpcPvValue()}</Text>
                             </SafeAreaView>
@@ -263,104 +270,96 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                     <View style={css.modalVerView}>
                         <View style={css.modalVerArea}>
 
-                            <View style={css.modalVerRow1}>
-                                <Text style={css.modalVerLblTitulo}>{labels.modalVer.titulo} </Text>
-                                <Pressable style={css.modalVerBtnClose} onPress={this.handleCloseModalVer}>
-                                    <Text style={css.modalVerLblBtnClose}>{labels.modalVer.btnClose}</Text>
-                                </Pressable>
+                            <View style={css.modalVerRowTitulo}>
+                                <Text style={css.modalVerLblTitulo}>{labels.modalVer.titulo}</Text>
                             </View>
-
-                            <View style={css.modalVerRow3}>
-                                <Text style={css.modalVerLblTitulo}> {this.handleModalVerNameValue()} </Text>
+                            
+                            <View style={css.modalVerRowTitulo}>
+                                <Text style={css.modalVerLblNpcNome}>{this.handleModalVerNameValue()} </Text>
                             </View>
 
                             <View style={css.modalVerRow2}>
-                                <Text style={css.modalVerLblEJogador}>É Jogador</Text>
-                                <Switch />
+                                <Text style={css.modalVerLblDeslocamento} >{labels.modalVer.lblDeslocamento}</Text>
+                                <TextInput style={css.modalVerTxtDeslocamento} selectTextOnFocus maxLength={4} keyboardType='number-pad'></TextInput>
+                                <Text style={css.modalVerLblAnotacoes}>{labels.modalVer.lblAnotacoes}</Text>
                             </View>
 
                             <View style={css.modalVerRow2}>
 
-                                <Text style={css.modalVerLblDeslocamento}>Deslocamento:</Text>
-                                <TextInput style={css.modalVerTxtDeslocamento}>9m</TextInput>
-                                <Text style={css.modalVerLblCa}>CA</Text>
-                                <TextInput style={css.modalVerTxtCa}>19</TextInput>
+                                <Text style={css.modalVerLblEJogador}>{labels.modalVer.lblEJogador}</Text>
+                                <Switch style={css.modalVerOptEJogador} />
+                                <TextInput style={css.modalVertxtAnotacoes} multiline={true} ></TextInput>
                             </View>
 
-
-                            <View style={css.modalVerRow2}>
-                                <Text style={css.modalVerLblAtaqueTitulo}>Ataque</Text>
-                                <Text style={css.modalVerLblModTitulo}>Mod</Text>
-                                <Text style={css.modalVerLblDanoTitulo}>Dano</Text>
+                            <View style={css.modalVerRowEmpty}>
+                                <Text style={css.modalVerLblPVs}>{labels.modalVer.labelPv}{labels.modalVer.separador2} {this.handleModalNpcPvValue()}</Text>
                             </View>
 
                             <View style={css.modalVerRow2}>
-                                <TextInput style={css.modalVerTxtAtaque}>Espada longa</TextInput>
-                                <TextInput style={css.modalVerTxtMod}>+5</TextInput>
-                                <TextInput style={css.modalVerTxtDano}>1d8+5 </TextInput>
+                                <Text style={css.modalVerLblCa}>{labels.modalVer.lblCa}</Text>
+                                <TextInput style={css.modalVerTxtCa} maxLength={4} keyboardType='number-pad'></TextInput>
                             </View>
 
-                            <View style={css.modalVerRow2}>
-                                <TextInput style={css.modalVerTxtAtaque} maxLength={18}>Machado de Batalha</TextInput>
-                                <TextInput style={css.modalVerTxtMod} maxLength={3}>+5</TextInput>
-                                <TextInput style={css.modalVerTxtDano} maxLength={18}>1d10+15 / 2d10+15</TextInput>
+                            <View style={css.modalVerRowEmpty}>
+                           
                             </View>
 
-                            <View style={css.modalVerRow2}>
-                                <TextInput style={css.modalVerTxtAtaque}>Arco composto</TextInput>
-                                <TextInput style={css.modalVerTxtMod}>+3</TextInput>
-                                <TextInput style={css.modalVerTxtDano}>1d10+4 </TextInput>
+                            <View style={css.modalVerRowPericia}>
+                                <Text style={css.modalVerLblPericiaTitulo}>{labels.modalVer.lblPericiaHeader}</Text>
+                                <Text style={css.modalVerLblModPericiaTitulo}>{labels.modalVer.lblPericiaModHeader}</Text>
                             </View>
 
-                            <View style={css.modalVerRow2}>
-                                <Text style={css.modalVerLblPericiaTitulo}>Pericias</Text>
-                                <Text style={css.modalVerLblModPericiaTitulo}>Mod</Text>
+                            <View style={css.modalVerRowPericia}>
+                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18}> </TextInput>
+                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4}></TextInput>
+
+                            </View>
+                            <View style={css.modalVerRowPericia}>
+                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18}> </TextInput>
+                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4}></TextInput>
+                            </View>
+                            <View style={css.modalVerRowPericia}>
+                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18}> </TextInput>
+                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4}></TextInput>
+
                             </View>
 
-                            <View style={css.modalVerRow2}>
-                                <TextInput style={css.modalVerTxtPericia}>Percepção </TextInput>
-                                <TextInput style={css.modalVerTxtModPericia}> -1</TextInput>
-                            </View>
-                            <View style={css.modalVerRow2}>
-                                <TextInput style={css.modalVerTxtPericia}>Furtividade </TextInput>
-                                <TextInput style={css.modalVerTxtModPericia}> +2</TextInput>
-                            </View>
-                            <View style={css.modalVerRow2}>
-                                <TextInput style={css.modalVerTxtPericia}>Atletismo </TextInput>
-                                <TextInput style={css.modalVerTxtModPericia}> +5</TextInput>
+                            <View style={css.modalVerRowAtaque}>
+                                <Text style={css.modalVerLblAtaqueTitulo}>{labels.modalVer.lblAtaqueHeader}</Text>
+                                <Text style={css.modalVerLblModTitulo}>{labels.modalVer.lblAtaqueModHeader}</Text>
+                                <Text style={css.modalVerLblDanoTitulo}>{labels.modalVer.lblAtaqueDanoHeader}</Text>
                             </View>
 
-                            <View style={css.modalVerRow2}>
-                                <Text style={css.modalVerLblDescricaoModTempTitulo}>Descrição</Text>
-                                <Text style={css.modalVerLblModTempTitulo}>Mod</Text>
-                                <Text style={css.modalVerLblDuracaoTitulo}>Duração</Text>
+                            <View style={css.modalVerRowAtaque}>
+                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus  ></TextInput>
+                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus keyboardType='number-pad'></TextInput>
+                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus  ></TextInput>
                             </View>
 
-                            <View style={css.modalVerRow2}>
-                                <TextInput style={css.modalVerTxtDescricaoModTemp}>Atordoado</TextInput>
-                                <TextInput style={css.modalVerTxtModTemp}>-1</TextInput>
-                                <TextInput style={css.modalVerTxtDuracao}>10</TextInput>
+                            <View style={css.modalVerRowAtaque}>
+                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus  ></TextInput>
+                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus keyboardType='number-pad'></TextInput>
+                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus  ></TextInput>
                             </View>
 
-                            <View style={css.modalVerRow2}>
-                                <TextInput style={css.modalVerTxtDescricaoModTemp}></TextInput>
-                                <TextInput style={css.modalVerTxtModTemp}></TextInput>
-                                <TextInput style={css.modalVerTxtDuracao}></TextInput>
-                            </View>
-                            <View style={css.modalVerRow2}>
-                                <Text style={css.modalVerLblAnotacoes}>Anotações:</Text>
+                            <View style={css.modalVerRowAtaque}>
+                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus  ></TextInput>
+                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus keyboardType='number-pad'></TextInput>
+                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus  ></TextInput>
                             </View>
 
-                            <View style={css.modalVerRow2}>
-                                <TextInput style={css.modalVertxtAnotacoes}>NPC está com o tesouro.</TextInput>
-                            </View>
 
-                            <View style={css.modalVerRow2}>
-                                <Pressable style={css.modalBtnSet} onPress={this.handleModalAtualizar}>
+
+                            <SafeAreaView style={css.modalVerRowBotoes}>
+
+                                <Pressable style={css.modalVerBtnAtualizar} onPress={this.handleModalAtualizar}>
                                     <Text style={css.modalVerLblBtnAtualizar}>{labels.modalVer.Atualizar}</Text>
                                 </Pressable>
-                            </View>
 
+                                <Pressable style={css.modalVerBtnCancelar} onPress={this.handleCloseModalVer}>
+                                    <Text style={css.modalVerLblBtnCancelar}>{labels.modalVer.Cancelar}</Text>
+                                </Pressable>
+                            </SafeAreaView>
                         </View>
                     </View>
                 </Modal>
@@ -368,3 +367,4 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         )
     }
 }
+

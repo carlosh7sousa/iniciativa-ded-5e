@@ -90,7 +90,6 @@ export const cssNpcList = StyleSheet.create({
 
   modalRow1: {
     flexDirection: "row",
-    justifyContent: "space-between",
     width: "100%"
   },
   modalRow2: {
@@ -226,6 +225,29 @@ export const cssNpcList = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%"
   },
+
+
+  modalVerRowEmpty:{
+    width: "100%",
+    height: 30
+  },
+
+  modalVerRowPericia:{
+    flexDirection: "row",
+    width: "100%",
+    paddingLeft: 10,
+    paddingRight: 10,
+    alignItems: 'flex-start',
+  },
+
+  modalVerRowAtaque: {
+    flexDirection: "row",
+    width: "100%",
+    paddingLeft: 10,
+    paddingRight: 10,
+    alignItems: 'flex-start',
+  },
+
   modalVerRow2: {
     flexDirection: "row",
     width: "100%",
@@ -235,44 +257,54 @@ export const cssNpcList = StyleSheet.create({
     alignItems: 'flex-start',
   },
 
-  modalVerRow3: {
+  modalVerRowBotoes:{
     flexDirection: "row",
     width: "100%",
     padding: 0,
     margin: 0,
-    alignItems: 'center',
-    justifyContent: "center"
+    alignItems:"center",
+    verticalAlign:"center",
+    justifyContent:"center",
+    height: 80
+  },
+
+  modalVerRowTitulo: {
+    flexDirection: "row",
+    width: "100%",
+    padding: 0,
+    margin: 0,
+    alignItems:"center",
+    justifyContent: "center"    
   },
 
   modalVerLblTitulo: {
-    fontSize: 30,
+    fontSize: 22,
     textAlign: "center",
     paddingTop: 10
   },
 
-
-
-
-  modalVerBtnClose: {
-    width: 40,
-    height: 40,
+  modalVerLblNpcNome: {
+    fontSize: 22,
     textAlign: "center",
-    backgroundColor: "#C62828",
-    marginLeft: 6,
-    padding: 2,
-    marginTop: 18,
-    marginRight: 2,
-    borderRadius: 4,
-
+    paddingTop: 10,
+    fontWeight: "bold"
   },
 
 
-  modalVerLblBtnClose: {
+  modalVerLblBtnCancelar: {
     fontSize: 22,
     color: "white",
     textAlign: "center"
   },
 
+  modalVerBtnCancelar: {
+    width: "33%",
+    padding: 10,
+    textAlign: "center",
+    backgroundColor: "#34495E",
+    marginLeft: 6
+  },
+ 
 
   modalVerLblBtnAtualizar: {
     fontSize: 22,
@@ -281,15 +313,18 @@ export const cssNpcList = StyleSheet.create({
   },
 
   modalVerBtnAtualizar: {
-    fontSize: 22,
-    color: "#37474F",
+    width: "33%",
+    padding: 10,
     textAlign: "center",
+    backgroundColor: "#2E86C1",
+    marginLeft: 6
   },
 
 
   modalVerLblEJogador: {
     fontSize: 18,
-    width: "40%"
+    width: "33%",
+    marginLeft: 10
   },
 
   modalVerLblDeslocamento: {
@@ -300,21 +335,25 @@ export const cssNpcList = StyleSheet.create({
 
   modalVerTxtDeslocamento: {
     fontSize: 18,
-    width: 30,
-    textAlign: "center"
+    width: 50,
+    textAlign: "center",
+    borderBottomColor: "#CFD8DC",
+    borderBottomWidth: 1,
   },
 
 
   modalVerLblCa: {
     fontSize: 20,
     textAlign: "right",
-    width: "30%"
+    width: "40%"
   },
 
   modalVerTxtCa: {
-    fontSize: 20,
     textAlign: "center",
-    width: "10%"
+    fontSize: 18,
+    width: 50,
+    borderBottomColor: "#CFD8DC",
+    borderBottomWidth: 1,
   },
 
 
@@ -344,7 +383,7 @@ export const cssNpcList = StyleSheet.create({
     borderLeftWidth: 1,
     borderBottomWidth: 1,
     borderColor: "white",
-    textAlign: "center"
+    paddingLeft: 4
   },
 
 
@@ -355,7 +394,8 @@ export const cssNpcList = StyleSheet.create({
     borderLeftWidth: 1,
     borderBottomWidth: 1,
     borderColor: "white",
-    textAlign: "center"
+    textAlign: "center",
+
   },
 
   modalVerTxtDano: {
@@ -369,23 +409,34 @@ export const cssNpcList = StyleSheet.create({
   },
 
   modalVerLblPericiaTitulo: {
-    fontSize: 20,
-    width: "60%"
+    fontSize: 18,
+    width: "46%",
+    textAlign: "center"
   },
 
   modalVerLblModPericiaTitulo: {
-    fontSize: 20,
-    width: "40%"
+    fontSize: 18,
+    width: "13%",
+    textAlign: "center"
   },
 
   modalVerTxtPericia: {
-    fontSize: 20,
-    width: "60%"
+    width: "46%",
+    backgroundColor: "#CFD8DC",
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "white",
+    
   },
 
   modalVerTxtModPericia: {
-    fontSize: 20,
-    width: "40%"
+    fontSize: 14,
+    width: "13%",
+    backgroundColor: "#CFD8DC",
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "white",
+    textAlign: "center"
   },
 
 
@@ -421,14 +472,34 @@ export const cssNpcList = StyleSheet.create({
   },
 
   modalVerLblAnotacoes: {
-    fontSize: 20,
-    width: "100%",
+    fontSize: 18,
+    width: "40%",
+    textAlign: 'center',
   },
 
   modalVertxtAnotacoes: {
-    fontSize: 20,
-    width: "100%",
-  }
+    left: "62%",
+    position:"absolute",
+    fontSize: 14,
+    width: "40%",
+    backgroundColor: "#CFD8DC",
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "white",
+    height: 252,
+    marginTop: 0,
+    textAlignVertical:"top",
+    textAlign: 'left'
+   },
 
+   modalVerLblPVs :{
+    fontSize: 18,
+    width: "40%",
+    textAlign: 'center',
+   },
+
+   modalVerOptEJogador:{
+      transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }],
+   }
 
 });

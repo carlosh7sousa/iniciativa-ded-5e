@@ -33,10 +33,24 @@
     },
 
     "modalVer" : {
-        "btnClose": "X",
-        "titulo": "Detalhes do NPC:",
+        "titulo": "Info do NPC:",
+        "labelPv": "PVs",
         "separador1": ", ",
-        "Atualizar": "Alterar"
+        "separador2":": ",
+        "Atualizar": "Alterar",
+        "Cancelar": "Cancelar",
+        "lblEJogador": "É Jogador",
+        "lblDeslocamento": "Deslocamento:",
+        "lblAnotacoes": "Anotações",
+        "lblCa": "CA",
+        "lblAtaqueHeader": "Ataque",
+        "lblAtaqueModHeader" : "Mod",
+        "lblAtaqueDanoHeader": "Dano",
+        "lblPericiaHeader":"Pericia",
+        "lblPericiaModHeader":"Mod"
+
+
+
     }
 
 }
