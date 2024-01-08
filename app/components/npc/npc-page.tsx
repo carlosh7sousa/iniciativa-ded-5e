@@ -86,7 +86,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
     handleExcluirNpcButtonClick = () => {
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
         if (npc != null) {
-            npc.ativo = false;
+            npc.active = false;
             this.props.handlerSetNpc(npc, this.props.index);
         }
     };
@@ -129,7 +129,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
             }
         });
 
-        sortedNpc = sortedNpc.filter(x => x != null && x.ativo);
+        sortedNpc = sortedNpc.filter(x => x != null && x.active);
         if (sortedNpc.length > 1) {
             return sortedNpc[0];
         }

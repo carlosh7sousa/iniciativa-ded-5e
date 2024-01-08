@@ -200,7 +200,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
     }
 
-    
+
 
 
 
@@ -216,7 +216,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
                     <ScrollView style={css.listaNpcsView}>
                         {this.props.npcs.map((npc: Npc, index: number) => {
-                            if (npc.ativo) {
+                            if (npc.active) {
                                 return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} handlerNpcDetailsButtonClick={this.handlerNpcDetailsButtonClick} />)
                             }
 
@@ -239,7 +239,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                     <Text style={css.modalLblBtnClose}>{labels.modalNpc.btnClose}</Text>
                                 </Pressable>
                             </SafeAreaView>
- 
+
                             <SafeAreaView style={css.modalRow2}>
                                 <Text style={css.modalLblName}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}{labels.modalNpc.separador2} {this.handleModalNpcPvValue()}</Text>
                             </SafeAreaView>
@@ -273,7 +273,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                             <View style={css.modalVerRowTitulo}>
                                 <Text style={css.modalVerLblTitulo}>{labels.modalVer.titulo}</Text>
                             </View>
-                            
+
                             <View style={css.modalVerRowTitulo}>
                                 <Text style={css.modalVerLblNpcNome}>{this.handleModalVerNameValue()} </Text>
                             </View>
@@ -301,7 +301,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                             </View>
 
                             <View style={css.modalVerRowEmpty}>
-                           
+
                             </View>
 
                             <View style={css.modalVerRowPericia}>

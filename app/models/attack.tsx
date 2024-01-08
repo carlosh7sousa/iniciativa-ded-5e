@@ -1,6 +1,6 @@
 export default interface Attack{
     id: number;
     weapon:string;
-    attackModifier: number;
+    modifier: number;
     damage: string;
 }

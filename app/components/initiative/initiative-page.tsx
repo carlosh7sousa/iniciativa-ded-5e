@@ -84,7 +84,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
                 }
             });
 
-            sortedNpc = sortedNpc.filter(x => x != null && x.ativo);
+            sortedNpc = sortedNpc.filter(x => x != null && x.active);
 
             if (sortedNpc != null && sortedNpc.length > 0) {
                 sortedNpc.forEach(x => x.seuTurno = false);
@@ -107,7 +107,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
     obterNpcSelecionado = (): Npc => {
         if (this.existeItensListaNpc()) {
-            return this.state.npcs.find(x => x.id === this.state.headerInfo.idSelected && x.ativo);
+            return this.state.npcs.find(x => x.id === this.state.headerInfo.idSelected && x.active);
         }
 
         return null;
@@ -133,7 +133,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
     obterNpcsAtivos() {
         if (this.state.npcs != null) {
-            return this.state.npcs.filter(x => x.ativo);
+            return this.state.npcs.filter(x => x.active);
         }
 
         return [];
@@ -299,13 +299,12 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             attributes: { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 },
             class: "Npc",
             currentHp: 10,
-            maxHp: 10,
             movement: "9m",
             mainSkills: [],
             notes: "",
             race: "",
             seuTurno: false,
-            ativo: true
+            active: true
         };
 
         return npc;
