@@ -37,7 +37,7 @@ export default class FileJsonBd {
         let content: string = JSON.stringify(contentJson);
 
         if (Platform.OS === "android") {
-            const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+            const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync(uri);
 
             if (permissions.granted) {
 
