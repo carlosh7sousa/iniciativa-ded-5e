@@ -1,4 +1,4 @@
-import { SafeAreaView, Alert, AlertButton, StatusBar, AppState} from 'react-native';
+import { SafeAreaView, Alert, AlertButton, StatusBar, BackHandler } from 'react-native';
 import { labels } from "../../models/labels";
 import { cssInitiative as css } from "./initiative-style";
 import React, { Component } from 'react';
@@ -8,21 +8,22 @@ import Npc from '../../models/npc';
 import NpcListPage from '../npcList/npc-list-page';
 import HeaderInfo from '../../models/headerInfo';
 import FooterPage from '../footer/footer-page';
- 
+
 
 
 
 export default class InitiativePage extends Component<{}, { npcs: Npc[], headerInfo: HeaderInfo, generatedId: number, npcNum: number }> {
 
+    ctx: Ctx;
 
     constructor(props) {
         super(props);
 
-        let ctx: Ctx = new Ctx();
+        this.ctx = new Ctx();
 
         this.state = {
-            npcs: ctx.npcs,
-            headerInfo: ctx.headerInfo,
+            npcs: this.ctx.npcs,
+            headerInfo: this.ctx.headerInfo,
             generatedId: 1,
             npcNum: 0
         };
@@ -31,12 +32,6 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         this.handleSetNpcs.bind(this);
         this.handleSortTurnButtonClick.bind(this);
         this.handleAddNcpButtonClick.bind(this);
-    }
-
-    componentWillUnmount(): void {
-
-
-
     }
 
     resetNpcNum(restartNpcNum: number) {
@@ -313,8 +308,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
     }
 
     handlePersistClick = (list: Npc[]) => {
-        const saved = JSON.stringify(list);
-        //await AsyncStorage.setItem('ctxNpc', saved)
+        this.ctx.persist(list);
     }
 
     handleSairClick = () => {
@@ -326,10 +320,10 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             }
         };
 
-        let alertSairSemSalvar: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.SairSemSalvar, onPress: () => { this.handlePersistClick([])} };
+        let alertSairSemSalvar: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.SairSemSalvar, onPress: () => { BackHandler.exitApp(); } };
 
         let alertCancel: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.Cancelar, onPress: () => { } };
-        Alert.alert(labels.app.persistirInfo.Titulo, labels.app.persistirInfo.Mensagem, [alertYes, alertCancel]);
+        Alert.alert(labels.app.persistirInfo.Titulo, labels.app.persistirInfo.Mensagem, [alertSairSemSalvar, alertCancel,alertYes]);
     }
 
 

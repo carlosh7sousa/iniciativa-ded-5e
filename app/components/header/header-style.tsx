@@ -20,20 +20,22 @@ export const cssHeader = StyleSheet.create({
         width: "100%",
         height: 30,
         backgroundColor: "#546E7A", 
+        flexDirection: 'row-reverse',
     },
 
     btnSair:{
-        width: "100%",
-        flexDirection: 'row-reverse'
+        width: 120,
+       
+        backgroundColor: "#37474F",
     },
 
     lblBtnSair:{
         textAlign: "center",
         width: 120,
-        height: 30,
-        backgroundColor: "#37474F",
         color: "white",
-        fontSize: 20
+        fontSize: 30,
+        fontWeight: "bold",
+        marginTop: -16,
     },
 
 
@@ -75,7 +77,9 @@ export const cssHeader = StyleSheet.create({
         borderTopWidth: 3,
         borderBottomColor: "black",
         borderBottomWidth: 3,
-        borderRadius: 10
+        borderRadius: 10,
+        width: 70,
+        marginLeft: 4
     },
     btnPreviousTurno: {
         width: 70
@@ -88,7 +92,8 @@ export const cssHeader = StyleSheet.create({
         fontSize: 18,
         textAlign: "center",
         height: 44,
-        padding: 10
+        padding: 10,
+        marginLeft: 20
     },
 
 
@@ -102,10 +107,12 @@ export const cssHeader = StyleSheet.create({
         borderTopWidth: 3,
         borderBottomColor: "black",
         borderBottomWidth: 3,
-        borderRadius: 10
+        borderRadius: 10,
+        marginLeft: 8,
+        width: 70,
     },
     btnNextTurno: {
-        width: 70
+        width: 70,
     },
 
     lblBtnSortNpcs: {

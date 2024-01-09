@@ -22,16 +22,16 @@
             "Cancelar": "Cancelar",           
             "Yes": "Remover NPCs e Jogadores"
         },
-        "btnSair": "Sair"
+        "btnSair": "..."
 
     },
     "app": {
         "persistirInfo": {
             "Titulo": "Salvar informações",
-            "Mensagem": "Deseja persistir, salvar as informações?",
-            "Cancelar": "Cancelar",
-            "SairSemSalvar": "Sair sem Salvar",
-            "Yes": "Salvar informações"
+            "Mensagem": "Deseja salvar as informações da lista?",
+            "Yes": "Salvar informações",
+            "Cancelar": "Cancelar",    
+            "SairSemSalvar": "Sair do App"
         }
     },
     "npc": {
