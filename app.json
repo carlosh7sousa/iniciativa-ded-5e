@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "ch7.iniciativa.ded"
     },
     "web": {
       "favicon": "./assets/favicon.png"
