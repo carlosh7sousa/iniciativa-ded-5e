@@ -11,7 +11,12 @@ export default class Npc implements INpc {
     active: boolean;
     details: NpcDetails;
 
-    constructor(){
+    constructor(id: number){
+        this.initiativeModifier = 0;
+        this.name = "";
+        this.active = true;
+        this.currentHp = 0;
+        this.seuTurno = false;
         this.details = new NpcDetails();
     }
 }

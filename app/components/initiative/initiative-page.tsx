@@ -27,6 +27,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         this.handleGetNpcs.bind(this);
         this.handleSetNpcs.bind(this);
         this.handleSortTurnButtonClick.bind(this);
+        this.handleAddNcpButtonClick.bind(this);
     }
 
     resetNpcNum(restartNpcNum: number) {
@@ -137,7 +138,6 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         }
 
         return [];
-
     }
 
     selecionarProximo = () => {
@@ -214,6 +214,8 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             let info = this.state.headerInfo;
             info.idSelected = previousSelectedId;
 
+
+            console.log(npcsUpdated);
             this.setState({ headerInfo: info });
             this.setState({ npcs: npcsUpdated });
         }
@@ -234,7 +236,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             info.idSelected = npc.id;
             this.setState({ headerInfo: info });
         }
-
+        console.log(npc);
         npcsUpdated.push(npc);
         this.setState({ npcs: npcsUpdated });
     };
@@ -288,11 +290,8 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
     }
 
     createNpc(npcName: string): Npc {
-        let npc: Npc = new Npc();
-        
-        npc.id = this.generateNewId();
+        let npc: Npc = new Npc(this.generateNewId());
         npc.name = npcName + " " + this.generateNewNpcNum();
-
         return npc;
     }
 

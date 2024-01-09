@@ -23,6 +23,10 @@ export default class NpcDetails implements INpcDetails{
         this.attack3 = new Attack();
         this.skill1 = new Skill();
         this.skill2 = new Skill();
-        this.skill3 = new Skill();        
+        this.skill3 = new Skill();  
+        this.id = 0;
+        this.movement = 6;
+        this.armorClass = 10;
+        this.notes = "";
     }
 }
