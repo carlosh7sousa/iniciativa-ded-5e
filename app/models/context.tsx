@@ -1,9 +1,8 @@
 import Npc from "./npc"
 import HeaderInfo from "./headerInfo";
-import { Platform } from "react-native";
 import * as FileSystem from 'expo-file-system'
-import { shareAsync } from "expo-sharing";
 import FileJsonBd from "../../app-config/fileJsonBd";
+import labels from "../../app-config/labels.json";
 
 export default class Ctx {
     npcs: Npc[];
@@ -30,22 +29,27 @@ export default class Ctx {
                     let objJson = { npcs: this.npcs };
 
                     jsonBd.createFileAsync(this.fileUri, this.fileName, objJson).then((value: void) => {
-                        console.log("obj npcs foi criado com sucesso.");
-                    }).catch((reason: any) => { console.log("erro ao gerar arquivo com obj npcs." + reason); });
+                        this.lerNpcs(jsonBd);
+                    }).catch((reason: any) => { console.log(labels.debugConsole.erroAoCriarJson + reason); });
                 }
                 else if (value.exists && !value.isDirectory) {
-                    jsonBd.readFileAsync(this.fileUri).then((value: string) => {
-                        let objNpcs: any = JSON.parse(value);
-                        this.npcs = objNpcs.npcs;
-                    }).catch((reason: any) => {
-                        this.npcs = [];
-                        console.log("erro ao gerar arquivo com obj npcs." + reason);
-                    });
+                    this.lerNpcs(jsonBd);
                 }
             }).catch((reason: any) => {
                 this.npcs = [];
-                console.log("erro ao verificar se o arquivo json existe." + reason);
+                console.log(labels.debugConsole.erroAoVerificarSeJsonExiste + reason);
             });
+    }
+
+
+    lerNpcs(jsonFile: FileJsonBd) {
+        jsonFile.readFileAsync(this.fileUri).then((value: string) => {
+            let objNpcs: any = JSON.parse(value);
+            this.npcs = objNpcs.npcs;
+        }).catch((reason: any) => {
+            this.npcs = [];
+            console.log(labels.debugConsole.erroAoCriarJson + reason);
+        });
     }
 
 

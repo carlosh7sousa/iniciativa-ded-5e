@@ -69,5 +69,9 @@
         "lblAtaqueDanoHeader": "Dano",
         "lblPericiaHeader": "Pericia",
         "lblPericiaModHeader": "Mod"
+    },
+    "debugConsole":{
+        "erroAoCriarJson": "Erro ao criar arquivo json.",
+        "erroAoVerificarSeJsonExiste": "Erro ao verificar se arquivo json existe."
     }
 }
