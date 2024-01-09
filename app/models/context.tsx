@@ -16,6 +16,8 @@ export default class Ctx {
             turno: 0,
             txtNameAdd: ""
         } 
+
+        this.npcs = [...context.npcs];
     }
 
     obterUniqueNpcs(arr: Npc[]): Npc[] {
@@ -78,35 +80,35 @@ export default class Ctx {
                 attack1: {
                     id: 10,
                     weapon: "",
-                    modifier: 0,
+                    modifier: "",
                     damage: ""
                 },
                 attack2: {
                     id: 20,
                     weapon: "",
-                    modifier: 0,
+                    modifier: "",
                     damage: ""
                 },
                 attack3: {
                     id: 30,
                     weapon: "",
-                    modifier: 0,
+                    modifier: "",
                     damage: ""
                 },
                 skill1: {
                     id: 40,
                     name: "",
-                    modifier: 0,
+                    modifier: "",
                 },
                 skill2: {
                     id: 50,
                     name: "",
-                    modifier: 0,
+                    modifier: "",
                 },
                 skill3: {
                     id: 60,
                     name: "",
-                    modifier: 0,
+                    modifier: "",
                 } 
             }
         };
