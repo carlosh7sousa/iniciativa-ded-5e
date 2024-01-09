@@ -9,6 +9,8 @@ import NpcListPage from '../npcList/npc-list-page';
 import HeaderInfo from '../../models/headerInfo';
 import FooterPage from '../footer/footer-page';
 
+
+
 export default class InitiativePage extends Component<{}, { npcs: Npc[], headerInfo: HeaderInfo, generatedId: number, npcNum: number }> {
 
 
@@ -27,7 +29,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         this.handleGetNpcs.bind(this);
         this.handleSetNpcs.bind(this);
         this.handleSortTurnButtonClick.bind(this);
-        this.handleAddNcpButtonClick.bind(this);
+        this.handleAddNcpButtonClick.bind(this); 
     }
 
     resetNpcNum(restartNpcNum: number) {

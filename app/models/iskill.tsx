@@ -1,5 +1,5 @@
 export  default interface ISkill {
     id: number;
     name: string;
-    modifier: number;
+    modifier: string;
 }

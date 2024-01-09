@@ -3,13 +3,13 @@ import IAttack from "./iattack";
 export default class Attack implements IAttack{
     id: number;
     weapon:string;
-    modifier: number;
+    modifier: string;
     damage: string;
 
     constructor(){
         this.id = 0;
         this.weapon = "";
-        this.modifier = 0;
+        this.modifier = "";
         this.damage = "";
     }
 }

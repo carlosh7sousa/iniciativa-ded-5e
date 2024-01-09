@@ -1,6 +1,6 @@
 export default interface IAttack{
     id: number;
     weapon:string;
-    modifier: number;
+    modifier: string;
     damage: string;
 }
