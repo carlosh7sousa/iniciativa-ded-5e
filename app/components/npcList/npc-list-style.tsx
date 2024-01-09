@@ -3,8 +3,10 @@ import { Dimensions, StyleSheet, StatusBar } from 'react-native';
 let h: number = Dimensions.get("screen").height;
 
 
-let header: number = 115;
+let header: number = 145;
 let footer: number = 80;
+
+
 
 h = h - header;
 h = h - footer;

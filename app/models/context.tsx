@@ -1,4 +1,4 @@
-import Npc from "./inpc"
+import Npc from "./npc"
 import * as context from "../../app-config/context.json";
 import HeaderInfo from "./headerInfo";
 

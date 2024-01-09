@@ -4,7 +4,7 @@ export const cssHeader = StyleSheet.create({
 
     vwHeader: {
         width: "100%",
-        height: 115,
+        height: 145,
         backgroundColor: "white",
     },
 
@@ -16,6 +16,27 @@ export const cssHeader = StyleSheet.create({
         textAlign: "center",
     },
 
+    vwSair:{
+        width: "100%",
+        height: 30,
+        backgroundColor: "#546E7A", 
+    },
+
+    btnSair:{
+        width: "100%",
+        flexDirection: 'row-reverse'
+    },
+
+    lblBtnSair:{
+        textAlign: "center",
+        width: 120,
+        height: 30,
+        backgroundColor: "#37474F",
+        color: "white",
+        fontSize: 20
+    },
+
+
     vwHeaderRowTurno: {
         width: "100%",
         height: 45,
@@ -23,7 +44,11 @@ export const cssHeader = StyleSheet.create({
         backgroundColor: "#424242",
         justifyContent: 'space-between',
         margin: 0,
-        paddingBotton: 10
+        paddingBotton: 10,
+        borderTopColor: "black",
+        borderTopWidth: 3,
+        borderBottomColor: "black",
+        borderBottomWidth: 3,
     },
 
 
@@ -45,7 +70,12 @@ export const cssHeader = StyleSheet.create({
         fontSize: 28,
         backgroundColor: "#546E7A",
         textAlign: "center",
-        height: 46,
+        height: 44,
+        borderTopColor: "black",
+        borderTopWidth: 3,
+        borderBottomColor: "black",
+        borderBottomWidth: 3,
+        borderRadius: 10
     },
     btnPreviousTurno: {
         width: 70
@@ -57,7 +87,7 @@ export const cssHeader = StyleSheet.create({
         color: "white",
         fontSize: 18,
         textAlign: "center",
-        height: 46,
+        height: 44,
         padding: 10
     },
 
@@ -67,26 +97,29 @@ export const cssHeader = StyleSheet.create({
         fontSize: 28,
         backgroundColor: "#546E7A",
         textAlign: "center",
-        height: 46,
+        height: 44,
+        borderTopColor: "black",
+        borderTopWidth: 3,
+        borderBottomColor: "black",
+        borderBottomWidth: 3,
+        borderRadius: 10
     },
     btnNextTurno: {
         width: 70
     },
 
-
-
-
     lblBtnSortNpcs: {
         color: "white",
-        fontSize: 26,
-        padding: 0,
-        backgroundColor: "#90A4AE",
-        borderColor: "#90A4AE",
+        fontWeight:"bold",
+        fontFamily: "sans-serif",
+        fontSize: 28,       
         textAlign: "center",
-        height: 46,
+        height: 50,
+        marginTop: -4
     },
     btnSortNpcs: {
-        width: 60
+        width: 70,
+        backgroundColor: "#90A4AE", 
     },
 
 
