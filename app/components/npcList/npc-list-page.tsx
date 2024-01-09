@@ -6,7 +6,7 @@ import { cssNpcList as css } from "./npc-list-style";
 import { labels } from "../../models/labels";
 
 
-export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: number }, { npcs: Npc[], indexModalPv: number, oldModalPv: number, newModalPv: number, indexModalVer: number, modalVerDetailNpcNew: Npc, modalVerDetailNpcOld: Npc }> {
+export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: number, triggerParentUpdate (index: number, upd:Npc): void }, { npcs: Npc[], indexModalPv: number, oldModalPv: number, newModalPv: number, indexModalVer: number, modalVerDetailNpcNew: Npc, modalVerDetailNpcOld: Npc }> {
 
     constructor(props) {
         super(props);
@@ -33,6 +33,8 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
             this.props.npcs[index] = npc;
             this.setState({ npcs: this.props.npcs });
         }
+
+        this.props.triggerParentUpdate(index, npc);
     }
 
     handlerGetNpc = (index: number): Npc => {

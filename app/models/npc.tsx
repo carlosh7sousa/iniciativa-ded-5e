@@ -18,6 +18,7 @@ export default class Npc implements INpc {
         this.active = true;
         this.currentHp = 0;
         this.seuTurno = false;
+        this.isPlayer = false;
         this.details = new NpcDetails();
     }
 }

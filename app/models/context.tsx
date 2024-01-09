@@ -15,10 +15,7 @@ export default class Ctx {
             idSelected: -1,
             turno: 0,
             txtNameAdd: ""
-        }
-
-        let arr: Npc[] = [... this.initNpcs(20), ... this.initPlayers(9), ...context.npcs];
-        this.npcs = this.obterUniqueNpcs(arr);
+        } 
     }
 
     obterUniqueNpcs(arr: Npc[]): Npc[] {
