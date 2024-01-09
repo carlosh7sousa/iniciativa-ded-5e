@@ -211,11 +211,5 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
             </SafeAreaView>
         )
-    }
-
-
-
-
+    } 
 }
-
-

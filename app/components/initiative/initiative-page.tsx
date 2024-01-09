@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, Alert, AlertButton, StatusBar } from 'react-native';
+import {  SafeAreaView, Alert, AlertButton, StatusBar } from 'react-native';
 import { labels } from "../../models/labels";
 import { cssInitiative as css } from "./initiative-style";
 import React, { Component } from 'react';
@@ -288,24 +288,10 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
     }
 
     createNpc(npcName: string): Npc {
-        let npc: Npc = {
-            id: this.generateNewId(),
-            name: npcName + " " + this.generateNewNpcNum(),
-            initiativeModifier: 0,
-            isPlayer: false,
-            alignment: "",
-            armorClass: 10,
-            attacks: [],
-            attributes: { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 },
-            class: "Npc",
-            currentHp: 10,
-            movement: "9m",
-            mainSkills: [],
-            notes: "",
-            race: "",
-            seuTurno: false,
-            active: true
-        };
+        let npc: Npc = new Npc();
+        
+        npc.id = this.generateNewId();
+        npc.name = npcName + " " + this.generateNewNpcNum();
 
         return npc;
     }

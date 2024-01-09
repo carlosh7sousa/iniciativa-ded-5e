@@ -1,7 +1,8 @@
 import Attack from "./attack";
+import INpcDetails from "./inpcDetails";
 import Skill from "./skill";
 
-export default interface NpcDetails{
+export default class NpcDetails implements INpcDetails{
     
     id: number;
     movement: number;
@@ -15,4 +16,13 @@ export default interface NpcDetails{
     skill1: Skill;
     skill2: Skill;
     skill3: Skill;
+
+    constructor(){
+        this.attack1 = new Attack();
+        this.attack2 = new Attack();
+        this.attack3 = new Attack();
+        this.skill1 = new Skill();
+        this.skill2 = new Skill();
+        this.skill3 = new Skill();        
+    }
 }

@@ -1,4 +1,4 @@
-import Npc from "./npc"
+import Npc from "./inpc"
 import * as context from "../../app-config/context.json";
 import HeaderInfo from "./headerInfo";
 
@@ -73,7 +73,45 @@ export default class Ctx {
             currentHp: 10,
             seuTurno: false,
             active: true,
-            details: null
+            details: {
+                id: 10,
+                movement: 9,
+                armorClass: 10,
+                notes: "",
+                attack1: {
+                    id: 10,
+                    weapon: "",
+                    modifier: 0,
+                    damage: ""
+                },
+                attack2: {
+                    id: 20,
+                    weapon: "",
+                    modifier: 0,
+                    damage: ""
+                },
+                attack3: {
+                    id: 30,
+                    weapon: "",
+                    modifier: 0,
+                    damage: ""
+                },
+                skill1: {
+                    id: 40,
+                    name: "",
+                    modifier: 0,
+                },
+                skill2: {
+                    id: 50,
+                    name: "",
+                    modifier: 0,
+                },
+                skill3: {
+                    id: 60,
+                    name: "",
+                    modifier: 0,
+                } 
+            }
         };
 
         return item;

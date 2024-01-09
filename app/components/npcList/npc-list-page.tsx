@@ -6,7 +6,7 @@ import { cssNpcList as css } from "./npc-list-style";
 import { labels } from "../../models/labels";
 
 
-export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: number }, { npcs: Npc[], indexModalPv: number, oldModalPv: number, newModalPv: number, indexModalVer: number }> {
+export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: number }, { npcs: Npc[], indexModalPv: number, oldModalPv: number, newModalPv: number, indexModalVer: number, modalVerDetailNpcNew: Npc, modalVerDetailNpcOld: Npc }> {
 
     constructor(props) {
         super(props);
@@ -17,13 +17,16 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
             newModalPv: 0,
             indexModalPv: -1,
 
-
+            modalVerDetailNpcOld: null,
+            modalVerDetailNpcNew: null,
             indexModalVer: -1
         };
 
         this.handlerSetNpc = this.handlerSetNpc.bind(this);
         this.handlerGetNpc = this.handlerGetNpc.bind(this);
         this.handlerPvButtonClick = this.handlerPvButtonClick.bind(this);
+        this.handlerNpcDetailsButtonClick = this.handlerNpcDetailsButtonClick.bind(this);
+        this.handleModalVerDetailPer1NameTextChange = this.handleModalVerDetailPer1NameTextChange.bind(this);
     }
 
     handlerSetNpc = (npc: Npc, index: number): void => {
@@ -51,10 +54,18 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
     handlerNpcDetailsButtonClick = (index: number): void => {
 
-        console.log(index);
         this.setState({ indexModalVer: index });
+        let npcVer: Npc = this.handlerGetNpc(index); 
+
+        this.setState({ modalVerDetailNpcNew: this.createClone(npcVer) });
+        this.setState({ modalVerDetailNpcOld: this.createClone(npcVer) });
     }
 
+    createClone(npc: Npc) {
+        let clone: Npc = { ...npc };
+        clone.details = { ...npc.details };
+        return clone;
+    }
 
     handleModalPvTextChange = (strNewValue: string) => {
         let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
@@ -95,11 +106,27 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
     resetModalVerState = () => {
         this.setState({ indexModalVer: -1 });
-
+        this.setState({ modalVerDetailNpcOld: null });
+        this.setState({ modalVerDetailNpcNew: null });
     }
 
 
     handlePvAtribuir = () => {
+
+        let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
+        if (npc != null) {
+            let newPv: number = this.state.newModalPv;
+            if (isNaN(newPv)) {
+                newPv = 0;
+            }
+
+            npc.currentHp = newPv;
+            this.handlerSetNpc(npc, this.state.indexModalPv);
+            this.resetModalState();
+        }
+    }
+
+    handleDetailsAtribuir = () => {
 
         let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
         if (npc != null) {
@@ -156,9 +183,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         this.resetModalState();
     }
 
-    handleCloseModalVer = () => {
-        this.resetModalVerState();
-    }
+
 
     handleModalNpcNameValue = (): string => {
         let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
@@ -185,21 +210,182 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     }
 
 
-    handleModalAtualizar = () => {
-
-        // let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
-        // if (npc != null) {
-        //     let newPv: number = this.state.newModalPv;
-        //     if (isNaN(newPv)) {
-        //         newPv = 0;
-        //     }
-
-        //     npc.currentHp = newPv;
-        //     this.handlerSetNpc(npc, this.state.indexModalPv);
-        //     this.resetModalState();
-
+    handleModalVerAtualizar = () => {
+        let updatedNpc: Npc = this.state.modalVerDetailNpcNew;
+        this.handlerSetNpc(updatedNpc, this.state.indexModalVer);
+        this.resetModalVerState();
     }
 
+    handleModalVerCancelar = () => {
+        let updatedNpc: Npc = this.state.modalVerDetailNpcOld;
+        
+        this.handlerSetNpc(updatedNpc, this.state.indexModalVer);
+        this.resetModalVerState();
+    }
+
+
+    existeNpcDetails(npc: Npc): boolean {
+        return npc != null && npc.details != null;
+    }
+
+    handleModalVerDetailNoteTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.details.notes = newText;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailNoteValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.notes;
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailPer1NameTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.details.skill1.name = newText;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+
+        console.log(this.state.modalVerDetailNpcNew);
+        console.log(this.state.modalVerDetailNpcOld);
+    }
+
+    handleModalVerDetailPer1NameValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.skill1.name;
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailPer1ModTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+
+            let mod: number = parseInt(newText);
+            if (isNaN(mod)) {
+                mod = 0;
+            }
+
+            mNpc.details.skill1.modifier = mod;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailPer1ModValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.skill1.modifier.toString();
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailPer2NameTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.details.skill2.name = newText;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+
+    handleModalVerDetailPer2NameValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.skill2.name;
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailPer2ModTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+
+            let mod: number = parseInt(newText);
+            if (isNaN(mod)) {
+                mod = 0;
+            }
+
+            mNpc.details.skill2.modifier = mod;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailPer2ModValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.skill2.modifier.toString();
+        }
+
+        return "";
+    }
+
+
+
+
+    handleModalVerDetailPer3NameTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.details.skill3.name = newText;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+
+    handleModalVerDetailPer3NameValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.skill3.name;
+        }
+
+        return "";
+    }
+
+
+    handleModalVerDetailPer3ModTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+
+            let mod: number = parseInt(newText);
+            if (isNaN(mod)) {
+                mod = 0;
+            }
+
+            mNpc.details.skill3.modifier = mod;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailPer3ModValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.skill3.modifier.toString();
+        }
+
+        return "";
+    }
 
 
 
@@ -288,11 +474,11 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
                                 <Text style={css.modalVerLblEJogador}>{labels.modalVer.lblEJogador}</Text>
                                 <Switch style={css.modalVerOptEJogador} />
-                                <TextInput style={css.modalVertxtAnotacoes} multiline={true} ></TextInput>
+                                <TextInput style={css.modalVertxtAnotacoes} multiline={true} onChangeText={this.handleModalVerDetailNoteTextChange}>{this.handleModalVerDetailNoteValue()}</TextInput>
                             </View>
 
                             <View style={css.modalVerRowEmpty}>
-                                <Text style={css.modalVerLblPVs}>{labels.modalVer.labelPv}{labels.modalVer.separador2} {this.handleModalNpcPvValue()}</Text>
+                                <Text style={css.modalVerLblPVs}>{labels.modalVer.labelPv}{labels.modalVer.separador2} </Text>
                             </View>
 
                             <View style={css.modalVerRow2}>
@@ -310,17 +496,17 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                             </View>
 
                             <View style={css.modalVerRowPericia}>
-                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18}> </TextInput>
-                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4}></TextInput>
+                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18} onChangeText={this.handleModalVerDetailPer1NameTextChange} > {this.handleModalVerDetailPer1NameValue()} </TextInput>
+                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4} onChangeText={this.handleModalVerDetailPer1ModTextChange} > {this.handleModalVerDetailPer1ModValue()}</TextInput>
 
                             </View>
                             <View style={css.modalVerRowPericia}>
-                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18}> </TextInput>
-                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4}></TextInput>
+                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18} onChangeText={this.handleModalVerDetailPer2NameTextChange} > {this.handleModalVerDetailPer2NameValue()} </TextInput>
+                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4} onChangeText={this.handleModalVerDetailPer2ModTextChange} > {this.handleModalVerDetailPer2ModValue()}</TextInput>
                             </View>
                             <View style={css.modalVerRowPericia}>
-                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18}> </TextInput>
-                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4}></TextInput>
+                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18} onChangeText={this.handleModalVerDetailPer3NameTextChange} > {this.handleModalVerDetailPer3NameValue()} </TextInput>
+                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4} onChangeText={this.handleModalVerDetailPer3ModTextChange} > {this.handleModalVerDetailPer3ModValue()}</TextInput>
 
                             </View>
 
@@ -352,11 +538,11 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
                             <SafeAreaView style={css.modalVerRowBotoes}>
 
-                                <Pressable style={css.modalVerBtnAtualizar} onPress={this.handleModalAtualizar}>
+                                <Pressable style={css.modalVerBtnAtualizar} onPress={this.handleModalVerAtualizar}>
                                     <Text style={css.modalVerLblBtnAtualizar}>{labels.modalVer.Atualizar}</Text>
                                 </Pressable>
 
-                                <Pressable style={css.modalVerBtnCancelar} onPress={this.handleCloseModalVer}>
+                                <Pressable style={css.modalVerBtnCancelar} onPress={this.handleModalVerCancelar}>
                                     <Text style={css.modalVerLblBtnCancelar}>{labels.modalVer.Cancelar}</Text>
                                 </Pressable>
                             </SafeAreaView>

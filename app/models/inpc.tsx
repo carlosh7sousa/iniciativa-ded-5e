@@ -1,7 +1,6 @@
-import INpc from "./inpc";
-import NpcDetails from "./npcDetails";
+import NpcDetails from "./inpcDetails";
 
-export default class Npc implements INpc {
+export default interface INpc {
     id: number;
     initiativeModifier: number;
     isPlayer: boolean;
@@ -10,8 +9,4 @@ export default class Npc implements INpc {
     seuTurno: boolean;
     active: boolean;
     details: NpcDetails;
-
-    constructor(){
-        this.details = new NpcDetails();
-    }
 }
