@@ -105,9 +105,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
         return true;
     }
-
-
-
+ 
     resetModalState = () => {
         this.setState({ indexModalPv: -1 });
         this.setState({ newModalPv: 0 });
