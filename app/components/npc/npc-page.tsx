@@ -181,8 +181,8 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                 <SafeAreaView style={[css.vwNpcRow1, this.obterRowBg()]}>
 
                     <SafeAreaView style={css.vwNpcGroupCtrl1}>
-                        <TextInput selectTextOnFocus style={css.txtIni} onChangeText={this.handleIniTextChange} inputMode='numeric' value={this.props.handlerGetNpc(this.props.index).initiativeModifier.toString()} maxLength={2} />
-                        <TextInput selectTextOnFocus style={css.txtNomeNpc} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.index).name} maxLength={20} />
+                        <TextInput selectTextOnFocus style={css.txtIni} onChangeText={this.handleIniTextChange} inputMode='numeric' value={this.props.handlerGetNpc(this.props.index).initiativeModifier.toString()} maxLength={2} ></TextInput>
+                        <TextInput selectTextOnFocus style={css.txtNomeNpc} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.index).name} maxLength={20}  ></TextInput>
 
                         <Pressable style={css.btnPv} onPress={this.handlerHpClick} >
                             <Text style={css.lblBtnPv} >{this.props.handlerGetNpc(this.props.index).currentHp.toString()}</Text>

@@ -728,7 +728,8 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                 <Text style={css.modalLblName}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}{labels.modalNpc.separador2} {this.handleModalNpcPvValue()}</Text>
                             </SafeAreaView>
                             <SafeAreaView style={css.modalRow3}>
-                                <TextInput style={css.modalTxtPv} selectTextOnFocus onChangeText={this.handleModalPvTextChange} inputMode='numeric' maxLength={4} />
+                                <TextInput style={css.modalTxtPv} selectTextOnFocus onChangeText={this.handleModalPvTextChange} inputMode='numeric' maxLength={4} >
+                                </TextInput>
                             </SafeAreaView>
                             <SafeAreaView style={css.modalRow4}>
 
