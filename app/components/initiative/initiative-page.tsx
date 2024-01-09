@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, Alert, AlertButton, StatusBar } from 'react-native';
+import { SafeAreaView, Alert, AlertButton, StatusBar } from 'react-native';
 import { labels } from "../../models/labels";
 import { cssInitiative as css } from "./initiative-style";
 import React, { Component } from 'react';
@@ -18,7 +18,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         let ctx: Ctx = new Ctx();
 
         this.state = {
-            npcs: [],
+            npcs: ctx.npcs,
             headerInfo: ctx.headerInfo,
             generatedId: 1,
             npcNum: 0
@@ -27,6 +27,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         this.handleGetNpcs.bind(this);
         this.handleSetNpcs.bind(this);
         this.handleSortTurnButtonClick.bind(this);
+        this.handleAddNcpButtonClick.bind(this);
     }
 
     resetNpcNum(restartNpcNum: number) {
@@ -58,7 +59,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         return this.obterNpcsAtivos();
     }
 
-    handleSetNpcs = (npcs: Npc[]) => {
+    handleSetNpcs = (npcs: Npc[]): void => {
         this.setState({ npcs });
     }
 
@@ -84,7 +85,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
                 }
             });
 
-            sortedNpc = sortedNpc.filter(x => x != null && x.ativo);
+            sortedNpc = sortedNpc.filter(x => x != null && x.active);
 
             if (sortedNpc != null && sortedNpc.length > 0) {
                 sortedNpc.forEach(x => x.seuTurno = false);
@@ -107,7 +108,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
     obterNpcSelecionado = (): Npc => {
         if (this.existeItensListaNpc()) {
-            return this.state.npcs.find(x => x.id === this.state.headerInfo.idSelected && x.ativo);
+            return this.state.npcs.find(x => x.id === this.state.headerInfo.idSelected && x.active);
         }
 
         return null;
@@ -133,11 +134,10 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
     obterNpcsAtivos() {
         if (this.state.npcs != null) {
-            return this.state.npcs.filter(x => x.ativo);
+            return this.state.npcs.filter(x => x.active);
         }
 
         return [];
-
     }
 
     selecionarProximo = () => {
@@ -156,6 +156,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             if (nextIndex >= npcsUpdated.length) {
                 this.handleTurnValueChange(this.state.headerInfo.turno + 1);
                 nextSelectedId = npcsUpdated[0].id;
+
             }
             else {
                 nextSelectedId = npcsUpdated[nextIndex].id;
@@ -167,6 +168,8 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
             let info = this.state.headerInfo;
             info.idSelected = nextSelectedId;
+
+
 
             this.setState({ headerInfo: info });
             this.setState({ npcs: npcsUpdated });
@@ -288,29 +291,17 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
     }
 
     createNpc(npcName: string): Npc {
-        let npc: Npc = {
-            id: this.generateNewId(),
-            name: npcName + " " + this.generateNewNpcNum(),
-            initiativeModifier: 0,
-            isPlayer: false,
-            alignment: "",
-            armorClass: 10,
-            attacks: [],
-            attributes: { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 },
-            class: "Npc",
-            currentHp: 10,
-            maxHp: 10,
-            movement: "9m",
-            mainSkills: [],
-            notes: "",
-            race: "",
-            seuTurno: false,
-            ativo: true
-        };
-
+        let npc: Npc = new Npc(this.generateNewId());
+        npc.name = npcName + " " + this.generateNewNpcNum();
         return npc;
     }
+    
+    handleUpdateNpcFromChild = (index: number, upd:Npc): void => {
+       let listUpd: Npc[] = this.state.npcs;
+       listUpd[index] = upd;
 
+        this.setState({ npcs: listUpd });
+    }
 
 
     render() {
@@ -320,7 +311,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
             <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
-            <NpcListPage npcs={this.obterNpcsAtivos()} idSelected={this.state.headerInfo.idSelected} >
+            <NpcListPage npcs={this.obterNpcsAtivos()} idSelected={this.state.headerInfo.idSelected} triggerParentUpdate={this.handleUpdateNpcFromChild} >
             </NpcListPage>
 
             <FooterPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />

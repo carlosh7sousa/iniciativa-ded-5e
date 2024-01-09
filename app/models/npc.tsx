@@ -1,35 +1,24 @@
-import Attack from "./attack";
-import Attributes from "./attributes";
-import Skills from "./skills";
+import INpc from "./inpc";
+import NpcDetails from "./npcDetails";
 
-export default interface Npc{
-    
+export default class Npc implements INpc {
     id: number;
-    name: string;
-
-    race: string;
-    class: string;
-    alignment: string;
-
-    initiativeModifier: number;    
-
+    initiativeModifier: number;
     isPlayer: boolean;
-    
-    movement: string;
-    armorClass: number;
-
+    name: string;
     currentHp: number;
-    notes: string;
-
-    attributes: Attributes;
-    mainSkills: Skills[];
-    attacks: Attack[]; 
-
     seuTurno: boolean;
-    ativo: boolean;
+    active: boolean;
+    details: NpcDetails;
+
+    constructor(id: number){
+        this.id = id;
+        this.initiativeModifier = 0;
+        this.name = "";
+        this.active = true;
+        this.currentHp = 0;
+        this.seuTurno = false;
+        this.isPlayer = false;
+        this.details = new NpcDetails();
+    }
 }
-
-
-
-
-

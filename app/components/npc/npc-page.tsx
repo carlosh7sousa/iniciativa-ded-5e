@@ -4,7 +4,7 @@ import { TextInput, Pressable, Text, SafeAreaView } from 'react-native';
 import { cssNpc as css } from "./npc-style";
 import { labels } from "../../models/labels";
 
-export default class NpcPage extends Component<{ index: number, handlerSetNpc(npc: Npc, index: number): void, handlerGetNpc(index: number): Npc, handlerPvButtonClick(index: number): void, npcsReadonly: Npc[], handlerNpcDetailsButtonClick(index: number): void, }, { visible: boolean }> {
+export default class NpcPage extends Component<{ index: number, handlerSetNpc(npc: Npc, index: number): void, handlerGetNpc(index: number): Npc, handlerPvButtonClick(index: number): void, npcsReadonly: Npc[], handlerNpcDetailsButtonClick(index: number): void }, { visible: boolean }> {
 
 
     constructor(props) {
@@ -13,10 +13,10 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
         this.handlerGetNpc = this.handlerGetNpc.bind(this);
         this.handlerHpClick = this.handlerHpClick.bind(this);
         this.handleIniTextChange = this.handleIniTextChange.bind(this);
-        this.handlerNpcDetailsButtonClick = this.handlerNpcDetailsButtonClick.bind(this);         
+        this.handlerNpcDetailsButtonClick = this.handlerNpcDetailsButtonClick.bind(this);
 
         this.state = {
-            visible: false
+            visible: false            
         }
     }
 
@@ -82,11 +82,11 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
 
 
 
-  
+
     handleExcluirNpcButtonClick = () => {
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
         if (npc != null) {
-            npc.ativo = false;
+            npc.active = false;
             this.props.handlerSetNpc(npc, this.props.index);
         }
     };
@@ -129,7 +129,7 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
             }
         });
 
-        sortedNpc = sortedNpc.filter(x => x != null && x.ativo);
+        sortedNpc = sortedNpc.filter(x => x != null && x.active);
         if (sortedNpc.length > 1) {
             return sortedNpc[0];
         }
@@ -142,16 +142,20 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
     obterRowBg = () => {
 
         let npc: Npc = this.props.handlerGetNpc(this.props.index);
-
-        if (npc != null && npc.seuTurno) {
-            return css.yellow;
+        
+        if (npc != null) {
+            if (npc.seuTurno) {
+                return css.yellow;
+            }
+            else if (npc.isPlayer) {
+                return css.green;
+            }
+            else {
+                return css.red;
+            }
         }
 
-        if (npc != null && !npc.seuTurno && npc.isPlayer) {
-            return css.green;
-        }
-
-        return css.red;
+        this.handlerSetNpc(npc, this.props.index);
     }
 
 
@@ -181,8 +185,8 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                 <SafeAreaView style={[css.vwNpcRow1, this.obterRowBg()]}>
 
                     <SafeAreaView style={css.vwNpcGroupCtrl1}>
-                        <TextInput selectTextOnFocus style={css.txtIni} onChangeText={this.handleIniTextChange} keyboardType='number-pad' value={this.props.handlerGetNpc(this.props.index).initiativeModifier.toString()} maxLength={2} />
-                        <TextInput selectTextOnFocus style={css.txtNomeNpc} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.index).name} maxLength={20} />
+                        <TextInput selectTextOnFocus style={css.txtIni} onChangeText={this.handleIniTextChange} inputMode='numeric' value={this.props.handlerGetNpc(this.props.index).initiativeModifier.toString()} maxLength={2} ></TextInput>
+                        <TextInput selectTextOnFocus style={css.txtNomeNpc} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.index).name} maxLength={20}  ></TextInput>
 
                         <Pressable style={css.btnPv} onPress={this.handlerHpClick} >
                             <Text style={css.lblBtnPv} >{this.props.handlerGetNpc(this.props.index).currentHp.toString()}</Text>
@@ -212,10 +216,4 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
             </SafeAreaView>
         )
     }
-
-
-
-
 }
-
-
