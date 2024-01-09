@@ -12,6 +12,7 @@ export default class Npc implements INpc {
     details: NpcDetails;
 
     constructor(id: number){
+        this.id = id;
         this.initiativeModifier = 0;
         this.name = "";
         this.active = true;
