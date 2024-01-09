@@ -55,7 +55,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     handlerNpcDetailsButtonClick = (index: number): void => {
 
         this.setState({ indexModalVer: index });
-        let npcVer: Npc = this.handlerGetNpc(index); 
+        let npcVer: Npc = this.handlerGetNpc(index);
 
         this.setState({ modalVerDetailNpcNew: this.createClone(npcVer) });
         this.setState({ modalVerDetailNpcOld: this.createClone(npcVer) });
@@ -64,6 +64,12 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     createClone(npc: Npc) {
         let clone: Npc = { ...npc };
         clone.details = { ...npc.details };
+        clone.details.skill1 = { ...clone.details.skill1 };
+        clone.details.skill2 = { ...clone.details.skill2 };
+        clone.details.skill3 = { ...clone.details.skill3 };
+        clone.details.attack1 = { ...clone.details.attack1 };
+        clone.details.attack2 = { ...clone.details.attack2 };
+        clone.details.attack3 = { ...clone.details.attack3 };
         return clone;
     }
 
@@ -218,7 +224,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
     handleModalVerCancelar = () => {
         let updatedNpc: Npc = this.state.modalVerDetailNpcOld;
-        
+
         this.handlerSetNpc(updatedNpc, this.state.indexModalVer);
         this.resetModalVerState();
     }
@@ -226,6 +232,83 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
     existeNpcDetails(npc: Npc): boolean {
         return npc != null && npc.details != null;
+    }
+
+
+
+    handleModalVerDetailDeslocTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+
+            let newValue: number = parseInt(newText);
+            if (isNaN(newValue)) {
+                newValue = 0;
+            }
+
+            mNpc.details.movement = newValue;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailDeslocValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.movement.toString();
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailPvsTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+
+            let newValue: number = parseInt(newText);
+            if (isNaN(newValue)) {
+                newValue = 0;
+            }
+
+            mNpc.currentHp = newValue;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailPvsValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.currentHp.toString();
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailCaTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+
+            let newValue: number = parseInt(newText);
+            if (isNaN(newValue)) {
+                newValue = 0;
+            }
+
+            mNpc.details.armorClass = newValue;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailCaValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.armorClass.toString();
+        }
+
+        return "";
     }
 
     handleModalVerDetailNoteTextChange = (newText: string) => {
@@ -247,15 +330,32 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         return "";
     }
 
+    handleModalVerDetailEJogadorValueChange = (selected: boolean) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.isPlayer = selected;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailEJogadorValue = (): boolean => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.isPlayer;
+        }
+
+        return false;
+    }
+
     handleModalVerDetailPer1NameTextChange = (newText: string) => {
         let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
         if (this.existeNpcDetails(mNpc)) {
             mNpc.details.skill1.name = newText;
             this.setState({ modalVerDetailNpcNew: mNpc });
         }
-
-        console.log(this.state.modalVerDetailNpcNew);
-        console.log(this.state.modalVerDetailNpcOld);
     }
 
     handleModalVerDetailPer1NameValue = (): string => {
@@ -361,6 +461,67 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         return "";
     }
 
+    handleModalVerDetailAttack1NameTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.details.attack1.weapon = newText;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+
+    handleModalVerDetailAttack1NameValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.attack1.weapon;
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailAttack2NameTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.details.attack2.weapon = newText;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+
+    handleModalVerDetailAttack2NameValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.attack2.weapon;
+        }
+
+        return "";
+    }
+
+
+    handleModalVerDetailAttack3NameTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.details.attack3.weapon = newText;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+
+    handleModalVerDetailAttack3NameValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.attack3.weapon;
+        }
+
+        return "";
+    }
+
 
     handleModalVerDetailPer3ModTextChange = (newText: string) => {
         let mNpc: Npc = this.state.modalVerDetailNpcNew;
@@ -386,6 +547,143 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
         return "";
     }
+
+    handleModalVerDetailAttack1ModTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+
+            let mod: number = parseInt(newText);
+            if (isNaN(mod)) {
+                mod = 0;
+            }
+
+            mNpc.details.attack1.modifier = mod;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailAttack1ModValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.attack1.modifier.toString();
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailAttack2ModTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+
+            let mod: number = parseInt(newText);
+            if (isNaN(mod)) {
+                mod = 0;
+            }
+
+            mNpc.details.attack2.modifier = mod;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailAttack2ModValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.attack2.modifier.toString();
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailAttack3ModTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+
+            let mod: number = parseInt(newText);
+            if (isNaN(mod)) {
+                mod = 0;
+            }
+
+            mNpc.details.attack3.modifier = mod;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailAttack3ModValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.attack3.modifier.toString();
+        }
+
+        return "";
+    }
+
+
+    handleModalVerDetailAttack1DmgTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.details.attack1.damage = newText;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+
+    handleModalVerDetailAttack1DmgValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.attack1.damage;
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailAttack2DmgTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.details.attack2.damage = newText;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+
+    handleModalVerDetailAttack2DmgValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.attack2.damage;
+        }
+
+        return "";
+    }
+
+    handleModalVerDetailAttack3DmgTextChange = (newText: string) => {
+        let mNpc: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(mNpc)) {
+            mNpc.details.attack3.damage = newText;
+            this.setState({ modalVerDetailNpcNew: mNpc });
+        }
+    }
+
+    handleModalVerDetailAttack3DmgValue = (): string => {
+        let npcTemp: Npc = this.state.modalVerDetailNpcNew;
+
+        if (this.existeNpcDetails(npcTemp)) {
+            return this.state.modalVerDetailNpcNew.details.attack3.damage;
+        }
+
+        return "";
+    }
+
+
 
 
 
@@ -430,7 +728,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                 <Text style={css.modalLblName}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}{labels.modalNpc.separador2} {this.handleModalNpcPvValue()}</Text>
                             </SafeAreaView>
                             <SafeAreaView style={css.modalRow3}>
-                                <TextInput style={css.modalTxtPv} selectTextOnFocus onChangeText={this.handleModalPvTextChange} keyboardType='number-pad' maxLength={4} />
+                                <TextInput style={css.modalTxtPv} selectTextOnFocus onChangeText={this.handleModalPvTextChange} keyboardType='numeric' maxLength={4} />
                             </SafeAreaView>
                             <SafeAreaView style={css.modalRow4}>
 
@@ -466,24 +764,25 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
                             <View style={css.modalVerRow2}>
                                 <Text style={css.modalVerLblDeslocamento} >{labels.modalVer.lblDeslocamento}</Text>
-                                <TextInput style={css.modalVerTxtDeslocamento} selectTextOnFocus maxLength={4} keyboardType='number-pad'></TextInput>
+                                <TextInput style={css.modalVerTxtDeslocamento} selectTextOnFocus maxLength={4} keyboardType='numeric' onChangeText={this.handleModalVerDetailDeslocTextChange} value={this.handleModalVerDetailDeslocValue()}></TextInput>
                                 <Text style={css.modalVerLblAnotacoes}>{labels.modalVer.lblAnotacoes}</Text>
                             </View>
 
                             <View style={css.modalVerRow2}>
 
                                 <Text style={css.modalVerLblEJogador}>{labels.modalVer.lblEJogador}</Text>
-                                <Switch style={css.modalVerOptEJogador} />
+                                <Switch style={css.modalVerOptEJogador} onValueChange={this.handleModalVerDetailEJogadorValueChange} value={this.handleModalVerDetailEJogadorValue()}></Switch>
                                 <TextInput style={css.modalVertxtAnotacoes} multiline={true} onChangeText={this.handleModalVerDetailNoteTextChange}>{this.handleModalVerDetailNoteValue()}</TextInput>
                             </View>
 
-                            <View style={css.modalVerRowEmpty}>
+                            <View style={css.modalVerRow2}>
                                 <Text style={css.modalVerLblPVs}>{labels.modalVer.labelPv}{labels.modalVer.separador2} </Text>
+                                <TextInput style={css.modalVertxtPvs} selectTextOnFocus inputMode='numeric' maxLength={4} onChangeText={this.handleModalVerDetailPvsTextChange} value={this.handleModalVerDetailPvsValue()}></TextInput>
                             </View>
 
                             <View style={css.modalVerRow2}>
                                 <Text style={css.modalVerLblCa}>{labels.modalVer.lblCa}</Text>
-                                <TextInput style={css.modalVerTxtCa} maxLength={4} keyboardType='number-pad'></TextInput>
+                                <TextInput style={css.modalVerTxtCa} maxLength={4} inputMode='numeric' onChangeText={this.handleModalVerDetailCaTextChange} value={this.handleModalVerDetailCaValue()}></TextInput>
                             </View>
 
                             <View style={css.modalVerRowEmpty}>
@@ -496,18 +795,16 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                             </View>
 
                             <View style={css.modalVerRowPericia}>
-                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18} onChangeText={this.handleModalVerDetailPer1NameTextChange} > {this.handleModalVerDetailPer1NameValue()} </TextInput>
-                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4} onChangeText={this.handleModalVerDetailPer1ModTextChange} > {this.handleModalVerDetailPer1ModValue()}</TextInput>
-
+                                <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18} onChangeText={this.handleModalVerDetailPer1NameTextChange} value={this.handleModalVerDetailPer1NameValue()} ></TextInput>
+                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus inputMode='numeric' maxLength={4} onChangeText={this.handleModalVerDetailPer1ModTextChange} value={this.handleModalVerDetailPer1ModValue()}></TextInput>
                             </View>
                             <View style={css.modalVerRowPericia}>
                                 <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18} onChangeText={this.handleModalVerDetailPer2NameTextChange} > {this.handleModalVerDetailPer2NameValue()} </TextInput>
-                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4} onChangeText={this.handleModalVerDetailPer2ModTextChange} > {this.handleModalVerDetailPer2ModValue()}</TextInput>
+                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus inputMode='numeric' maxLength={4} onChangeText={this.handleModalVerDetailPer2ModTextChange} value={this.handleModalVerDetailPer2ModValue()}></TextInput>
                             </View>
                             <View style={css.modalVerRowPericia}>
                                 <TextInput style={css.modalVerTxtPericia} selectTextOnFocus maxLength={18} onChangeText={this.handleModalVerDetailPer3NameTextChange} > {this.handleModalVerDetailPer3NameValue()} </TextInput>
-                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus maxLength={4} onChangeText={this.handleModalVerDetailPer3ModTextChange} > {this.handleModalVerDetailPer3ModValue()}</TextInput>
-
+                                <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus inputMode='numeric' maxLength={4} onChangeText={this.handleModalVerDetailPer3ModTextChange} value={this.handleModalVerDetailPer3ModValue()}></TextInput>
                             </View>
 
                             <View style={css.modalVerRowAtaque}>
@@ -517,24 +814,22 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                             </View>
 
                             <View style={css.modalVerRowAtaque}>
-                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus  ></TextInput>
-                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus keyboardType='number-pad'></TextInput>
-                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus  ></TextInput>
+                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack1NameTextChange} > {this.handleModalVerDetailAttack1NameValue()} </TextInput>
+                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus inputMode='numeric' onChangeText={this.handleModalVerDetailAttack1ModTextChange} value={this.handleModalVerDetailAttack1ModValue()}></TextInput>
+                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack1DmgTextChange} value={this.handleModalVerDetailAttack1DmgValue()}></TextInput>
                             </View>
 
                             <View style={css.modalVerRowAtaque}>
-                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus  ></TextInput>
-                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus keyboardType='number-pad'></TextInput>
-                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus  ></TextInput>
+                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack2NameTextChange} > {this.handleModalVerDetailAttack2NameValue()} </TextInput>
+                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus inputMode='numeric' onChangeText={this.handleModalVerDetailAttack2ModTextChange} > {this.handleModalVerDetailAttack2ModValue()} </TextInput>
+                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack2DmgTextChange} value={this.handleModalVerDetailAttack2DmgValue()}></TextInput>
                             </View>
 
                             <View style={css.modalVerRowAtaque}>
-                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus  ></TextInput>
-                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus keyboardType='number-pad'></TextInput>
-                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus  ></TextInput>
+                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack3NameTextChange} > {this.handleModalVerDetailAttack3NameValue()} </TextInput>
+                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus inputMode='numeric' onChangeText={this.handleModalVerDetailAttack3ModTextChange} value={this.handleModalVerDetailAttack3ModValue()}></TextInput>
+                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack3DmgTextChange} value={this.handleModalVerDetailAttack3DmgValue()}></TextInput>
                             </View>
-
-
 
                             <SafeAreaView style={css.modalVerRowBotoes}>
 

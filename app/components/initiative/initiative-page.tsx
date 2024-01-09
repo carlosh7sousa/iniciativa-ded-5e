@@ -214,8 +214,6 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             let info = this.state.headerInfo;
             info.idSelected = previousSelectedId;
 
-
-            console.log(npcsUpdated);
             this.setState({ headerInfo: info });
             this.setState({ npcs: npcsUpdated });
         }
@@ -236,7 +234,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             info.idSelected = npc.id;
             this.setState({ headerInfo: info });
         }
-        console.log(npc);
+        
         npcsUpdated.push(npc);
         this.setState({ npcs: npcsUpdated });
     };

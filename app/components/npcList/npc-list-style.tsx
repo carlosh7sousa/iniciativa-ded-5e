@@ -227,12 +227,12 @@ export const cssNpcList = StyleSheet.create({
   },
 
 
-  modalVerRowEmpty:{
+  modalVerRowEmpty: {
     width: "100%",
     height: 30
   },
 
-  modalVerRowPericia:{
+  modalVerRowPericia: {
     flexDirection: "row",
     width: "100%",
     paddingLeft: 10,
@@ -257,14 +257,14 @@ export const cssNpcList = StyleSheet.create({
     alignItems: 'flex-start',
   },
 
-  modalVerRowBotoes:{
+  modalVerRowBotoes: {
     flexDirection: "row",
     width: "100%",
     padding: 0,
     margin: 0,
-    alignItems:"center",
-    verticalAlign:"center",
-    justifyContent:"center",
+    alignItems: "center",
+    verticalAlign: "center",
+    justifyContent: "center",
     height: 80
   },
 
@@ -273,8 +273,8 @@ export const cssNpcList = StyleSheet.create({
     width: "100%",
     padding: 0,
     margin: 0,
-    alignItems:"center",
-    justifyContent: "center"    
+    alignItems: "center",
+    justifyContent: "center"
   },
 
   modalVerLblTitulo: {
@@ -304,7 +304,7 @@ export const cssNpcList = StyleSheet.create({
     backgroundColor: "#34495E",
     marginLeft: 6
   },
- 
+
 
   modalVerLblBtnAtualizar: {
     fontSize: 22,
@@ -426,7 +426,8 @@ export const cssNpcList = StyleSheet.create({
     borderLeftWidth: 1,
     borderBottomWidth: 1,
     borderColor: "white",
-    
+    textAlign: "left"
+
   },
 
   modalVerTxtModPericia: {
@@ -479,7 +480,7 @@ export const cssNpcList = StyleSheet.create({
 
   modalVertxtAnotacoes: {
     left: "62%",
-    position:"absolute",
+    position: "absolute",
     fontSize: 14,
     width: "40%",
     backgroundColor: "#CFD8DC",
@@ -488,18 +489,26 @@ export const cssNpcList = StyleSheet.create({
     borderColor: "white",
     height: 252,
     marginTop: 0,
-    textAlignVertical:"top",
+    textAlignVertical: "top",
     textAlign: 'left'
-   },
+  },
 
-   modalVerLblPVs :{
+  modalVerLblPVs: {
     fontSize: 18,
     width: "40%",
     textAlign: 'center',
-   },
+  },
 
-   modalVerOptEJogador:{
-      transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }],
-   }
+  modalVertxtPvs: {
+    fontSize: 18,
+    width: 50,
+    textAlign: "center",
+    borderBottomColor: "#CFD8DC",
+    borderBottomWidth: 1,
+  },
+
+  modalVerOptEJogador: {
+    transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }],
+  }
 
 });
