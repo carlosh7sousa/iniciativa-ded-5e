@@ -728,7 +728,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                 <Text style={css.modalLblName}>{this.handleModalNpcNameValue()} {labels.modalNpc.labelPv}{labels.modalNpc.separador2} {this.handleModalNpcPvValue()}</Text>
                             </SafeAreaView>
                             <SafeAreaView style={css.modalRow3}>
-                                <TextInput style={css.modalTxtPv} selectTextOnFocus onChangeText={this.handleModalPvTextChange} keyboardType='numeric' maxLength={4} />
+                                <TextInput style={css.modalTxtPv} selectTextOnFocus onChangeText={this.handleModalPvTextChange} inputMode='numeric' maxLength={4} />
                             </SafeAreaView>
                             <SafeAreaView style={css.modalRow4}>
 
@@ -764,25 +764,30 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
                             <View style={css.modalVerRow2}>
                                 <Text style={css.modalVerLblDeslocamento} >{labels.modalVer.lblDeslocamento}</Text>
-                                <TextInput style={css.modalVerTxtDeslocamento} selectTextOnFocus maxLength={4} keyboardType='numeric' onChangeText={this.handleModalVerDetailDeslocTextChange} value={this.handleModalVerDetailDeslocValue()}></TextInput>
+                                <TextInput style={css.modalVerTxtDeslocamento} selectTextOnFocus maxLength={4} inputMode='numeric' onChangeText={this.handleModalVerDetailDeslocTextChange} value={this.handleModalVerDetailDeslocValue()}>
+                                </TextInput>
                                 <Text style={css.modalVerLblAnotacoes}>{labels.modalVer.lblAnotacoes}</Text>
                             </View>
 
                             <View style={css.modalVerRow2}>
 
                                 <Text style={css.modalVerLblEJogador}>{labels.modalVer.lblEJogador}</Text>
-                                <Switch style={css.modalVerOptEJogador} onValueChange={this.handleModalVerDetailEJogadorValueChange} value={this.handleModalVerDetailEJogadorValue()}></Switch>
-                                <TextInput style={css.modalVertxtAnotacoes} multiline={true} onChangeText={this.handleModalVerDetailNoteTextChange} value={this.handleModalVerDetailNoteValue()}></TextInput>
+                                <Switch style={css.modalVerOptEJogador} onValueChange={this.handleModalVerDetailEJogadorValueChange} value={this.handleModalVerDetailEJogadorValue()}>
+                                </Switch>
+                                <TextInput style={css.modalVertxtAnotacoes} multiline={true} onChangeText={this.handleModalVerDetailNoteTextChange} value={this.handleModalVerDetailNoteValue()}> 
+                                </TextInput>
                             </View>
 
                             <View style={css.modalVerRow2}>
                                 <Text style={css.modalVerLblPVs}>{labels.modalVer.labelPv}{labels.modalVer.separador2} </Text>
-                                <TextInput style={css.modalVertxtPvs} selectTextOnFocus inputMode='numeric' maxLength={4} onChangeText={this.handleModalVerDetailPvsTextChange} value={this.handleModalVerDetailPvsValue()}></TextInput>
+                                <TextInput style={css.modalVertxtPvs} selectTextOnFocus inputMode='numeric' maxLength={4} onChangeText={this.handleModalVerDetailPvsTextChange} value={this.handleModalVerDetailPvsValue()}>
+                                </TextInput>
                             </View>
 
                             <View style={css.modalVerRow2}>
                                 <Text style={css.modalVerLblCa}>{labels.modalVer.lblCa}</Text>
-                                <TextInput style={css.modalVerTxtCa} maxLength={4} inputMode='numeric' onChangeText={this.handleModalVerDetailCaTextChange} value={this.handleModalVerDetailCaValue()}></TextInput>
+                                <TextInput style={css.modalVerTxtCa} maxLength={4} inputMode='numeric' onChangeText={this.handleModalVerDetailCaTextChange} value={this.handleModalVerDetailCaValue()}>  
+                                </TextInput>
                             </View>
 
                             <View style={css.modalVerRowEmpty}>
@@ -814,21 +819,26 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                             </View>
 
                             <View style={css.modalVerRowAtaque}>
-                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack1NameTextChange} value={this.handleModalVerDetailAttack1NameValue()}> </TextInput>
-                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus inputMode='numeric' onChangeText={this.handleModalVerDetailAttack1ModTextChange} value={this.handleModalVerDetailAttack1ModValue()}></TextInput>
-                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack1DmgTextChange} value={this.handleModalVerDetailAttack1DmgValue()}></TextInput>
+                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack1NameTextChange} value={this.handleModalVerDetailAttack1NameValue()} > </TextInput>
+                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus inputMode='numeric' onChangeText={this.handleModalVerDetailAttack1ModTextChange} value={this.handleModalVerDetailAttack1ModValue()} ></TextInput>
+                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack1DmgTextChange} value={this.handleModalVerDetailAttack1DmgValue()}> </TextInput>
                             </View>
 
                             <View style={css.modalVerRowAtaque}>
                                 <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack2NameTextChange} value={this.handleModalVerDetailAttack2NameValue()}> </TextInput>
-                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus inputMode='numeric' onChangeText={this.handleModalVerDetailAttack2ModTextChange} value={this.handleModalVerDetailAttack2ModValue()}> </TextInput>
-                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack2DmgTextChange} value={this.handleModalVerDetailAttack2DmgValue()}></TextInput>
+                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus inputMode='numeric' onChangeText={this.handleModalVerDetailAttack2ModTextChange} value={this.handleModalVerDetailAttack2ModValue()}> 
+                                </TextInput>
+                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack2DmgTextChange} value={this.handleModalVerDetailAttack2DmgValue()}>
+                                </TextInput>
                             </View>
 
                             <View style={css.modalVerRowAtaque}>
-                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack3NameTextChange} value={this.handleModalVerDetailAttack3NameValue()}> </TextInput>
-                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus inputMode='numeric' onChangeText={this.handleModalVerDetailAttack3ModTextChange} value={this.handleModalVerDetailAttack3ModValue()}></TextInput>
-                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack3DmgTextChange} value={this.handleModalVerDetailAttack3DmgValue()}></TextInput>
+                                <TextInput style={css.modalVerTxtAtaque} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack3NameTextChange} value={this.handleModalVerDetailAttack3NameValue()}> 
+                                </TextInput>
+                                <TextInput style={css.modalVerTxtMod} maxLength={3} selectTextOnFocus inputMode='numeric' onChangeText={this.handleModalVerDetailAttack3ModTextChange} value={this.handleModalVerDetailAttack3ModValue()}>
+                                </TextInput>
+                                <TextInput style={css.modalVerTxtDano} maxLength={18} selectTextOnFocus onChangeText={this.handleModalVerDetailAttack3DmgTextChange} value={this.handleModalVerDetailAttack3DmgValue()}>
+                                </TextInput>
                             </View>
 
                             <SafeAreaView style={css.modalVerRowBotoes}>
