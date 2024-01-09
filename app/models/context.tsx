@@ -21,12 +21,17 @@ export default class Ctx {
             txtNameAdd: ""
         }
 
+        this.persist(this.npcs);
+    }
+
+    persist(npcs: Npc[]) {
         let jsonBd: FileJsonBd = new FileJsonBd();
         jsonBd.fileExists(this.fileUri)
             .then((value: FileSystem.FileInfo) => {
 
                 if (!value.exists && !value.isDirectory) {
-                    let objJson = { npcs: this.npcs };
+                    let objJson = { npcs: npcs };
+                    this.npcs = npcs;
 
                     jsonBd.createFileAsync(this.fileUri, this.fileName, objJson).then((value: void) => {
                         this.lerNpcs(jsonBd);

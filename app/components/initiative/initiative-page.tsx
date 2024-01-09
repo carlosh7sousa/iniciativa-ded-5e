@@ -323,7 +323,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         let alertSairSemSalvar: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.SairSemSalvar, onPress: () => { BackHandler.exitApp(); } };
 
         let alertCancel: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.Cancelar, onPress: () => { } };
-        Alert.alert(labels.app.persistirInfo.Titulo, labels.app.persistirInfo.Mensagem, [alertSairSemSalvar, alertCancel,alertYes]);
+        Alert.alert(labels.app.persistirInfo.Titulo, labels.app.persistirInfo.Mensagem, [alertSairSemSalvar, alertCancel, alertYes]);
     }
 
 

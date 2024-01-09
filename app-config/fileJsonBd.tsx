@@ -4,6 +4,9 @@ import { shareAsync } from "expo-sharing";
 
 export default class FileJsonBd {
 
+    fileName: string;
+    fileUri: string;
+
     constructor() {
     }
 
@@ -20,8 +23,6 @@ export default class FileJsonBd {
             const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
 
             if (permissions.granted) {
-                const contentJson = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.UTF8 });
-
                 await FileSystem.writeAsStringAsync(uri, contentJson, { encoding: FileSystem.EncodingType.UTF8 });
 
             } else {
@@ -42,13 +43,16 @@ export default class FileJsonBd {
 
                 await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, filenameWithoutExtension, this.getMimeTypeJson())
                     .then(async (uri) => {
+                        this.fileUri = uri;
                         await FileSystem.writeAsStringAsync(uri, content, { encoding: FileSystem.EncodingType.UTF8 });
                     })
                     .catch(e => console.log(e));
             } else {
+                this.fileUri = uri;
                 shareAsync(uri);
             }
         } else {
+            this.fileUri = uri;
             shareAsync(uri);
         }
     }
