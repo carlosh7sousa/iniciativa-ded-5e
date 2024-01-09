@@ -1,4 +1,4 @@
-import {  SafeAreaView, Alert, AlertButton, StatusBar } from 'react-native';
+import { SafeAreaView, Alert, AlertButton, StatusBar } from 'react-native';
 import { labels } from "../../models/labels";
 import { cssInitiative as css } from "./initiative-style";
 import React, { Component } from 'react';
@@ -18,7 +18,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         let ctx: Ctx = new Ctx();
 
         this.state = {
-            npcs: [],
+            npcs: ctx.npcs,
             headerInfo: ctx.headerInfo,
             generatedId: 1,
             npcNum: 0
@@ -59,7 +59,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         return this.obterNpcsAtivos();
     }
 
-    handleSetNpcs = (npcs: Npc[]) => {
+    handleSetNpcs = (npcs: Npc[]): void => {
         this.setState({ npcs });
     }
 
@@ -156,6 +156,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             if (nextIndex >= npcsUpdated.length) {
                 this.handleTurnValueChange(this.state.headerInfo.turno + 1);
                 nextSelectedId = npcsUpdated[0].id;
+
             }
             else {
                 nextSelectedId = npcsUpdated[nextIndex].id;
@@ -167,6 +168,8 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
             let info = this.state.headerInfo;
             info.idSelected = nextSelectedId;
+
+
 
             this.setState({ headerInfo: info });
             this.setState({ npcs: npcsUpdated });
@@ -234,7 +237,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             info.idSelected = npc.id;
             this.setState({ headerInfo: info });
         }
-        
+
         npcsUpdated.push(npc);
         this.setState({ npcs: npcsUpdated });
     };
@@ -292,7 +295,13 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         npc.name = npcName + " " + this.generateNewNpcNum();
         return npc;
     }
+    
+    handleUpdateNpcFromChild = (index: number, upd:Npc): void => {
+       let listUpd: Npc[] = this.state.npcs;
+       listUpd[index] = upd;
 
+        this.setState({ npcs: listUpd });
+    }
 
 
     render() {
@@ -302,7 +311,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
             <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
-            <NpcListPage npcs={this.obterNpcsAtivos()} idSelected={this.state.headerInfo.idSelected} >
+            <NpcListPage npcs={this.obterNpcsAtivos()} idSelected={this.state.headerInfo.idSelected} triggerParentUpdate={this.handleUpdateNpcFromChild} >
             </NpcListPage>
 
             <FooterPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
