@@ -57,6 +57,7 @@ export default class Ctx {
     persist(npcs: Npc[]) {
         storage.save({
             key: 'npcs', // Note: Do not use underscore("_") in key!
+            id: "npcs",
             data: {
                 npcs: npcs
             },
