@@ -1,12 +1,15 @@
 import Npc from "./npc"
 import HeaderInfo from "./headerInfo";
-
- 
+import { Platform } from "react-native";
+import * as FileSystem from 'expo-file-system'
+import { shareAsync } from "expo-sharing";
+import FileJsonBd from "../../app-config/fileJsonBd";
 
 export default class Ctx {
     npcs: Npc[];
     headerInfo: HeaderInfo;
-    storage: Storage;
+    fileUri: string = FileSystem.bundleDirectory + 'app-config/ded-context.json';
+    fileName: string = "ded-context";
 
     constructor() {
         this.init();
@@ -17,11 +20,34 @@ export default class Ctx {
             idSelected: -1,
             turno: 0,
             txtNameAdd: ""
-        } 
-    
+        }
+
+        let jsonBd: FileJsonBd = new FileJsonBd();
+        jsonBd.fileExists(this.fileUri)
+            .then((value: FileSystem.FileInfo) => {
+
+                if (!value.exists && !value.isDirectory) {
+                    let objJson = { npcs: this.npcs };
+
+                    jsonBd.createFileAsync(this.fileUri, this.fileName, objJson).then((value: void) => {
+                        console.log("obj npcs foi criado com sucesso.");
+                    }).catch((reason: any) => { console.log("erro ao gerar arquivo com obj npcs." + reason); });
+                }
+                else if (value.exists && !value.isDirectory) {
+                    jsonBd.readFileAsync(this.fileUri).then((value: string) => {
+                        let objNpcs: any = JSON.parse(value);
+                        this.npcs = objNpcs.npcs;
+                    }).catch((reason: any) => {
+                        this.npcs = [];
+                        console.log("erro ao gerar arquivo com obj npcs." + reason);
+                    });
+                }
+            }).catch((reason: any) => {
+                this.npcs = [];
+                console.log("erro ao verificar se o arquivo json existe." + reason);
+            });
     }
 
-    
 
     obterUniqueNpcs(arr: Npc[]): Npc[] {
 
@@ -43,8 +69,6 @@ export default class Ctx {
 
         return result;
     }
-
-
 
     generatetNpcs(num: number): Npc[] {
         let npcs: Npc[] = [];
