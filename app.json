@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "iD&D INI",
-    "slug": "idnd-iniciative",
+    "name": "iniD&D",
+    "slug": "ded-iniciativa",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
