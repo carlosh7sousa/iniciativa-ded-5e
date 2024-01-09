@@ -307,23 +307,11 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         this.setState({ npcs: listUpd });
     }
 
-    handlePersistClick = (list: Npc[]) => {
-        this.ctx.persist(list);
-    }
-
     handleSairClick = () => {
-        let alertYes: AlertButton = {
-            isPreferred: true,
-            text: labels.app.persistirInfo.Yes,
-            onPress: () => {
-                this.handlePersistClick(this.state.npcs);
-            }
-        };
-
         let alertSairSemSalvar: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.SairSemSalvar, onPress: () => { BackHandler.exitApp(); } };
 
         let alertCancel: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.Cancelar, onPress: () => { } };
-        Alert.alert(labels.app.persistirInfo.Titulo, labels.app.persistirInfo.Mensagem, [alertSairSemSalvar, alertCancel, alertYes]);
+        Alert.alert(labels.app.persistirInfo.SairSemSalvar, labels.app.persistirInfo.Mensagem, [alertSairSemSalvar, alertCancel]);
     }
 
 

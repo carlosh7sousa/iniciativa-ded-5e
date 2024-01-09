@@ -28,8 +28,7 @@
     "app": {
         "persistirInfo": {
             "Titulo": "Salvar informações",
-            "Mensagem": "Deseja salvar as informações da lista?",
-            "Yes": "Salvar informações",
+            "Mensagem": "Deseja sair do App?",
             "Cancelar": "Cancelar",    
             "SairSemSalvar": "Sair do App"
         }

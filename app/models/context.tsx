@@ -21,7 +21,7 @@ export default class Ctx {
             txtNameAdd: ""
         }
 
-        this.persist(this.npcs);
+        this.npcs = [];
     }
 
     persist(npcs: Npc[]) {
