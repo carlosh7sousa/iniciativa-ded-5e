@@ -58,8 +58,11 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         this.setState({ indexModalVer: index });
         let npcVer: Npc = this.handlerGetNpc(index);
 
-        this.setState({ modalVerDetailNpcNew: this.createClone(npcVer) });
-        this.setState({ modalVerDetailNpcOld: this.createClone(npcVer) });
+        if (npcVer != null)
+        {
+            this.setState({ modalVerDetailNpcNew: this.createClone(npcVer) });
+            this.setState({ modalVerDetailNpcOld: this.createClone(npcVer) });
+        }
     }
 
     createClone(npc: Npc) {
