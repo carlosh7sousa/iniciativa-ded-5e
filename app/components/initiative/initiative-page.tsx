@@ -1,4 +1,4 @@
-import { SafeAreaView, Alert, AlertButton, StatusBar } from 'react-native';
+import { SafeAreaView, Alert, AlertButton, StatusBar, BackHandler } from 'react-native';
 import { labels } from "../../models/labels";
 import { cssInitiative as css } from "./initiative-style";
 import React, { Component } from 'react';
@@ -11,17 +11,19 @@ import FooterPage from '../footer/footer-page';
 
 
 
+
 export default class InitiativePage extends Component<{}, { npcs: Npc[], headerInfo: HeaderInfo, generatedId: number, npcNum: number }> {
 
+    ctx: Ctx;
 
     constructor(props) {
         super(props);
 
-        let ctx: Ctx = new Ctx();
+        this.ctx = new Ctx();
 
         this.state = {
-            npcs: ctx.npcs,
-            headerInfo: ctx.headerInfo,
+            npcs: this.ctx.npcs,
+            headerInfo: this.ctx.headerInfo,
             generatedId: 1,
             npcNum: 0
         };
@@ -29,7 +31,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         this.handleGetNpcs.bind(this);
         this.handleSetNpcs.bind(this);
         this.handleSortTurnButtonClick.bind(this);
-        this.handleAddNcpButtonClick.bind(this); 
+        this.handleAddNcpButtonClick.bind(this);
     }
 
     resetNpcNum(restartNpcNum: number) {
@@ -248,7 +250,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
         let alertYes: AlertButton = {
             isPreferred: true,
-            text: labels.header.limparNpcsApenas.Titulo,
+            text: labels.header.limparNpcsApenas.Yes,
             onPress: () => {
                 let npcs: Npc[] = this.obterNpcsAtivos();
                 if (npcs != null) {
@@ -267,11 +269,11 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         let alertCancel: AlertButton = { isPreferred: false, text: labels.header.limparNpcsApenas.Cancelar, onPress: () => { } };
 
         Alert.alert(labels.header.limparNpcsApenas.Titulo, labels.header.limparNpcsApenas.Mensagem, [alertCancel, alertYes]);
-
     }
+
     handleClearAllLongClick = () => {
         let alertYes: AlertButton = {
-            isPreferred: true, text: labels.header.limparNpcsEJogadores.Titulo, onPress: () => {
+            isPreferred: true, text: labels.header.limparNpcsEJogadores.Yes, onPress: () => {
                 this.setState({ npcs: [] });
                 this.resetNpcNum(0);
 
@@ -297,12 +299,31 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         npc.name = npcName + " " + this.generateNewNpcNum();
         return npc;
     }
-    
-    handleUpdateNpcFromChild = (index: number, upd:Npc): void => {
-       let listUpd: Npc[] = this.state.npcs;
-       listUpd[index] = upd;
+
+    handleUpdateNpcFromChild = (index: number, upd: Npc): void => {
+        let listUpd: Npc[] = this.state.npcs;
+        listUpd[index] = upd;
 
         this.setState({ npcs: listUpd });
+    }
+
+    handlePersistClick = (list: Npc[]) => {
+        this.ctx.persist(list);
+    }
+
+    handleSairClick = () => {
+        let alertYes: AlertButton = {
+            isPreferred: true,
+            text: labels.app.persistirInfo.Yes,
+            onPress: () => {
+                this.handlePersistClick(this.state.npcs);
+            }
+        };
+
+        let alertSairSemSalvar: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.SairSemSalvar, onPress: () => { BackHandler.exitApp(); } };
+
+        let alertCancel: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.Cancelar, onPress: () => { } };
+        Alert.alert(labels.app.persistirInfo.Titulo, labels.app.persistirInfo.Mensagem, [alertSairSemSalvar, alertCancel, alertYes]);
     }
 
 
@@ -311,7 +332,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         return <SafeAreaView style={css.bodyContainer}>
             <StatusBar />
 
-            <HeaderPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
+            <HeaderPage sair={this.handleSairClick} sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
             <NpcListPage npcs={this.obterNpcsAtivos()} idSelected={this.state.headerInfo.idSelected} triggerParentUpdate={this.handleUpdateNpcFromChild} >
             </NpcListPage>

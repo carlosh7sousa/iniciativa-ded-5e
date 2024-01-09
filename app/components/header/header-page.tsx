@@ -5,7 +5,7 @@ import { cssHeader as css } from "./header-style";
 
 
 
-export default class HeaderPage extends Component<{ sortList(), nextTurn(), previousTurn(), getTurn(), addNpc(), clearAllNpc(), addTextChange(text: string), clearAllList() }> {
+export default class HeaderPage extends Component<{ sair(), sortList(), nextTurn(), previousTurn(), getTurn(), addNpc(), clearAllNpc(), addTextChange(text: string), clearAllList() }> {
 
 
     render() {
@@ -13,7 +13,12 @@ export default class HeaderPage extends Component<{ sortList(), nextTurn(), prev
         return (
             <SafeAreaView style={css.vwHeader} >
                 <Text style={css.lblHeaderTitle}>{labels.initiative.title}</Text>
-
+                <SafeAreaView style={css.vwSair}>
+ 
+                    <Pressable style={css.btnSair} onPress={this.props.sair}  >
+                        <Text style={css.lblBtnSair}>{labels.header.btnSair}</Text>
+                    </Pressable> 
+                </SafeAreaView>
 
                 <SafeAreaView style={css.vwHeaderRowTurno} >
                     <SafeAreaView style={css.vwHeaderTurnoCtrl} >

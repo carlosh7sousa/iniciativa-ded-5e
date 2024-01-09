@@ -21,14 +21,27 @@ export const cssFooter = StyleSheet.create({
 
     lblBtnLimpar: {
         fontSize: 18,
-        color: "#D50000",
+        color: "#F5F5F5",
         textAlign: "center",
         height: 48,
         width: 220,
-        backgroundColor: "#FFCDD2",
+        backgroundColor: "#B71C1C",
         padding: 10
     },
     btnLimpar: {
+        width: 220
+    },
+
+    lblBtnPersist: {
+        fontSize: 18,
+        color: "#ECEFF1",
+        textAlign: "center",
+        height: 48,
+        width: 220,
+        backgroundColor: "#33691E",
+        padding: 10
+    },
+    btnPersist: {
         width: 220
     }
 });

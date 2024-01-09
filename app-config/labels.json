@@ -2,41 +2,62 @@
     "initiative": {
         "title": "iD&D Iniciativa"
     },
-    "header":{
+    "header": {
         "lblTurno": "Turno:",
-        "btnPreviousTurnLabel":"<<",
+        "btnPreviousTurnLabel": "<<",
         "btnNextTurnLabel": ">>",
         "btnSortTurnLabel": "⇅",
         "btnAddNpcLabel": "+",
-        "btnDelNpcLabel" : "Limpar lista de NPCs",
-        "limparNpcsApenas": {"Titulo": "Excluir apenas NPCs", "Mensagem": "Deseja excluir os NPCS? (jogadores permanecerão).", "Cancelar": "Cancelar"},
-        "limparNpcsEJogadores": {"Titulo": "Excluir NPCs e Jogadores", "Mensagem": "Deseja excluir NPCs e Jogadores?", "Cancelar": "Cancelar"}
+        "btnDelNpcLabel": "Limpar Lista",
+        "btnPersistNpcLabel": "Persistir Lista",
+        "limparNpcsApenas": {
+            "Titulo": "Remover apenas NPCs",
+            "Mensagem": "Deseja remover os NPCS ? (jogadores permanecerão).",
+            "Cancelar": "Cancelar",
+            "Yes": "Remover apenas NPCs"
+        },
+        "limparNpcsEJogadores": {
+            "Titulo": "Remover os NPCs e Jogadores",
+            "Mensagem": "Deseja remover NPCs e Jogadores?",
+            "Cancelar": "Cancelar",           
+            "Yes": "Remover NPCs e Jogadores"
+        },
+        "btnSair": "..."
+
+    },
+    "app": {
+        "persistirInfo": {
+            "Titulo": "Salvar informações",
+            "Mensagem": "Deseja salvar as informações da lista?",
+            "Yes": "Salvar informações",
+            "Cancelar": "Cancelar",    
+            "SairSemSalvar": "Sair do App"
+        }
     },
     "npc": {
-        "lblListTitle": "Iniciativa dos NPCs",        
+        "lblListTitle": "Iniciativa dos NPCs",
         "lblInitiative": "Iniciativa",
         "buttonLabel": "VER",
-        "inicioTurno":"Inicio do Turno",
+        "inicioTurno": "Inicio do Turno",
         "iniLabel": "INI",
         "token": "➔ Turno de ",
-        "hpLabel": "PV"        
+        "hpLabel": "PV"
     },
-    "modalNpc" : {
+    "modalNpc": {
         "titulo": "Alterar PVs",
         "labelPv": "PVs",
         "btnSubtract": "Subtrair",
         "btnAdd": "Somar",
         "btnSet": "Atribuir",
         "btnClose": "X",
-        "separador1":", ",
-        "separador2":": "
+        "separador1": ", ",
+        "separador2": ": "
     },
-
-    "modalVer" : {
+    "modalVer": {
         "titulo": "Info do NPC:",
         "labelPv": "PVs",
         "separador1": ", ",
-        "separador2":": ",
+        "separador2": ": ",
         "Atualizar": "Alterar",
         "Cancelar": "Cancelar",
         "lblEJogador": "É Jogador",
@@ -44,13 +65,13 @@
         "lblAnotacoes": "Anotações",
         "lblCa": "CA",
         "lblAtaqueHeader": "Ataque",
-        "lblAtaqueModHeader" : "Mod",
+        "lblAtaqueModHeader": "Mod",
         "lblAtaqueDanoHeader": "Dano",
-        "lblPericiaHeader":"Pericia",
-        "lblPericiaModHeader":"Mod"
-
-
-
+        "lblPericiaHeader": "Pericia",
+        "lblPericiaModHeader": "Mod"
+    },
+    "debugConsole":{
+        "erroAoCriarJson": "Erro ao criar arquivo json.",
+        "erroAoVerificarSeJsonExiste": "Erro ao verificar se arquivo json existe."
     }
-
 }
