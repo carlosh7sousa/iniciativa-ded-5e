@@ -1,4 +1,4 @@
-import { SafeAreaView, Alert, AlertButton, StatusBar, AppState } from 'react-native';
+import { SafeAreaView, Alert, AlertButton, StatusBar, AppState} from 'react-native';
 import { labels } from "../../models/labels";
 import { cssInitiative as css } from "./initiative-style";
 import React, { Component } from 'react';
@@ -8,6 +8,7 @@ import Npc from '../../models/npc';
 import NpcListPage from '../npcList/npc-list-page';
 import HeaderInfo from '../../models/headerInfo';
 import FooterPage from '../footer/footer-page';
+ 
 
 
 
@@ -311,9 +312,9 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         this.setState({ npcs: listUpd });
     }
 
-    handlePersistClick = () => {
-
-
+    handlePersistClick = (list: Npc[]) => {
+        const saved = JSON.stringify(list);
+        //await AsyncStorage.setItem('ctxNpc', saved)
     }
 
     handleSairClick = () => {
@@ -321,11 +322,11 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             isPreferred: true,
             text: labels.app.persistirInfo.Yes,
             onPress: () => {
-                this.handlePersistClick();
+                this.handlePersistClick(this.state.npcs);
             }
         };
 
-        let alertSairSemSalvar: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.SairSemSalvar, onPress: () => { } };
+        let alertSairSemSalvar: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.SairSemSalvar, onPress: () => { this.handlePersistClick([])} };
 
         let alertCancel: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.Cancelar, onPress: () => { } };
         Alert.alert(labels.app.persistirInfo.Titulo, labels.app.persistirInfo.Mensagem, [alertYes, alertCancel]);
@@ -342,7 +343,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
             <NpcListPage npcs={this.obterNpcsAtivos()} idSelected={this.state.headerInfo.idSelected} triggerParentUpdate={this.handleUpdateNpcFromChild} >
             </NpcListPage>
 
-            <FooterPage persist={this.handlePersistClick} sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
+            <FooterPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
         </SafeAreaView >
     }
 }

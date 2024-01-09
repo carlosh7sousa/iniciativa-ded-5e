@@ -5,7 +5,7 @@ import { cssFooter as css } from "./footer-style";
 
 
 
-export default class FooterPage extends Component<{ sortList(), nextTurn(), previousTurn(), getTurn(), addNpc(), clearAllNpc(), addTextChange(text: string), clearAllList(), persist() }> {
+export default class FooterPage extends Component<{ sortList(), nextTurn(), previousTurn(), getTurn(), addNpc(), clearAllNpc(), addTextChange(text: string), clearAllList() }> {
 
 
     render() {
