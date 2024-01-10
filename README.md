@@ -3,3 +3,7 @@
 
 cd android
 ./gradlew assembleRelease  
+
+
+power shell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
