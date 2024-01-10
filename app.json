@@ -2,9 +2,9 @@
   "expo": {
     "name": "ini",
     "slug": "ch7-ded-iniciativa",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon1.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splashIni.png",
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
+        "foregroundImage": "./assets/icon1.png",
         "backgroundColor": "#ffffff"
       }
     },
