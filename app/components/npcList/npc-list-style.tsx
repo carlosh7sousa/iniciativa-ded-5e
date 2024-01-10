@@ -1,14 +1,14 @@
 import { Dimensions, StyleSheet, StatusBar } from 'react-native';
 
 let h: number = Dimensions.get("screen").height;
- 
+
 let header: number = 145;
 let footer: number = 80;
- 
+
 h = h - header;
 h = h - footer;
 h = h - StatusBar.currentHeight - 18;
- 
+
 let modalHeight: number = h * 0.55;
 let modalVerHeight: number = h;
 
@@ -16,7 +16,7 @@ export const cssNpcList = StyleSheet.create({
 
   vwNpcListComponent: {
     height: h
-  },  
+  },
 
 
   listaNpcsView: {
@@ -213,7 +213,11 @@ export const cssNpcList = StyleSheet.create({
 
   modalVerRowEmpty: {
     width: "100%",
-    height: 30
+    height: 30,
+    justifyContent: "space-around",
+    paddingLeft: 10,
+    paddingRight: 10,
+    margin: 0,   
   },
 
   modalVerRowPericia: {
@@ -237,8 +241,8 @@ export const cssNpcList = StyleSheet.create({
     width: "100%",
     paddingLeft: 10,
     paddingRight: 10,
-    margin: 0,
-    alignItems: 'flex-start',
+    margin: 0,    
+    justifyContent: "space-around"
   },
 
   modalVerRowBotoes: {
@@ -374,7 +378,7 @@ export const cssNpcList = StyleSheet.create({
   modalVerTxtMod: {
     fontSize: 14,
     width: "13%",
-    backgroundColor: "#CFD8DC",
+    backgroundColor: "#EAEDED",
     borderLeftWidth: 1,
     borderBottomWidth: 1,
     borderColor: "white",
@@ -385,7 +389,7 @@ export const cssNpcList = StyleSheet.create({
   modalVerTxtDano: {
     fontSize: 14,
     width: "40%",
-    backgroundColor: "#CFD8DC",
+    backgroundColor: "#E5E8E8",
     borderLeftWidth: 1,
     borderBottomWidth: 1,
     borderColor: "white",
@@ -417,7 +421,7 @@ export const cssNpcList = StyleSheet.create({
   modalVerTxtModPericia: {
     fontSize: 14,
     width: "13%",
-    backgroundColor: "#CFD8DC",
+    backgroundColor: "#EAEDED",
     borderLeftWidth: 1,
     borderBottomWidth: 1,
     borderColor: "white",
@@ -462,19 +466,13 @@ export const cssNpcList = StyleSheet.create({
     textAlign: 'center',
   },
 
-  modalVertxtAnotacoes: {
-    left: "62%",
-    position: "absolute",
+  modalVertxtAnotacao: {
     fontSize: 14,
     width: "40%",
-    backgroundColor: "#CFD8DC",
-    borderLeftWidth: 1,
+    borderBottomColor: "#CFD8DC",
     borderBottomWidth: 1,
-    borderColor: "white",
-    height: 252,
-    marginTop: 0,
-    textAlignVertical: "top",
-    textAlign: 'left'
+    backgroundColor: "#5D6D7E",
+    color: "white"
   },
 
   modalVerLblPVs: {

@@ -7,7 +7,14 @@ export default class NpcDetails implements INpcDetails{
     id: number;
     movement: number;
     armorClass: number;
-    notes: string;
+    note1:string;
+    note2:string;
+    note3:string;
+    note4:string;
+    note5:string;
+    note6:string;
+    
+
 
     attack1: Attack;
     attack2: Attack;
@@ -27,6 +34,11 @@ export default class NpcDetails implements INpcDetails{
         this.id = 0;
         this.movement = 6;
         this.armorClass = 10;
-        this.notes = "";
+        this.note1 = "";
+        this.note2 = "";
+        this.note3 = "";
+        this.note4 = "";
+        this.note5 = "";
+        this.note6 = "";
     }
 }

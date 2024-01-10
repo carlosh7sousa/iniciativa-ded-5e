@@ -6,7 +6,13 @@ export default interface INpcDetails{
     id: number;
     movement: number;
     armorClass: number;
-    notes: string;
+    note1: string;
+    note2: string;
+    note3: string;
+    note4: string;
+    note5: string;
+    note6: string;
+    
 
     attack1: Attack;
     attack2: Attack;
