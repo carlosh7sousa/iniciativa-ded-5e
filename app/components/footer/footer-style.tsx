@@ -9,27 +9,28 @@ export const cssFooter = StyleSheet.create({
 
     },
     vwFooterRowAddLimpar: {
-        width: "100%",
         height: 45,
-        flexDirection: "row",
-        alignItems:"center",
-        justifyContent:"center",
-        margin: 0,
-        borderWidth: 0
+        borderWidth: 0,
+        display:"flex",
+        flexDirection:"row",
+        justifyContent: "center"
     },
  
 
     lblBtnLimpar: {
-        fontSize: 18,
+        fontSize: 14,
         color: "#F5F5F5",
         textAlign: "center",
-        height: 48,
-        width: 220,
+        height: 40,
+        width: 120,
         backgroundColor: "#B71C1C",
-        padding: 10
+        padding: 10,
+        
+        
     },
     btnLimpar: {
-        width: 220
+        width: 120,
+        marginLeft: 10
     },
 
     lblBtnPersist: {
@@ -37,7 +38,7 @@ export const cssFooter = StyleSheet.create({
         color: "#ECEFF1",
         textAlign: "center",
         height: 48,
-        width: 220,
+        width: 200,
         backgroundColor: "#33691E",
         padding: 10
     },

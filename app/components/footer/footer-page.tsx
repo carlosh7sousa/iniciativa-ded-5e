@@ -15,10 +15,13 @@ export default class FooterPage extends Component<{ sortList(), nextTurn(), prev
 
                 <SafeAreaView style={css.vwFooterRowAddLimpar}>
  
-                    <Pressable style={css.btnLimpar} onPress={this.props.clearAllNpc} onLongPress={this.props.clearAllList} >
+                    <Pressable style={css.btnLimpar} onPress={this.props.clearAllNpc} >
                         <Text style={css.lblBtnLimpar}>{labels.header.btnDelNpcLabel}</Text>
                     </Pressable>
-
+                    
+                    <Pressable style={css.btnLimpar} onPress={this.props.clearAllList} >
+                        <Text style={css.lblBtnLimpar}>{labels.header.btnDelAllLabel}</Text>
+                    </Pressable>
                 </SafeAreaView>
 
             </SafeAreaView>

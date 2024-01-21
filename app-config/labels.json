@@ -8,7 +8,8 @@
         "btnNextTurnLabel": ">>",
         "btnSortTurnLabel": "⇅",
         "btnAddNpcLabel": "+",
-        "btnDelNpcLabel": "Limpar Lista",
+        "btnDelNpcLabel": "Excluir NPCs",
+        "btnDelAllLabel": "Limpar Lista",
         "btnPersistNpcLabel": "Persistir Lista",
         "limparNpcsApenas": {
             "Titulo": "Remover apenas NPCs",
@@ -36,7 +37,8 @@
     "npc": {
         "lblListTitle": "Iniciativa dos NPCs",
         "lblInitiative": "Iniciativa",
-        "buttonLabel": "VER",
+        "verButtonLabel": "VER",
+        "excluirButtonLabel": "X",
         "inicioTurno": "Inicio do Turno",
         "iniLabel": "INI",
         "token": "➔ Turno de ",

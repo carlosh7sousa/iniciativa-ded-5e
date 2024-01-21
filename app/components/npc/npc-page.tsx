@@ -193,9 +193,13 @@ export default class NpcPage extends Component<{ index: number, handlerSetNpc(np
                         </Pressable>
                     </SafeAreaView>
 
-                    <SafeAreaView style={[css.vwNpcRow2, this.obterRowBg()]}>
-                        <Pressable style={css.btnVer} onPress={this.handlerNpcDetailsButtonClick} onLongPress={this.handleExcluirNpcButtonClick} >
-                            <Text style={css.lblBtnVer}>{labels.npc.buttonLabel}</Text>
+                    <SafeAreaView style={[css.vwNpcGroupCtrl2, this.obterRowBg()]}>
+                        <Pressable style={css.btnVer} onPress={this.handlerNpcDetailsButtonClick} >
+                            <Text style={css.lblBtnVer}>{labels.npc.verButtonLabel}</Text>
+                        </Pressable>
+
+                        <Pressable style={css.btnExcluir} onPress={this.handleExcluirNpcButtonClick}  >
+                            <Text style={css.lblBtnExcluir}>{labels.npc.excluirButtonLabel}</Text>
                         </Pressable>
                     </SafeAreaView>
                 </SafeAreaView>
