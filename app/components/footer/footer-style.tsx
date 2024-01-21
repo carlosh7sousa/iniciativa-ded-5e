@@ -4,12 +4,11 @@ export const cssFooter = StyleSheet.create({
 
     vwFooter: {
         width: "100%",
-        height: 80,
+        height: 50,
         backgroundColor: "#37474F",
 
     },
     vwFooterRowAddLimpar: {
-        height: 45,
         borderWidth: 0,
         display:"flex",
         flexDirection:"row",
@@ -25,6 +24,7 @@ export const cssFooter = StyleSheet.create({
         width: 120,
         backgroundColor: "#B71C1C",
         padding: 10,
+        marginTop:6
         
         
     },
