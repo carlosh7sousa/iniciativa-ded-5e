@@ -300,10 +300,12 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         return npc;
     }
 
-    handleUpdateNpcFromChild = (index: number, upd: Npc): void => {
-        let listUpd: Npc[] = this.state.npcs;
-        listUpd[index] = upd;
+    handleUpdateNpcFromChild = (idNpc: number, upd: Npc): void => {
+        let listUpd: Npc[] = this.obterNpcsAtivos();
 
+        let idx:number = listUpd.findIndex(x => x.id == idNpc);
+        listUpd[idx] = upd;
+        
         this.setState({ npcs: listUpd });
     }
 
