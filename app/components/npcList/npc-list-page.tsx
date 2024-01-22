@@ -5,13 +5,11 @@ import NpcPage from "../npc/npc-page";
 import { cssNpcList as css } from "./npc-list-style";
 import { labels } from "../../models/labels";
 
-export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: number, triggerParentUpdate(idNpc: number, upd: Npc): void }, { npcs: Npc[], idNpcModalPv: number, oldModalPv: number, newModalPv: number, idNpcModalVer: number, modalVerDetailNpcNew: Npc, modalVerDetailNpcOld: Npc }> {
+export default class NpcListPage extends Component<{ npcs: Npc[], setNpc(upd: Npc): void, getNpc(idNpc: number): Npc, idSelected: number }, { idNpcModalPv: number, oldModalPv: number, newModalPv: number, idNpcModalVer: number, modalVerDetailNpcNew: Npc, modalVerDetailNpcOld: Npc }> {
 
     constructor(props) {
         super(props);
         this.state = {
-            npcs: this.props.npcs,
-
             oldModalPv: 0,
             newModalPv: 0,
             idNpcModalPv: -1,
@@ -28,42 +26,30 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     }
 
 
-    handlerSetNpc = (npc: Npc, idNpc: number): void => {
-        if (npc && idNpc >= 0) {
-            let idx: number = this.props.npcs.findIndex(x => x.id == idNpc && x.active);            
-            this.props.npcs[idx] = npc;
-            this.setState({ npcs: this.props.npcs });
-
-            this.props.triggerParentUpdate(idNpc, npc);
-        }
+    handlerSetNpc = (npc: Npc): void => {
+        this.props.setNpc(npc);
     }
 
     handlerGetNpc = (idNpc: number): Npc => {
-        
-        let idx: number = this.props.npcs.findIndex(x => x.id === idNpc && x.active);        
-        return this.props.npcs[idx];
+        return this.props.getNpc(idNpc);
     }
 
-    handlerPvButtonClick = (): void => {
+    handlerPvButtonClick = (idNpc: number): void => {
+        let npcPv: Npc = this.handlerGetNpc(idNpc);
 
-        let npc: Npc = this.handlerGetNpc(this.props.idSelected);
-
-        if(npc != null)
-        {
+        if (npcPv != null) {
             let oldPv: number = 0;
-            if (npc != null) {
-                oldPv = npc.currentHp;
+            if (npcPv != null) {
+                oldPv = npcPv.currentHp;
             }
-    
-            this.setState({ idNpcModalPv: npc.id, oldModalPv: oldPv });
+
+            this.setState({ idNpcModalPv: npcPv.id, oldModalPv: oldPv });
         }
     }
 
 
-    handlerNpcVerDetailsButtonClick = (): void => {
-
-        let idx: number = this.props.npcs.findIndex(x => x.id == this.props.idSelected && x.active);
-        let npcVer: Npc = this.props.npcs[idx];
+    handlerNpcVerDetailsButtonClick = (idNpc: number): void => {
+        let npcVer: Npc = this.handlerGetNpc(idNpc);
 
         if (npcVer != null) {
             this.setState({ idNpcModalVer: npcVer.id });
@@ -92,13 +78,12 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         }
 
         this.setState({ newModalPv: newPv });
-        this.handlerSetNpc(npc, this.state.idNpcModalPv);
+        this.handlerSetNpc(npc);
     }
 
     isVisibleModalPv = (idNpc: number): boolean => {
 
-        let idx: number = this.state.npcs.findIndex(x => x.id == idNpc);
-        if (idx < 0) {
+        if (idNpc < 0) {
             return false;
         }
 
@@ -106,9 +91,8 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     }
 
     isVisibleModalVer = (idNpc: number): boolean => {
-                
-        let idx: number = this.state.npcs.findIndex(x => x.id == idNpc);
-        if (idx < 0) {
+
+        if (idNpc < 0) {
             return false;
         }
 
@@ -138,7 +122,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
             }
 
             npc.currentHp = newPv;
-            this.handlerSetNpc(npc, this.state.idNpcModalPv);
+            this.handlerSetNpc(npc);
             this.resetModalState();
         }
     }
@@ -157,7 +141,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
             }
 
             npc.currentHp = this.state.oldModalPv + this.state.newModalPv;
-            this.handlerSetNpc(npc, this.state.idNpcModalPv);
+            this.handlerSetNpc(npc);
             this.resetModalState();
         }
     }
@@ -174,7 +158,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
             }
 
             npc.currentHp = this.state.oldModalPv - this.state.newModalPv;
-            this.handlerSetNpc(npc, this.state.idNpcModalPv);
+            this.handlerSetNpc(npc);
             this.resetModalState();
         }
     }
@@ -189,11 +173,11 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
             }
 
             npc.currentHp = newPv;
-            this.handlerSetNpc(npc, this.state.idNpcModalVer);
+            this.handlerSetNpc(npc);
             this.resetModalState();
         }
     }
- 
+
     handleCloseModal = () => {
         this.resetModalState();
     }
@@ -225,14 +209,14 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
     handleModalVerAtualizar = () => {
         let updatedNpc: Npc = this.state.modalVerDetailNpcNew;
-        this.handlerSetNpc(updatedNpc, this.state.idNpcModalVer);
+        this.handlerSetNpc(updatedNpc);
         this.resetModalVerState();
     }
 
     handleModalVerCancelar = () => {
         let updatedNpc: Npc = this.state.modalVerDetailNpcOld;
 
-        this.handlerSetNpc(updatedNpc, this.state.idNpcModalVer);
+        this.handlerSetNpc(updatedNpc);
         this.resetModalVerState();
     }
 
@@ -765,7 +749,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                     <ScrollView style={css.listaNpcsView}>
                         {this.props.npcs.map((npc: Npc, index: number) => {
                             if (npc.active) {
-                                return (<NpcPage key={index} idNpc={npc.id} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} handlerNpcVerDetailsButtonClick={this.handlerNpcVerDetailsButtonClick} />)
+                                return (<NpcPage key={npc.id} idNpc={npc.id} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={() => this.handlerPvButtonClick(npc.id)} npcsReadonly={this.props.npcs} handlerNpcVerDetailsButtonClick={() => this.handlerNpcVerDetailsButtonClick(npc.id)} />)
                             }
 
                             return ("");

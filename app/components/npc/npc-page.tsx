@@ -4,16 +4,18 @@ import { TextInput, Pressable, Text, SafeAreaView } from 'react-native';
 import { cssNpc as css } from "./npc-style";
 import { labels } from "../../models/labels";
 
-export default class NpcPage extends Component<{ idNpc: number, handlerSetNpc(npc: Npc, idNpc: number): void, handlerGetNpc(idNpc: number): Npc, handlerPvButtonClick(index: number): void, npcsReadonly: Npc[], handlerNpcVerDetailsButtonClick(idNpc: number): void }, { visible: boolean }> {
+export default class NpcPage extends Component<{ idNpc: number, handlerSetNpc(npc: Npc, idNpc: number): void, handlerGetNpc(idNpc: number): Npc, handlerPvButtonClick(idNpc: number): void, npcsReadonly: Npc[], handlerNpcVerDetailsButtonClick(idNpc: number): void }, { visible: boolean}> {
 
 
     constructor(props) {
         super(props);
         this.handlerSetNpc = this.handlerSetNpc.bind(this);
         this.handlerGetNpc = this.handlerGetNpc.bind(this);
-        this.handlerHpClick = this.handlerHpClick.bind(this);
+        this.handleNpcVerDetailsButtonClick = this.handleNpcVerDetailsButtonClick.bind(this);
+        this.handleExcluirNpcButtonClick = this.handleExcluirNpcButtonClick.bind(this);
         this.handleIniTextChange = this.handleIniTextChange.bind(this);
-        this.handlerNpcVerDetailsButtonClick = this.handlerNpcVerDetailsButtonClick.bind(this);
+        this.handleNpcTextChange = this.handleNpcTextChange.bind(this);
+        this.handlerTurnoDe = this.handlerTurnoDe.bind(this); 
 
         this.state = {
             visible: false            
@@ -21,6 +23,7 @@ export default class NpcPage extends Component<{ idNpc: number, handlerSetNpc(np
     }
 
     handlerSetNpc = (npc: Npc, idNpc: number): void => {
+        npc.name += "=" + this.props.idNpc;
         this.props.handlerSetNpc(npc, idNpc);
     }
 
@@ -75,24 +78,24 @@ export default class NpcPage extends Component<{ idNpc: number, handlerSetNpc(np
         if (npc != null) {
             npc.name = strNewValue;
 
-            this.props.handlerSetNpc(npc, this.props.idNpc);
+            this.props.handlerSetNpc(npc, this.props.idNpc);            
         }
     };
 
 
 
 
-    handleExcluirNpcButtonClick = () => {
-        let npc: Npc = this.props.handlerGetNpc(this.props.idNpc);
-        if (npc != null) {
+    handleExcluirNpcButtonClick = (idNpc: number) => {
+        let npc: Npc = this.props.handlerGetNpc(idNpc);
+        if (npc != null && !npc.isPlayer) {
             npc.active = false;
             this.props.handlerSetNpc(npc, this.props.idNpc);
         }
     };
 
 
-    handlerHpClick = (): void => {
-        this.props.handlerPvButtonClick(this.props.idNpc);
+    handlerHpClick = (idNpc:number): void => {        
+        this.props.handlerPvButtonClick(idNpc);
     };
 
 
@@ -158,8 +161,8 @@ export default class NpcPage extends Component<{ idNpc: number, handlerSetNpc(np
     }
 
 
-    handlerNpcVerDetailsButtonClick = () => {
-        this.props.handlerNpcVerDetailsButtonClick(this.props.idNpc);
+    handleNpcVerDetailsButtonClick = (idNpc: number): void=> {
+        this.props.handlerNpcVerDetailsButtonClick(idNpc);        
     };
 
 
@@ -187,17 +190,17 @@ export default class NpcPage extends Component<{ idNpc: number, handlerSetNpc(np
                         <TextInput selectTextOnFocus style={css.txtIni} onChangeText={this.handleIniTextChange} inputMode='numeric' value={this.props.handlerGetNpc(this.props.idNpc).initiativeModifier.toString()} maxLength={2} ></TextInput>
                         <TextInput selectTextOnFocus style={css.txtNomeNpc} onChangeText={this.handleNpcTextChange} value={this.props.handlerGetNpc(this.props.idNpc).name} maxLength={20}  ></TextInput>
 
-                        <Pressable style={css.btnPv} onPress={this.handlerHpClick} >
+                        <Pressable style={css.btnPv} onPress={() => this.handlerHpClick(this.props.idNpc)} >
                             <Text style={css.lblBtnPv} >{this.props.handlerGetNpc(this.props.idNpc).currentHp.toString()}</Text>
                         </Pressable>
                     </SafeAreaView>
 
                     <SafeAreaView style={[css.vwNpcGroupCtrl2, this.obterRowBg()]}>
-                        <Pressable style={css.btnVer} onPress={this.handlerNpcVerDetailsButtonClick} >
+                        <Pressable style={css.btnVer} onPress={() => this.handleNpcVerDetailsButtonClick(this.props.idNpc)} >
                             <Text style={css.lblBtnVer}>{labels.npc.verButtonLabel}</Text>
                         </Pressable>
 
-                        <Pressable style={css.btnExcluir} onPress={this.handleExcluirNpcButtonClick}  >
+                        <Pressable style={css.btnExcluir} onPress={() => this.handleExcluirNpcButtonClick(this.props.idNpc)}  >
                             <Text style={css.lblBtnExcluir}>{labels.npc.excluirButtonLabel}</Text>
                         </Pressable>
                     </SafeAreaView>
