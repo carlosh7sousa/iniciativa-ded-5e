@@ -5,61 +5,54 @@ import NpcPage from "../npc/npc-page";
 import { cssNpcList as css } from "./npc-list-style";
 import { labels } from "../../models/labels";
 
-export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: number, triggerParentUpdate(index: number, upd: Npc): void }, { npcs: Npc[], indexModalPv: number, oldModalPv: number, newModalPv: number, indexModalVer: number, modalVerDetailNpcNew: Npc, modalVerDetailNpcOld: Npc }> {
+export default class NpcListPage extends Component<{ npcs: Npc[], setNpc(upd: Npc): void, getNpc(idNpc: number): Npc, idSelected: number }, { idNpcModalPv: number, oldModalPv: number, newModalPv: number, idNpcModalVer: number, modalVerDetailNpcNew: Npc, modalVerDetailNpcOld: Npc }> {
 
     constructor(props) {
         super(props);
         this.state = {
-            npcs: this.props.npcs,
-
             oldModalPv: 0,
             newModalPv: 0,
-            indexModalPv: -1,
+            idNpcModalPv: -1,
 
             modalVerDetailNpcOld: null,
             modalVerDetailNpcNew: null,
-            indexModalVer: -1
+            idNpcModalVer: -1
         };
 
         this.handlerSetNpc = this.handlerSetNpc.bind(this);
         this.handlerGetNpc = this.handlerGetNpc.bind(this);
         this.handlerPvButtonClick = this.handlerPvButtonClick.bind(this);
-        this.handlerNpcDetailsButtonClick = this.handlerNpcDetailsButtonClick.bind(this);
+        this.handlerNpcVerDetailsButtonClick = this.handlerNpcVerDetailsButtonClick.bind(this);
     }
 
 
-    handlerSetNpc = (npc: Npc, index: number): void => {
-        if (npc && index >= 0) {
-            this.props.npcs[index] = npc;
-            this.setState({ npcs: this.props.npcs });
+    handlerSetNpc = (npc: Npc): void => {
+        this.props.setNpc(npc);
+    }
+
+    handlerGetNpc = (idNpc: number): Npc => {
+        return this.props.getNpc(idNpc);
+    }
+
+    handlerPvButtonClick = (idNpc: number): void => {
+        let npcPv: Npc = this.handlerGetNpc(idNpc);
+
+        if (npcPv != null) {
+            let oldPv: number = 0;
+            if (npcPv != null) {
+                oldPv = npcPv.currentHp;
+            }
+
+            this.setState({ idNpcModalPv: npcPv.id, oldModalPv: oldPv });
         }
-
-        this.props.triggerParentUpdate(index, npc);
-    }
-
-    handlerGetNpc = (index: number): Npc => {
-        return this.props.npcs[index];
-    }
-
-    handlerPvButtonClick = (index: number): void => {
-
-        let npc: Npc = this.handlerGetNpc(index);
-        let oldPv: number = 0;
-        if (npc != null) {
-            oldPv = npc.currentHp;
-        }
-
-        this.setState({ indexModalPv: index, oldModalPv: oldPv });
     }
 
 
-    handlerNpcDetailsButtonClick = (index: number): void => {
+    handlerNpcVerDetailsButtonClick = (idNpc: number): void => {
+        let npcVer: Npc = this.handlerGetNpc(idNpc);
 
-        let npcVer: Npc = this.handlerGetNpc(index);
-
-        if (npcVer != null)
-        {
-            this.setState({ indexModalVer: index });
+        if (npcVer != null) {
+            this.setState({ idNpcModalVer: npcVer.id });
             this.setState({ modalVerDetailNpcNew: this.createClone(npcVer) });
             this.setState({ modalVerDetailNpcOld: this.createClone(npcVer) });
         }
@@ -78,42 +71,42 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
     }
 
     handleModalPvTextChange = (strNewValue: string) => {
-        let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
+        let npc: Npc = this.handlerGetNpc(this.state.idNpcModalPv);
         let newPv: number = parseInt(strNewValue);
         if (isNaN(newPv)) {
             newPv = 0;
         }
 
         this.setState({ newModalPv: newPv });
-        this.handlerSetNpc(npc, this.state.indexModalPv);
+        this.handlerSetNpc(npc);
     }
 
-    isVisibleModalPv = (index: number): boolean => {
+    isVisibleModalPv = (idNpc: number): boolean => {
 
-        if (index < 0) {
+        if (idNpc < 0) {
             return false;
         }
 
         return true;
     }
 
-    isVisibleModalVer = (index: number): boolean => {
+    isVisibleModalVer = (idNpc: number): boolean => {
 
-        if (index < 0) {
+        if (idNpc < 0) {
             return false;
         }
 
         return true;
     }
- 
+
     resetModalState = () => {
-        this.setState({ indexModalPv: -1 });
+        this.setState({ idNpcModalPv: -1 });
         this.setState({ newModalPv: 0 });
         this.setState({ oldModalPv: 0 });
     }
 
     resetModalVerState = () => {
-        this.setState({ indexModalVer: -1 });
+        this.setState({ idNpcModalVer: -1 });
         this.setState({ modalVerDetailNpcOld: null });
         this.setState({ modalVerDetailNpcNew: null });
     }
@@ -121,7 +114,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
     handlePvAtribuir = () => {
 
-        let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
+        let npc: Npc = this.handlerGetNpc(this.state.idNpcModalPv);
         if (npc != null) {
             let newPv: number = this.state.newModalPv;
             if (isNaN(newPv)) {
@@ -129,30 +122,14 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
             }
 
             npc.currentHp = newPv;
-            this.handlerSetNpc(npc, this.state.indexModalPv);
+            this.handlerSetNpc(npc);
             this.resetModalState();
         }
     }
-
-    handleDetailsAtribuir = () => {
-
-        let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
-        if (npc != null) {
-            let newPv: number = this.state.newModalPv;
-            if (isNaN(newPv)) {
-                newPv = 0;
-            }
-
-            npc.currentHp = newPv;
-            this.handlerSetNpc(npc, this.state.indexModalPv);
-            this.resetModalState();
-        }
-    }
-
 
     handlePvSomar = () => {
 
-        let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
+        let npc: Npc = this.handlerGetNpc(this.state.idNpcModalPv);
         if (npc != null) {
             let newPv: number = this.state.newModalPv;
             if (isNaN(newPv)) {
@@ -164,7 +141,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
             }
 
             npc.currentHp = this.state.oldModalPv + this.state.newModalPv;
-            this.handlerSetNpc(npc, this.state.indexModalPv);
+            this.handlerSetNpc(npc);
             this.resetModalState();
         }
     }
@@ -172,7 +149,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
     handlePvSubtrair = () => {
 
-        let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
+        let npc: Npc = this.handlerGetNpc(this.state.idNpcModalPv);
 
         if (npc != null) {
             let newPv: number = this.state.newModalPv;
@@ -181,20 +158,32 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
             }
 
             npc.currentHp = this.state.oldModalPv - this.state.newModalPv;
-            this.handlerSetNpc(npc, this.state.indexModalPv);
+            this.handlerSetNpc(npc);
             this.resetModalState();
         }
     }
 
+    handleDetailsAtribuir = () => {
+
+        let npc: Npc = this.handlerGetNpc(this.state.idNpcModalVer);
+        if (npc != null) {
+            let newPv: number = this.state.newModalPv;
+            if (isNaN(newPv)) {
+                newPv = 0;
+            }
+
+            npc.currentHp = newPv;
+            this.handlerSetNpc(npc);
+            this.resetModalState();
+        }
+    }
 
     handleCloseModal = () => {
         this.resetModalState();
     }
 
-
-
     handleModalNpcNameValue = (): string => {
-        let npc: Npc = this.handlerGetNpc(this.state.indexModalPv);
+        let npc: Npc = this.handlerGetNpc(this.state.idNpcModalVer);
         if (npc != null) {
             return npc.name + labels.modalNpc.separador1;
         }
@@ -209,7 +198,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
 
     handleModalVerNameValue = (): string => {
-        let npc: Npc = this.handlerGetNpc(this.state.indexModalVer);
+        let npc: Npc = this.handlerGetNpc(this.state.idNpcModalVer);
         if (npc != null) {
             return npc.name;
         }
@@ -220,14 +209,14 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
 
     handleModalVerAtualizar = () => {
         let updatedNpc: Npc = this.state.modalVerDetailNpcNew;
-        this.handlerSetNpc(updatedNpc, this.state.indexModalVer);
+        this.handlerSetNpc(updatedNpc);
         this.resetModalVerState();
     }
 
     handleModalVerCancelar = () => {
         let updatedNpc: Npc = this.state.modalVerDetailNpcOld;
 
-        this.handlerSetNpc(updatedNpc, this.state.indexModalVer);
+        this.handlerSetNpc(updatedNpc);
         this.resetModalVerState();
     }
 
@@ -313,7 +302,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         return "";
     }
 
-   
+
 
     handleModalVerDetailEJogadorValueChange = (selected: boolean) => {
         let mNpc: Npc = this.state.modalVerDetailNpcNew;
@@ -519,7 +508,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
         let mNpc: Npc = this.state.modalVerDetailNpcNew;
 
         if (this.existeNpcDetails(mNpc)) {
- 
+
             mNpc.details.attack1.modifier = newText;
             this.setState({ modalVerDetailNpcNew: mNpc });
         }
@@ -760,7 +749,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                     <ScrollView style={css.listaNpcsView}>
                         {this.props.npcs.map((npc: Npc, index: number) => {
                             if (npc.active) {
-                                return (<NpcPage key={index} index={index} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={this.handlerPvButtonClick} npcsReadonly={this.props.npcs} handlerNpcDetailsButtonClick={this.handlerNpcDetailsButtonClick} />)
+                                return (<NpcPage key={npc.id} idNpc={npc.id} handlerGetNpc={this.handlerGetNpc} handlerSetNpc={this.handlerSetNpc} handlerPvButtonClick={() => this.handlerPvButtonClick(npc.id)} npcsReadonly={this.props.npcs} handlerNpcVerDetailsButtonClick={() => this.handlerNpcVerDetailsButtonClick(npc.id)} />)
                             }
 
                             return ("");
@@ -770,7 +759,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                 </SafeAreaView>
 
 
-                <Modal visible={this.isVisibleModalPv(this.state.indexModalPv)} transparent={true}>
+                <Modal visible={this.isVisibleModalPv(this.state.idNpcModalPv)} transparent={true}>
                     <SafeAreaView style={css.modalView}>
                         <SafeAreaView style={css.modalArea}>
 
@@ -810,7 +799,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                 </Modal>
 
 
-                <Modal visible={this.isVisibleModalVer(this.state.indexModalVer)} transparent={true}>
+                <Modal visible={this.isVisibleModalVer(this.state.idNpcModalVer)} transparent={true}>
                     <SafeAreaView style={css.modalVerView}>
                         <SafeAreaView style={css.modalVerArea}>
 
@@ -835,17 +824,17 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                 <Switch style={css.modalVerOptEJogador} onValueChange={this.handleModalVerDetailEJogadorValueChange} value={this.handleModalVerDetailEJogadorValue()}>
                                 </Switch>
                                 <Text style={css.modalVerLblAnotacoes}>{labels.modalVer.lblAnotacoes}</Text>
-                                
+
                             </SafeAreaView>
 
                             <SafeAreaView style={css.modalVerRow2}>
                                 <Text style={css.modalVerLblPVs}>{labels.modalVer.labelPv}{labels.modalVer.separador2} </Text>
                                 <TextInput style={css.modalVertxtPvs} selectTextOnFocus inputMode='numeric' maxLength={4} onChangeText={this.handleModalVerDetailPvsTextChange} value={this.handleModalVerDetailPvsValue()}>
                                 </TextInput>
-                                
-                                
-                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12}  onChangeText={this.handleModalVerDetailNote1TextChange} value={this.handleModalVerDetailNote1Value()}>
-                                </TextInput>                                
+
+
+                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12} onChangeText={this.handleModalVerDetailNote1TextChange} value={this.handleModalVerDetailNote1Value()}>
+                                </TextInput>
                             </SafeAreaView>
 
                             <SafeAreaView style={css.modalVerRow2}>
@@ -854,8 +843,8 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                 </TextInput>
 
 
-                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12}  onChangeText={this.handleModalVerDetailNote2TextChange} value={this.handleModalVerDetailNote2Value()}>
-                                </TextInput>                                
+                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12} onChangeText={this.handleModalVerDetailNote2TextChange} value={this.handleModalVerDetailNote2Value()}>
+                                </TextInput>
                             </SafeAreaView>
 
 
@@ -863,8 +852,8 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                 <Text style={css.modalVerLblPericiaTitulo}>{labels.modalVer.lblPericiaHeader}</Text>
                                 <Text style={css.modalVerLblModPericiaTitulo}>{labels.modalVer.lblPericiaModHeader}</Text>
 
-                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12}  onChangeText={this.handleModalVerDetailNote3TextChange} value={this.handleModalVerDetailNote3Value()}>
-                                    </TextInput>
+                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12} onChangeText={this.handleModalVerDetailNote3TextChange} value={this.handleModalVerDetailNote3Value()}>
+                                </TextInput>
                             </SafeAreaView>
 
                             <SafeAreaView style={css.modalVerRowPericia}>
@@ -872,8 +861,8 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                 </TextInput>
                                 <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus inputMode='numeric' maxLength={4} onChangeText={this.handleModalVerDetailPer1ModTextChange} value={this.handleModalVerDetailPer1ModValue()}>
                                 </TextInput>
-                                
-                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12}  onChangeText={this.handleModalVerDetailNote4TextChange} value={this.handleModalVerDetailNote4Value()}>
+
+                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12} onChangeText={this.handleModalVerDetailNote4TextChange} value={this.handleModalVerDetailNote4Value()}>
                                 </TextInput>
 
                             </SafeAreaView>
@@ -883,7 +872,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                 <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus inputMode='numeric' maxLength={4} onChangeText={this.handleModalVerDetailPer2ModTextChange} value={this.handleModalVerDetailPer2ModValue()}>
                                 </TextInput>
 
-                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12}  onChangeText={this.handleModalVerDetailNote5TextChange} value={this.handleModalVerDetailNote5Value()}>
+                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12} onChangeText={this.handleModalVerDetailNote5TextChange} value={this.handleModalVerDetailNote5Value()}>
                                 </TextInput>
 
                             </SafeAreaView>
@@ -893,7 +882,7 @@ export default class NpcListPage extends Component<{ npcs: Npc[], idSelected: nu
                                 <TextInput style={css.modalVerTxtModPericia} selectTextOnFocus inputMode='numeric' maxLength={4} onChangeText={this.handleModalVerDetailPer3ModTextChange} value={this.handleModalVerDetailPer3ModValue()}>
                                 </TextInput>
 
-                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12}  onChangeText={this.handleModalVerDetailNote6TextChange} value={this.handleModalVerDetailNote6Value()}>
+                                <TextInput style={css.modalVertxtAnotacao} selectTextOnFocus maxLength={12} onChangeText={this.handleModalVerDetailNote6TextChange} value={this.handleModalVerDetailNote6Value()}>
                                 </TextInput>
 
                             </SafeAreaView>

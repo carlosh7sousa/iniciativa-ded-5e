@@ -52,13 +52,14 @@ export const cssNpc = StyleSheet.create({
   vwNpcGroupCtrl1: {
     flexDirection: "row",
     marginLeft: 10,
-    width: "80%"
+    width: "72%"
   },
 
   vwNpcGroupCtrl2: {
     flexDirection: "row",
-    marginRight: 10,
-    width: "20%"
+    marginRight: 5,
+    marginLeft: 5,
+    width: "28%"
   },
 
 
@@ -123,6 +124,23 @@ export const cssNpc = StyleSheet.create({
     width: 50,    
   },
 
+  lblBtnExcluir: {
+    textAlign: "center",
+    fontSize: 14,
+    color: "white",
+    width: 40,
+    paddingRight: 4,
+    paddingLeft: 4,
+    paddingTop: 16,
+    paddingBottom: 16
+  },
+  btnExcluir: {
+    textAlign: "center",
+    borderRadius: 4,
+    backgroundColor: "#B71C1C",
+    width: 40,    
+    marginLeft: 5
+  },
 
 
 

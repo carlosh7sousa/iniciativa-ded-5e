@@ -138,7 +138,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
     obterNpcsAtivos() {
         if (this.state.npcs != null) {
-            return this.state.npcs.filter(x => x.active);
+            return this.state.npcs.filter(x => x.active && x.id > 0);
         }
 
         return [];
@@ -300,18 +300,24 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
         return npc;
     }
 
-    handleUpdateNpcFromChild = (index: number, upd: Npc): void => {
-        let listUpd: Npc[] = this.state.npcs;
-        listUpd[index] = upd;
-
-        this.setState({ npcs: listUpd });
-    }
-
     handleSairClick = () => {
         let alertSairSemSalvar: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.SairSemSalvar, onPress: () => { BackHandler.exitApp(); } };
 
         let alertCancel: AlertButton = { isPreferred: false, text: labels.app.persistirInfo.Cancelar, onPress: () => { } };
         Alert.alert(labels.app.persistirInfo.SairSemSalvar, labels.app.persistirInfo.Mensagem, [alertSairSemSalvar, alertCancel]);
+    }
+
+    setNpc =  (npc: Npc): void => {
+        if (npc != null) {
+            let idx: number = this.state.npcs.findIndex(x => x.id == npc.id && x.active);
+            this.state.npcs[idx] = npc;
+            this.setState({ npcs: this.state.npcs });
+        }
+    }
+
+    getNpc = (idNpc: number): Npc => {
+        let idx: number = this.state.npcs.findIndex(x => x.id == idNpc && x.active);
+        return this.state.npcs[idx];
     }
 
 
@@ -322,7 +328,7 @@ export default class InitiativePage extends Component<{}, { npcs: Npc[], headerI
 
             <HeaderPage sair={this.handleSairClick} sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
 
-            <NpcListPage npcs={this.obterNpcsAtivos()} idSelected={this.state.headerInfo.idSelected} triggerParentUpdate={this.handleUpdateNpcFromChild} >
+            <NpcListPage npcs={this.obterNpcsAtivos()} idSelected={this.state.headerInfo.idSelected} setNpc={this.setNpc} getNpc={this.getNpc} >
             </NpcListPage>
 
             <FooterPage sortList={this.handleSortTurnButtonClick} nextTurn={this.handleNextTurnButtonClick} previousTurn={this.handlePreviousTurnButtonClick} getTurn={this.handleGetTurn} addNpc={this.handleAddNcpButtonClick} clearAllNpc={this.handleClearAllNpcButtonClick} addTextChange={this.handleAddTextChange} clearAllList={this.handleClearAllLongClick} />
